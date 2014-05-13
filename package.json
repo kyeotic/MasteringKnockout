@@ -1,0 +1,20 @@
+{
+  "name": "MasteringKnockout",
+  "version": "1.0.0",
+  "description": "Chapter 1 of Mastering Knockout",
+  "main": "server.js",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/tyrsius/MasteringKnockout.git"
+  },
+  "author": "Timothy Moran <tyrsius@gmail.com> (http://tyrsius.com/)",
+  "license": "No License",
+  "bugs": {
+    "url": "https://github.com/tyrsius/MasteringKnockout/issues"
+  },
+  "homepage": "https://github.com/tyrsius/MasteringKnockout",
+  "devDependencies": {
+    "justhtml": "0.0.1",
+    "express": "~3.4.6"
+  }
+}
