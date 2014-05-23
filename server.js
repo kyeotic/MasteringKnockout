@@ -1,23 +1,28 @@
 var fs = require('fs'),
     port = process.env.PORT || 3000;
 
-var express = require('express'),
+var clientDir = __dirname + '/client/',
+    express = require('express'),
     app = express(),
-    justhtml = require('justhtml');
+    shell = fs.readFileSync(clientDir + 'shell.html', 'UTF8');
 
-var dir = __dirname + '/client/';
+var viewEngine = function(filename, options, callback) {
+    console.log('reading ' + filename);
+    fs.readFile(filename, 'UTF8', function (err, data) {
+        callback(null, shell.replace('{{ body }}', data));
+    });
+};
 
 //Configure
 app.configure(function() {
     app.set('views', __dirname + '/client');
     app.set("view options", {layout: false});
-	app.engine('html', justhtml.__express);
+	app.engine('html', viewEngine);
 	app.set('view engine', 'html');
     app.use(express.compress());
-    app.use(express.bodyParser());
     app.use(express.methodOverride());
-    app.use(express['static'](dir));
-    app.use(app.router); 
+    app.use(app.router);
+    app.use(express['static'](clientDir));
 });
 
 //Index Route
