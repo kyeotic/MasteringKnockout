@@ -30,6 +30,11 @@ app.get('/', function(req, res){
     res.render('index');
 });
 
+//Super Route
+app.get('/:page', function(req, res){
+    res.render(req.params.page);
+});
+
 //Start Listening
 app.listen(port);
 console.log("Express server listening on port %d in %s mode", port, app.settings.env);
