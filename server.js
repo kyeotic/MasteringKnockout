@@ -21,8 +21,8 @@ app.configure(function() {
 	app.set('view engine', 'html');
     app.use(express.compress());
     app.use(express.methodOverride());
-    app.use(express['static'](clientDir));
     app.use(app.router);
+    app.use(express['static'](clientDir));
 });
 
 //Index Route
