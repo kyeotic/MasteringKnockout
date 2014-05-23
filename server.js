@@ -21,8 +21,8 @@ app.configure(function() {
 	app.set('view engine', 'html');
     app.use(express.compress());
     app.use(express.methodOverride());
-    app.use(app.router);
     app.use(express['static'](clientDir));
+    app.use(app.router);
 });
 
 //Index Route
@@ -30,9 +30,14 @@ app.get('/', function(req, res){
     res.render('index');
 });
 
-//Super Route
-app.get('/:page', function(req, res){
-    res.render(req.params.page);
+//Contacts Route
+app.get('/contacts', function(req, res){
+    res.render('contacts');
+});
+
+//Settings Route
+app.get('/settings', function(req, res){
+    res.render('settings');
 });
 
 //Start Listening
