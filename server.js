@@ -7,7 +7,6 @@ var clientDir = __dirname + '/client/',
     shell = fs.readFileSync(clientDir + 'shell.html', 'UTF8');
 
 var viewEngine = function(filename, options, callback) {
-    console.log('reading ' + filename);
     fs.readFile(filename, 'UTF8', function (err, data) {
         callback(null, shell.replace('{{ body }}', data));
     });
