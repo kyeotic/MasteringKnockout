@@ -1,14 +1,16 @@
 var fs = require('fs'),
-    port = process.env.PORT || 3000;
-
-var clientDir = __dirname + '/client/',
+    port = process.env.PORT || 3000,
+    clientDir = __dirname + '/client/',
     express = require('express'),
     app = express(),
-    shell = fs.readFileSync(clientDir + 'shell.html', 'UTF8');
+    shellPath = clientDir + 'shell.html',
+    fileEncoding = 'UTF8';
 
 var viewEngine = function(filename, options, callback) {
-    fs.readFile(filename, 'UTF8', function (err, data) {
-        callback(null, shell.replace('{{ body }}', data));
+    fs.readFile(shellPath, fileEncoding, function(err, shell) {
+        fs.readFile(filename, fileEncoding, function (err, data) {
+            callback(null, shell.replace('{{ body }}', data));
+        });
     });
 };
 

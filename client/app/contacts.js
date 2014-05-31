@@ -18,13 +18,32 @@ function Contact(init) {
 	});
 };
 
-var contactsVm = (function() {
-	var contacts = ko.observableArray(),
+var mockData = [
+	{ 
+		firstName: 'Timothy', 
+		lastName: 'Moran', 
+		phoneNumber: '503-555-1234' 
+	}, { 
+		firstName: 'John', 
+		lastName: 'Smith', 
+		phoneNumber: '503-555-4567' 
+	}, { 
+		firstName: 'Jane', 
+		lastName: 'Doe', 
+		phoneNumber: '503-555-8912' 
+	}
+];
+
+var contactsPageVm = (function(init) {
+	var data = init || [],
+		contacts = ko.observableArray(data.map(function(c) {
+			return new Contact(c);
+		})),
 		entryContact = ko.observable(new Contact());
 	return {
 		contacts: contacts,
 		entryContact: entryContact,
-		addContact: function() {
+		saveEntry: function() {
 			contacts.push(entryContact());
 			entryContact(new Contact());
 		},
@@ -32,6 +51,12 @@ var contactsVm = (function() {
 			entryContact(new Contact());
 		}
 	};
-})();
+})(mockData);
 
-ko.applyBindings(contactsVm);
+$(document).ready(function() {
+	ko.applyBindings(new Contact({ 
+		firstName: 'Timothy', 
+		lastName: 'Moran', 
+		phoneNumber: '503-555-1234' 
+	}));
+});
