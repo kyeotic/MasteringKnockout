@@ -5,7 +5,9 @@
 		self.subtotal = ko.observable(20);
 		self.tax = ko.observable(0.05);
 		self.total = ko.computed(function() {
-			return self.subtotal() * (1 + self.tax());
+			var subtotal = parseFloat(self.subtotal()),
+					tax = parseFloat(self.tax());
+			return subtotal * (1 + tax);
 		});
 	};
 
