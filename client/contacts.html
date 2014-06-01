@@ -1,24 +1,5 @@
 
-<h4 data-bind="text: firstName() + ' ' + lastName()"></h4>
-<div class="form-group">
-	<input type="text" class="form-control" placeholder="First Name" data-bind="value: firstName">
-</div>
-<div class="form-group">
-	<input type="text" class="form-control" placeholder="Last Name" data-bind="value: lastName">
-</div>
-<div class="form-group">
-	<input type="text" class="form-control" placeholder="Nickname (optional)" data-bind="value: nickname">
-</div>
-<div class="form-group">
-	<input type="tel" class="form-control" placeholder="Phone Number" data-bind="value: phoneNumber">
-</div>
-
-
-<pre data-bind="text: ko.toJSON($root, null, 2)"></pre>
-
-<!--
 <div>
-	<h1>Add a Contact</h1>
 	<form data-bind="with: entryContact, submit: saveEntry" role="form" class="form-inline">
 		<h4 data-bind="text: displayName"></h4>
 		<div class="form-group">
@@ -46,7 +27,11 @@
 		</li>
 	</ul>
 </div>
+
+<!--
+<pre data-bind="text: ko.toJSON($root, null, 2)"></pre>
 -->
 
 <script type="text/javascript" src="app/contacts.js"></script>
 
+ 
