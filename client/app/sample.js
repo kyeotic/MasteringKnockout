@@ -16,6 +16,17 @@
 				return subtotal * (1 + tax);
 			}
 		});
+
+		var subtotalSubscription = self.subtotal.subscribe(function(newValue) {
+			console.log('The subtotal value was updated to: ' + newValue);
+		});
+
+		self.stopSubscribing = function() {
+			if (subtotalSubscription) {
+				subtotalSubscription.dispose();
+				subtotalSubscription = null;
+			}
+		};
 	};
 
 	$(document).ready(function() {
