@@ -1,70 +1,29 @@
-<h1>Data-Bind Samples</h1>
+<h1>Reusable Templates</h1>
 
-<h2>Standard Binding</h2>
-<label>
-	First Name:
-	<input data-bind="value: firstName" />
-</label>
-<label>
-	Age:
-	<input data-bind="value: age" />
-</label>
-<pre>&lt;input data-bind="value: firstName" /"&gt;</pre>
-<hr>
+<div class="row">
+	<div class="col-sm-3" data-bind="template: { name: 'personTemplate', data: father} "></div>
+	<div class="col-sm-3" data-bind="template: { name: 'personTemplate', data: mother} "></div>
+</div>
 
-<h2>Multiple Bindings</h2>
-<label>
-	First Name:
-	<input data-bind="value: firstName, enable: canEdit" />
-</label>
-<pre>&lt;input data-bind="value: firstName, enable: canEdit" /"&gt;</pre>
-<hr>
+<script type="text/html" id="personTemplate">
+	<h3 data-bind="text: name"></h3>
+	<strong>Age: </strong><span data-bind="text: age"></span><br>
+	<strong>Location: </strong><span data-bind="text: location"></span><br>
+	<strong>Favorite Color: </strong><span data-bind="text: favoriteColor"></span><br>
+</script>
 
-<h2>Standard Binding to Function</h2>
-<button data-bind="click: toggleEdit" class="btn btn-primary">Toggle Edit</button>
-<pre>&lt;button data-bind="click: toggleEdit&gt;Toggle Edit&lt;/button"&gt;</pre>
-<hr>
+<pre>
+	&lt;div class=&quot;row&quot;&gt;
+		&lt;div class=&quot;col-sm-3&quot; data-bind=&quot;template: { name: &#039;personTemplate&#039;, data: father} &quot;&gt;&lt;/div&gt;
+		&lt;div class=&quot;col-sm-3&quot; data-bind=&quot;template: { name: &#039;personTemplate&#039;, data: mother} &quot;&gt;&lt;/div&gt;
+	&lt;/div&gt;
 
-<h2>Nested Property</h2>
-<label>
-	Location Name:
-	<input data-bind="value: location.name" />
-</label>
-<pre>&lt;input data-bind="value: location.name" /"&gt;</pre>
-<hr>
-
-<h2>Nested Observable Property</h2>
-<label>
-	Location Name:
-	<input data-bind="value: observableLocation().name" />
-</label>
-<pre>&lt;input data-bind="value: observableLocation().name" /"&gt;</pre>
-<hr>
-
-<h2>Expressions</h2>
-<label>
-	Age:
-	<input data-bind="value: age" />
-</label>
-Old enough to Drink in the U.S.
-<span data-bind="text: age() >= 18 ? 'Yes' : 'No'"></span>
-<pre>&lt;span data-bind="text: age() >= 18 ? 'Yes' : 'No'""&gt;&lt;/span"&gt;</pre>
-<hr>
-
-<h2>Function Results</h2>
-<label>
-	Age:
-	<input data-bind="value: age" />
-</label>
-Old enough to Drink in the U.S.
-<span data-bind="text: oldEnough(age)"></span>
-<pre>&lt;span data-bind="text: oldEnough(age)""&gt;</pre>
-<hr>
-
-<h2>Function Expressions</h2>
-<button data-bind="click: function(data) { console.log(data.age())  }" class="btn btn-primary">Log Age</button>
-<pre>&lt;button data-bind="click: function(data) { console.log(data.age())  }""&gt;Log Age&lt;/button"&gt;</pre>
-<hr>
-
+	&lt;script type=&quot;text/html&quot; id=&quot;personTemplate&quot;&gt;
+		&lt;h3 data-bind=&quot;text: name&quot; class=&quot;text-center&quot;&gt;&lt;/h3&gt;
+		&lt;strong&gt;Age: &lt;/strong&gt;&lt;span data-bind=&quot;text: age&quot;&gt;&lt;/span&gt;&lt;br&gt;
+		&lt;strong&gt;Location: &lt;/strong&gt;&lt;span data-bind=&quot;text: location&quot;&gt;&lt;/span&gt;&lt;br&gt;
+		&lt;strong&gt;Favorite Color: &lt;/strong&gt;&lt;span data-bind=&quot;text: favoriteColor&quot;&gt;&lt;/span&gt;&lt;br&gt;
+	&lt;/script&gt;
+</pre>
 
 <script type="text/javascript" src="app/sample.js"></script>

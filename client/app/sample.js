@@ -1,28 +1,29 @@
 (function(app, $, ko) {
 
+	var Person = function(data) {
+		var self = this;
+		self.name = data.name;
+		self.age = data.age;
+		self.location = data.location;
+		self.favoriteColor = data.favoriteColor;
+	};
+
 	var BindingSample = function() {
 		var self = this;
 
-		self.firstName = ko.observable('Tim');
-		self.canEdit = ko.observable(true);
-
-		self.toggleEdit = function() {
-			self.canEdit(!self.canEdit());
-		};
-
-		self.location = {
-			name: ko.observable('Portland')
-		};
-
-		self.observableLocation = ko.observable({
-			name: self.location.name
+		self.father = new Person({
+			name: 'Curt Ford',
+			age: 50,
+			location: 'Fairview',
+			favoriteColor: 'Blue'
 		});
 
-		self.age = ko.observable(19);
-
-		self.oldEnough = function(age) {
-			return age() >= 18 ? 'Yes' : 'No';
-		};
+		self.mother = new Person({
+			name: 'Gina Ford',
+			age: 53,
+			location: 'Fairview',
+			favoriteColor: 'Green'
+		});
 	};
 	
 	$(document).ready(function() {
