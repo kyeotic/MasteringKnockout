@@ -46,10 +46,8 @@
 	Age:
 	<input data-bind="value: age" />
 </label>
-<label>
-	Old enough to Drink in the U.S.
-	<span data-bind="text: age() >= 18 ? 'Yes' : 'No'">
-</label>
+Old enough to Drink in the U.S.
+<span data-bind="text: age() >= 18 ? 'Yes' : 'No'"></span>
 <pre>&lt;span data-bind="text: age() >= 18 ? 'Yes' : 'No'""&gt;&lt;/span"&gt;</pre>
 <hr>
 
@@ -59,10 +57,7 @@
 	<input data-bind="value: age" />
 </label>
 Old enough to Drink in the U.S.
-<label>
-	Old enough to Drink in the U.S.
-	<span data-bind="text: oldEnough(age)">
-</label>
+<span data-bind="text: oldEnough(age)"></span>
 <pre>&lt;span data-bind="text: oldEnough(age)""&gt;</pre>
 <hr>
 
