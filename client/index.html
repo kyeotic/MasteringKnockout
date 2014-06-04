@@ -1,16 +1,75 @@
-<h1>Computed Observable Sample</h1>
+<h1>Data-Bind Samples</h1>
 
-<label>Subtotal
-	<input type="text" data-bind="value: subtotal, valueUpdate: 'afterkeydown'" />
+<h2>Standard Binding</h2>
+<label>
+	First Name:
+	<input data-bind="value: firstName" />
 </label>
-<label>Tax
-	<input type="text" data-bind="value: tax, valueUpdate: 'afterkeydown'" />
+<label>
+	Age:
+	<input data-bind="value: age" />
 </label>
+<pre>&lt;input data-bind="value: firstName" /"&gt;</pre>
+<hr>
 
-<label>Total
-	<input type="text" data-bind="value: total, valueUpdate: 'afterkeydown'" />
+<h2>Multiple Bindings</h2>
+<label>
+	First Name:
+	<input data-bind="value: firstName, enable: canEdit" />
 </label>
+<pre>&lt;input data-bind="value: firstName, enable: canEdit" /"&gt;</pre>
+<hr>
 
-<button class="btn btn-primary btn-sm" data-bind="click: stopSubscribing">Stop Logging Changes</button>
+<h2>Standard Binding to Function</h2>
+<button data-bind="click: toggleEdit" class="btn btn-primary">Toggle Edit</button>
+<pre>&lt;button data-bind="click: toggleEdit&gt;Toggle Edit&lt;/button"&gt;</pre>
+<hr>
+
+<h2>Nested Property</h2>
+<label>
+	Location Name:
+	<input data-bind="value: location.name" />
+</label>
+<pre>&lt;input data-bind="value: location.name" /"&gt;</pre>
+<hr>
+
+<h2>Nested Observable Property</h2>
+<label>
+	Location Name:
+	<input data-bind="value: observableLocation().name" />
+</label>
+<pre>&lt;input data-bind="value: observableLocation().name" /"&gt;</pre>
+<hr>
+
+<h2>Expressions</h2>
+<label>
+	Age:
+	<input data-bind="value: age" />
+</label>
+<label>
+	Old enough to Drink in the U.S.
+	<span data-bind="text: age() >= 18 ? 'Yes' : 'No'">
+</label>
+<pre>&lt;span data-bind="text: age() >= 18 ? 'Yes' : 'No'""&gt;&lt;/span"&gt;</pre>
+<hr>
+
+<h2>Function Results</h2>
+<label>
+	Age:
+	<input data-bind="value: age" />
+</label>
+Old enough to Drink in the U.S.
+<label>
+	Old enough to Drink in the U.S.
+	<span data-bind="text: oldEnough(age)">
+</label>
+<pre>&lt;span data-bind="text: oldEnough(age)""&gt;</pre>
+<hr>
+
+<h2>Function Expressions</h2>
+<button data-bind="click: function(data) { console.log(data.age())  }" class="btn btn-primary">Log Age</button>
+<pre>&lt;button data-bind="click: function(data) { console.log(data.age())  }""&gt;Log Age&lt;/button"&gt;</pre>
+<hr>
+
 
 <script type="text/javascript" src="app/sample.js"></script>

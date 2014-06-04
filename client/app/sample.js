@@ -1,36 +1,32 @@
 (function(app, $, ko) {
 
-	var ComputedSample = function() {
+	var BindingSample = function() {
 		var self = this;
-		self.subtotal = ko.observable(20);
-		self.tax = ko.observable(0.05);
-		self.total = ko.computed({
-			write: function(newValue) {
-				var tax = parseFloat(self.tax()),
-					totalMinusTax = newValue / (1 + tax);
-				self.subtotal(totalMinusTax);
-			},
-			read: function() {
-				var subtotal = parseFloat(self.subtotal()),
-					tax = parseFloat(self.tax());
-				return subtotal * (1 + tax);
-			}
+
+		self.firstName = ko.observable('Tim');
+		self.canEdit = ko.observable(true);
+
+		self.toggleEdit = function() {
+			self.canEdit(!self.canEdit());
+		};
+
+		self.location = {
+			name: ko.observable('Portland')
+		};
+
+		self.observableLocation = ko.observable({
+			name: self.location.name
 		});
 
-		var subtotalSubscription = self.subtotal.subscribe(function(newValue) {
-			console.log('The subtotal value was updated to: ' + newValue);
-		});
+		self.age = ko.observable(19);
 
-		self.stopSubscribing = function() {
-			if (subtotalSubscription) {
-				subtotalSubscription.dispose();
-				subtotalSubscription = null;
-			}
+		self.oldEnough = function(age) {
+			return age() >= 18 ? 'Yes' : 'No';
 		};
 	};
-
+	
 	$(document).ready(function() {
-		ko.applyBindings(new ComputedSample());
+		ko.applyBindings(new BindingSample());
 	});
 
 })(window.app = window.app || {}, jQuery, ko);
