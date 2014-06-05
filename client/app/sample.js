@@ -18,11 +18,13 @@
 			favoriteColor: 'Blue'
 		});
 
-		self.mother = new Person({
-			name: 'Gina Ford',
-			age: 53,
-			location: 'Fairview',
-			favoriteColor: 'Green'
+		self.editing = ko.observable(false);
+		self.toggleEdit = function() {
+			self.editing(!self.editing());
+		};
+
+		self.template = ko.computed(function() {
+			return self.editing() ? 'editTemplate' : 'viewTemplate';
 		});
 	};
 	
