@@ -3,26 +3,57 @@
 	var Person = function(data) {
 		var self = this;
 		self.name = data.name;
-		self.age = data.age;
-		self.location = data.location;
-		self.favoriteColor = data.favoriteColor;
+		self.children = data.children.map(function(child) {
+			return new Person(child);
+		});
 	};
 
 	var BindingSample = function() {
 		var self = this;
 
-		self.father = new Person({
-			name: 'Curt Ford',
-			age: 50,
-			location: 'Fairview',
-			favoriteColor: 'Blue'
-		});
-
-		self.mother = new Person({
-			name: 'Gina Ford',
-			age: 53,
-			location: 'Fairview',
-			favoriteColor: 'Green'
+		self.forefather = new Person({
+			name: 'Alexander Hamilton',
+			children: [
+				{
+					name: 'James Hamilton',
+					children: [
+						{
+							name: 'Alexander Hamilton',
+							children: [
+								{
+									name: 'John Hamilton',
+									children: []
+								}, {
+									name: 'Rebecca Cunningham',
+									children: []
+								}
+							]
+						}, {
+							name: 'Elizabeth Pollock',
+							children: [
+								{
+									name: 'Robert Pollock',
+									children: []
+								}, {
+									name: 'Annabel Stewart',
+									children: []
+								}
+							]
+						}
+					]
+				}, {
+					name: 'Rachel Fawcett',
+					children: [
+						{
+							name: 'Jean Faucette IV',
+							children: []
+						}, {
+							name: 'Mary Uppington',
+							children: []
+						}
+					]
+				}
+			]
 		});
 	};
 	
