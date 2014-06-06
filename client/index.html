@@ -1,24 +1,22 @@
-<h1>Dynamic Templates</h1>
+<h1>Containerless Control Flow</h1>
 
-<div class="row">
-	<div class="col-sm-6" data-bind="template: { name: template, data: father} "></div>
-</div>
+<ul>
+    <li><a href="/people"></a></li>
+    <li><a href="/locations"></a></li>
+    <!-- ko if: isAdmin -->
+    <li><a href="/users"></a></li>
+    <li><a href="/admin"></a></li>
+    <!-- /ko -->
+</ul>
 
-<button data-bind="click: toggleEdit" class="btn btn-primary">Toggle Edit</button>
+<button class="btn btn-primary" data-bind="click: toggleAdmin">Toggle Admin</button>
 
-<script type="text/html" id="viewTemplate">
-	<h3 data-bind="text: name"></h3>
-	<strong>Age: </strong><span data-bind="text: age"></span><br>
-	<strong>Location: </strong><span data-bind="text: location"></span><br>
-	<strong>Favorite Color: </strong><span data-bind="text: favoriteColor"></span><br>
-</script>
-
-<script type="text/html" id="editTemplate">
-	<h3 data-bind="text: name"></h3>
-	<strong>Age: </strong><input data-bind="value: age" /><br>
-	<strong>Location: </strong><input data-bind="value: location" /><br>
-	<strong>Favorite Color: </strong><input data-bind="value: favoriteColor" /><br>
-</script>
+<ul>
+    <li>Nav Header</li>
+    <!-- ko foreach: navigationItems -->
+    <li><span data-bind="text: $data"></span></li>
+    <!-- /ko -->
+</ul>
 
 <pre>
 &lt;div class=&quot;row&quot;&gt;
