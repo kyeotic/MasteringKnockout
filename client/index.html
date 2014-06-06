@@ -1,15 +1,15 @@
 <h1>Containerless Control Flow</h1>
 
+<button class="btn btn-primary" data-bind="click: toggleAdmin">Toggle Admin</button>
+
 <ul>
-    <li><a href="/people"></a></li>
-    <li><a href="/locations"></a></li>
+    <li>People</li>
+    <li>Locations</li>
     <!-- ko if: isAdmin -->
-    <li><a href="/users"></a></li>
-    <li><a href="/admin"></a></li>
+    <li>Users</li>
+    <li>Admin</li>
     <!-- /ko -->
 </ul>
-
-<button class="btn btn-primary" data-bind="click: toggleAdmin">Toggle Admin</button>
 
 <ul>
     <li>Nav Header</li>
@@ -19,25 +19,23 @@
 </ul>
 
 <pre>
-&lt;div class=&quot;row&quot;&gt;
-	&lt;div class=&quot;col-sm-6&quot; data-bind=&quot;template: { name: template, data: father} &quot;&gt;&lt;/div&gt;
-&lt;/div&gt;
+&lt;button class=&quot;btn btn-primary&quot; data-bind=&quot;click: toggleAdmin&quot;&gt;Toggle Admin&lt;/button&gt;
 
-&lt;button data-bind=&quot;click: toggleEdit&quot; class=&quot;btn btn-primary&quot;&gt;Toggle Edit&lt;/button&gt;
+&lt;ul&gt;
+    &lt;li&gt;People&lt;/li&gt;
+    &lt;li&gt;Locations&lt;/li&gt;
+    &lt;!-- ko if: isAdmin --&gt;
+    &lt;li&gt;Users&lt;/li&gt;
+    &lt;li&gt;Admin&lt;/li&gt;
+    &lt;!-- /ko --&gt;
+&lt;/ul&gt;
 
-&lt;script type=&quot;text/html&quot; id=&quot;viewTemplate&quot;&gt;
-	&lt;h3 data-bind=&quot;text: name&quot;&gt;&lt;/h3&gt;
-	&lt;strong&gt;Age: &lt;/strong&gt;&lt;span data-bind=&quot;text: age&quot;&gt;&lt;/span&gt;&lt;br&gt;
-	&lt;strong&gt;Location: &lt;/strong&gt;&lt;span data-bind=&quot;text: location&quot;&gt;&lt;/span&gt;&lt;br&gt;
-	&lt;strong&gt;Favorite Color: &lt;/strong&gt;&lt;span data-bind=&quot;text: favoriteColor&quot;&gt;&lt;/span&gt;&lt;br&gt;
-&lt;/script&gt;
-
-&lt;script type=&quot;text/html&quot; id=&quot;editTemplate&quot;&gt;
-	&lt;h3 data-bind=&quot;text: name&quot;&gt;&lt;/h3&gt;
-	&lt;strong&gt;Age: &lt;/strong&gt;&lt;input data-bind=&quot;value: age&quot; /&gt;&lt;br&gt;
-	&lt;strong&gt;Location: &lt;/strong&gt;&lt;input data-bind=&quot;value: location&quot; /&gt;&lt;br&gt;
-	&lt;strong&gt;Favorite Color: &lt;/strong&gt;&lt;input data-bind=&quot;value: favoriteColor&quot; /&gt;&lt;br&gt;
-&lt;/script&gt;
+&lt;ul&gt;
+    &lt;li&gt;Nav Header&lt;/li&gt;
+    &lt;!-- ko foreach: navigationItems --&gt;
+    &lt;li&gt;&lt;span data-bind=&quot;text: $data&quot;&gt;&lt;/span&gt;&lt;/li&gt;
+    &lt;!-- /ko --&gt;
+&lt;/ul&gt;
 </pre>
 
 <script type="text/javascript" src="app/sample.js"></script>
