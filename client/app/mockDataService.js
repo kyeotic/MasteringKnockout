@@ -117,7 +117,7 @@
 				throw new Error('Unable to update contact, it does not exist');
 
 			//Set the contact
-			contacts[contact.id] = ko.toJS(contact);
+			contacts[contactId] = ko.toJS(contact);
 			saveAllContacts();
 
 			//Echo back to notify success
