@@ -83,5 +83,10 @@ Old enough to Drink in the U.S.
 <pre>&lt;button data-bind="click: function(data) { console.log(data.age())  }""&gt;Log Age&lt;/button"&gt;</pre>
 <hr>
 
+<h2>Debugging View</h2>
+<pre data-bind="text: ko.toJSON($root, null, 2)"></pre>
+<pre>&lt;pre data-bind=&quot;text: ko.toJSON($root, null, 2)&quot;&gt;&lt;/pre&gt;</pre>
+<hr>
+
 
 <script type="text/javascript" src="app/sample.js"></script>
