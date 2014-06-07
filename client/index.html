@@ -1,40 +1,22 @@
-<h1>Containerless Control Flow</h1>
+<h1>Simple Extender: Record Changes</h1>
 
-<button class="btn btn-primary" data-bind="click: toggleAdmin">Toggle Admin</button>
+<label>Amount
+	<input type="text" data-bind="value: amount">
+</label>
 
-<ul>
-    <li>People</li>
-    <li>Locations</li>
-    <!-- ko if: isAdmin -->
-    <li>Users</li>
-    <li>Admin</li>
-    <!-- /ko -->
-</ul>
-
-<ul>
-    <li>Nav Header</li>
-    <!-- ko foreach: navigationItems -->
-    <li><span data-bind="text: $data"></span></li>
-    <!-- /ko -->
+<h4>Previous Values</h4>
+<ul data-bind="foreach: amount.previousValues">
+	<li data-bind="text: $data"></li>
 </ul>
 
 <pre>
-&lt;button class=&quot;btn btn-primary&quot; data-bind=&quot;click: toggleAdmin&quot;&gt;Toggle Admin&lt;/button&gt;
+&lt;label&gt;Amount
+	&lt;input type=&quot;text&quot; data-bind=&quot;value: amount&quot;&gt;
+&lt;/label&gt;
 
-&lt;ul&gt;
-    &lt;li&gt;People&lt;/li&gt;
-    &lt;li&gt;Locations&lt;/li&gt;
-    &lt;!-- ko if: isAdmin --&gt;
-    &lt;li&gt;Users&lt;/li&gt;
-    &lt;li&gt;Admin&lt;/li&gt;
-    &lt;!-- /ko --&gt;
-&lt;/ul&gt;
-
-&lt;ul&gt;
-    &lt;li&gt;Nav Header&lt;/li&gt;
-    &lt;!-- ko foreach: navigationItems --&gt;
-    &lt;li&gt;&lt;span data-bind=&quot;text: $data&quot;&gt;&lt;/span&gt;&lt;/li&gt;
-    &lt;!-- /ko --&gt;
+&lt;h4&gt;Previous Values&lt;/h4&gt;
+&lt;ul data-bind=&quot;foreach: amount.previousValues&quot;&gt;
+	&lt;li data-bind=&quot;text: $data&quot;&gt;&lt;/li&gt;
 &lt;/ul&gt;
 </pre>
 

@@ -1,14 +1,18 @@
 (function(app, $, ko) {
 
+	ko.extenders.recordChanges = function(target, options) {
+		target.previousValues = ko.observableArray();
+		target.subscribe(function(oldValue) {
+			target.previousValues.push(oldValue);
+		}, null, 'beforeChange');
+		return target;
+	};
+
+
 	var BindingSample = function() {
 		var self = this;
 
-		self.isAdmin = ko.observable(false);
-		self.toggleAdmin = function() {
-			self.isAdmin(!self.isAdmin());
-		};
-
-		self.navigationItems = ko.observableArray(['People', 'Locations' , 'Users']);
+		self.amount = ko.observable(10).extend({ recordChanges: true})
 	};
 	
 	$(document).ready(function() {
