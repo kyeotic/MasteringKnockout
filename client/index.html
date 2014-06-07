@@ -25,6 +25,23 @@
 <pre>&lt;button data-bind="click: toggleEdit&gt;Toggle Edit&lt;/button"&gt;</pre>
 <hr>
 
+<h2>Binding to Function using the model parameter</h2>
+<ul data-bind="foreach: contacts">
+    <li>
+    	<span data-bind="text: name"></span>
+    	<button data-bind="click: $parent.removeContact" class="btn btn-sm btn-default">Remove</button>
+    </li>
+</ul>
+<pre>
+&lt;ul data-bind=&quot;foreach: contacts&quot;&gt;
+    &lt;li&gt;
+    	&lt;span data-bind=&quot;text: name&quot;&gt;&lt;/span&gt;
+    	&lt;button data-bind=&quot;click: $parent.removeContact&quot;&gt;Remove&lt;/button&gt;
+    &lt;/li&gt;
+&lt;/ul&gt;
+</pre>
+<hr>
+
 <h2>Nested Property</h2>
 <label>
 	Location Name:

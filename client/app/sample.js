@@ -10,6 +10,11 @@
 			self.canEdit(!self.canEdit());
 		};
 
+		self.contacts = ko.observableArray([{ name: 'Tim' }, { name: 'Bob' }, {name: 'Justin'}]);
+		self.removeContact = function (contact) {
+	         self.contacts.remove(contact);   
+	    };
+
 		self.location = {
 			name: ko.observable('Portland')
 		};
