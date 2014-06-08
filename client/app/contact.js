@@ -1,7 +1,6 @@
 (function(app, $, ko) {
 	app.Contact = function(init) {
 		var self = this;
-
 		self.id = ko.observable(0);
 		self.firstName = ko.observable('');
 		self.lastName = ko.observable('');
@@ -12,7 +11,7 @@
 			var nickname = self.nickname() || '';
 			if (nickname.length > 0)
 				return nickname;
-			else if (self.firstName().length > 0)
+			else if ((self.firstName() || '').length > 0)
 				return self.firstName() + ' ' + self.lastName();
 			else
 				return 'New Contact';

@@ -4,14 +4,27 @@
 
 		self.contacts = ko.observableArray();
 
-		//Note, since our data service is sending back exactly the data we need (typed with the Contact ctor)
+		//Note: since our data service is sending back exactly the data we need (typed with the Contact object)
 		//we could write this call like this: dataService.getContacts(self.contacts);
 		//Since the contacts array is a function, it can be used as a callback
 		dataService.getContacts(function(contacts) {
 			self.contacts(contacts);
-		});		
+		});
+
+		//
+		//CRUD Operations
 
 		self.entryContact = ko.observable(null);
+
+		self.newEntry = function() {
+			self.entryContact(new app.Contact());
+		};
+		self.cancelEntry = function() {
+			self.entryContact(null);
+		};
+		self.editContact = function(contact) {
+			self.entryContact(contact);
+		};
 
 		self.saveEntry = function() {
 			if (self.entryContact().id() === 0) {
@@ -23,22 +36,12 @@
 				dataService.updateContact(self.entryContact(), function() {
 					self.entryContact(null);
 				});
-			}			
+			}     
 		};
-		self.newEntry = function() {
-			self.entryContact(new app.Contact());
-		};
-		self.cancelEntry = function() {
-			self.entryContact(null);
-		};
-		self.editContact = function(contact) {
-			self.entryContact(contact);
-		};
-
 		self.deleteContact = function(contact) {
 			dataService.removeContact(contact.id(), function() {
 				self.contacts.remove(contact);
-			});			
+			});     
 		};
 
 		//
@@ -46,17 +49,17 @@
 		self.query = ko.observable('');
 		self.clearQuery = function() { self.query(''); };
 
-		self.displayContacts = ko.computed(function() {
-			var query = self.query().toLowerCase();
+		self.displayContacts = ko.computed(function() {      
 			//No query, just return everythying
 			if (self.query() === '')
 				return self.contacts();
+			var query = self.query().toLowerCase();
 			//Otherwise, filter all contacts using the query
 			return ko.utils.arrayFilter(self.contacts(), function(c) {
 				return c.displayName().toLowerCase().indexOf(query) !== -1
 						// || c.firstName().toLowerCase().indexOf(query) !== -1
 						// || c.lastName().toLowerCase().indexOf(query) !== -1
-						// || c.nickName().toLowerCase().indexOf(query) !== -1						
+						// || c.nickName().toLowerCase().indexOf(query) !== -1            
 						|| c.phoneNumber().toLowerCase().indexOf(query) !== -1;
 			});
 		}).extend({ 

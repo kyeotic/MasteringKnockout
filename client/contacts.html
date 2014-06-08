@@ -1,50 +1,50 @@
 <div class="row">
-	<div class="col-md-6 col-sm-8">
-		<form class="form" role="form" data-bind="with: entryContact, submit: saveEntry">
-			<h2 data-bind="text: displayName"></h2>
-			<div class="form-group">
-				<label for="firstName" class="control-label">First Name</label>
-				<input type="text" class="form-control" id="firstName" placeholder="First Name" data-bind="value: firstName">
-			</div>
-			<div class="form-group">
-				<label for="lastName" class="control-label">Last Name</label>
-				<input type="text" class="form-control" id="lastName" placeholder="First Name" data-bind="value: lastName">
-			</div>
-			<div class="form-group">
-				<label for="nickname" class="control-label">Nickname</label>
-				<input type="text" class="form-control" id="nickname" placeholder="First Name" data-bind="value: nickname">
-			</div>
-			<div class="form-group">
-				<label for="phoneNumber" class="control-label">Phone Number</label>
-				<input type="tel" class="form-control" id="phoneNumber" placeholder="First Name" data-bind="value: phoneNumber">
-			</div>
-			<div class="form-group">
-				<button type="submit" class="btn btn-primary">Save</button>
-				<button data-bind="click: $parent.cancelEntry" class="btn btn-danger">Cancel</button>
-			</div>
-		</form>
-	</div>
+  <div class="col-md-6 col-sm-8">
+    <form class="form" role="form" data-bind="with: entryContact, submit: saveEntry">
+      <h2 data-bind="text: displayName"></h2>
+      <div class="form-group">
+        <label for="firstName" class="control-label">First Name</label>
+        <input type="text" class="form-control" id="firstName" placeholder="First Name" data-bind="value: firstName">
+      </div>
+      <div class="form-group">
+        <label for="lastName" class="control-label">Last Name</label>
+        <input type="text" class="form-control" id="lastName" placeholder="First Name" data-bind="value: lastName">
+      </div>
+      <div class="form-group">
+        <label for="nickname" class="control-label">Nickname</label>
+        <input type="text" class="form-control" id="nickname" placeholder="First Name" data-bind="value: nickname">
+      </div>
+      <div class="form-group">
+        <label for="phoneNumber" class="control-label">Phone Number</label>
+        <input type="tel" class="form-control" id="phoneNumber" placeholder="First Name" data-bind="value: phoneNumber">
+      </div>
+      <div class="form-group">
+        <button type="submit" class="btn btn-primary">Save</button>
+        <button data-bind="click: $parent.cancelEntry" class="btn btn-danger">Cancel</button>
+      </div>
+    </form>
+  </div>
 </div>
 
 <div data-bind="ifnot: entryContact">
-	<h2>Contacts</h2>
-	<div class="row">
-		<div class="col-xs-8">
-			<input type="search" class="form-control" data-bind="value: query, valueUpdate: 'afterkeydown'" placeholder="Search Contacts">
-		</div>
-		<div class="col-xs-4">
-			<button class="btn btn-primary" data-bind="click: newEntry">Add Contact</button>
-		</div>
-	</div>
-	<ul class="list-unstyled" data-bind="foreach: displayContacts">
-		<li>
-			<h3>
-				<span data-bind="text: displayName"></span><small data-bind="text: phoneNumber"></small>
-				<button class="btn btn-sm btn-default" data-bind="click: $parent.editContact">Edit</button>
-				<button class="btn btn-sm btn-danger" data-bind="click: $parent.deleteContact">Delete</button>
-			</h3>
-		</li>
-	</ul>
+  <h2>Contacts</h2>
+  <div class="row">
+    <div class="col-xs-8">
+      <input type="search" class="form-control" data-bind="value: query, valueUpdate: 'afterkeydown'" placeholder="Search Contacts">
+    </div>
+    <div class="col-xs-4">
+      <button class="btn btn-primary" data-bind="click: newEntry">Add Contact</button>
+    </div>
+  </div>
+  <ul class="list-unstyled" data-bind="foreach: displayContacts">
+    <li>
+      <h3>
+        <span data-bind="text: displayName"></span> <small data-bind="text: phoneNumber"></small>
+        <button class="btn btn-sm btn-default" data-bind="click: $parent.editContact">Edit</button>
+        <button class="btn btn-sm btn-danger" data-bind="click: $parent.deleteContact">Delete</button>
+      </h3>
+    </li>
+  </ul>
 </div>
 
 <script type="text/javascript" src="app/contact.js"></script>
