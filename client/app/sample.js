@@ -1,18 +1,29 @@
 (function(app, $, ko) {
 
-	ko.extenders.recordChanges = function(target, options) {
-		target.previousValues = ko.observableArray();
-		target.subscribe(function(oldValue) {
-			target.previousValues.push(oldValue);
-		}, null, 'beforeChange');
-		return target;
+	ko.bindingHandlers.slideVisible = {
+	    init: function(element, valueAccessor) {
+	        var value = ko.unwrap(valueAccessor());
+	        $(element).toggle(value);
+	    },
+	    update: function(element, valueAccessor, allBindings) {
+	        var value = ko.unwrap(valueAccessor());
+	        var duration = allBindings.get('slideDuration') || 400;
+
+	        if (value == true)
+	            $(element).slideDown(duration);
+	        else
+	            $(element).slideUp(duration);
+	    }
 	};
 
 
 	var BindingSample = function() {
 		var self = this;
 
-		self.amount = ko.observable(10).extend({ recordChanges: true})
+		self.isShowing = ko.observable(true);
+		self.toggleShowing = function() {
+			self.isShowing(!self.isShowing());
+		}
 	};
 	
 	$(document).ready(function() {

@@ -1,23 +1,13 @@
-<h1>Simple Extender: Record Changes</h1>
+<h1>Simple Binding Handler</h1>
 
-<label>Amount
-	<input type="text" data-bind="value: amount">
-</label>
+<button class="btn btn-primary" data-bind="click: toggleShowing">Toggle Text</button>
 
-<h4>Previous Values</h4>
-<ul data-bind="foreach: amount.previousValues">
-	<li data-bind="text: $data"></li>
-</ul>
+<p data-bind="slideVisible: isShowing, slideDuration: 200">Look, a wild "sample text" has appeared!</p>
 
 <pre>
-&lt;label&gt;Amount
-	&lt;input type=&quot;text&quot; data-bind=&quot;value: amount&quot;&gt;
-&lt;/label&gt;
+&lt;button class=&quot;btn btn-primary&quot; data-bind=&quot;click: toggleShowing&quot;&gt;Toggle Text&lt;/button&gt;
 
-&lt;h4&gt;Previous Values&lt;/h4&gt;
-&lt;ul data-bind=&quot;foreach: amount.previousValues&quot;&gt;
-	&lt;li data-bind=&quot;text: $data&quot;&gt;&lt;/li&gt;
-&lt;/ul&gt;
+&lt;p data-bind=&quot;slideVisible: isShowing&quot;&gt;Look, a wild &quot;sample text&quot; has appeared!&lt;/p&gt;
 </pre>
 
 <script type="text/javascript" src="app/sample.js"></script>
