@@ -1,13 +1,15 @@
-<h1>Simple Binding Handler</h1>
+<h1>Datetime Picker</h1>
 
-<button class="btn btn-primary" data-bind="click: toggleShowing">Toggle Text</button>
-
-<p data-bind="slideVisible: isShowing, slideDuration: 200">Look, a wild "sample text" has appeared!</p>
+Date: <span data-bind="text: currentDate().toDateString()"></span><br>
+<label>
+	<input data-bind="datepicker: currentDate" />
+</label>
 
 <pre>
-&lt;button class=&quot;btn btn-primary&quot; data-bind=&quot;click: toggleShowing&quot;&gt;Toggle Text&lt;/button&gt;
-
-&lt;p data-bind=&quot;slideVisible: isShowing&quot;&gt;Look, a wild &quot;sample text&quot; has appeared!&lt;/p&gt;
+Date: &lt;span data-bind=&quot;text: currentDate().toDateString()&quot;&gt;&lt;/span&gt;&lt;br&gt;
+&lt;label&gt;
+	&lt;input data-bind=&quot;datepicker: currentDate&quot; /&gt;
+&lt;/label&gt;
 </pre>
 
 <script type="text/javascript" src="app/sample.js"></script>

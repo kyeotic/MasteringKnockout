@@ -1,18 +1,33 @@
 (function(app, $, ko) {
 
-	ko.bindingHandlers.slideVisible = {
-	    init: function(element, valueAccessor) {
-	        var value = ko.unwrap(valueAccessor());
-	        $(element).toggle(value);
-	    },
-	    update: function(element, valueAccessor, allBindings) {
-	        var value = ko.unwrap(valueAccessor());
-	        var duration = allBindings.get('slideDuration') || 400;
+	ko.bindingHandlers.datepicker = {
+	    init: function(element, valueAccessor, allBindingsAccessor) {
+	        //initialize datepicker with some optional options
+	        var options = allBindingsAccessor().datepickerOptions || {},
+	            $el = $(element);
 
-	        if (value == true)
-	            $(element).slideDown(duration);
-	        else
-	            $(element).slideUp(duration);
+	        $el.datepicker(options);
+
+	        //handle the field changing
+	        ko.utils.registerEventHandler(element, "change", function () {
+	            var observable = valueAccessor();
+	            observable($el.datepicker("getDate"));
+	        });
+
+	        //handle disposal (if KO removes by the template binding)
+	        ko.utils.domNodeDisposal.addDisposeCallback(element, function() {
+	            $el.datepicker("destroy");
+	        });
+
+	    },
+	    update: function(element, valueAccessor) {
+	        var value = ko.utils.unwrapObservable(valueAccessor()),
+	            $el = $(element),
+	            current = $el.datepicker("getDate");
+
+	        if (value - current !== 0) {
+	            $el.datepicker("setDate", value);
+	        }
 	    }
 	};
 
@@ -20,10 +35,7 @@
 	var BindingSample = function() {
 		var self = this;
 
-		self.isShowing = ko.observable(true);
-		self.toggleShowing = function() {
-			self.isShowing(!self.isShowing());
-		}
+		self.currentDate = ko.observable(new Date());
 	};
 	
 	$(document).ready(function() {
