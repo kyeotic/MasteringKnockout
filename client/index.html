@@ -1,15 +1,35 @@
-<h1>Datetime Picker</h1>
+<h1>Star Rating</h1>
 
-Date: <span data-bind="text: currentDate().toDateString()"></span><br>
-<label>
-	<input data-bind="datepicker: currentDate" />
-</label>
+<table>
+	<thead>
+		<tr>
+			<th>Title</th>
+			<th>Rating</th>
+		</tr>
+	</thead>
+	<tbody data-bind="foreach: movies">
+        <tr>
+            <td data-bind="text: name"></td>
+            <td data-bind="starRating: rating"></td>
+        </tr>    
+    </tbody>
+</table>
 
 <pre>
-Date: &lt;span data-bind=&quot;text: currentDate().toDateString()&quot;&gt;&lt;/span&gt;&lt;br&gt;
-&lt;label&gt;
-	&lt;input data-bind=&quot;datepicker: currentDate&quot; /&gt;
-&lt;/label&gt;
+&lt;table&gt;
+	&lt;thead&gt;
+		&lt;tr&gt;
+			&lt;th&gt;Title&lt;/th&gt;
+			&lt;th&gt;Rating&lt;/th&gt;
+		&lt;/tr&gt;
+	&lt;/thead&gt;
+	&lt;tbody data-bind=&quot;foreach: movies&quot;&gt;
+        &lt;tr&gt;
+            &lt;td data-bind=&quot;text: name&quot;&gt;&lt;/td&gt;
+            &lt;td data-bind=&quot;starRating: rating&quot;&gt;&lt;/td&gt;
+        &lt;/tr&gt;    
+    &lt;/tbody&gt;
+&lt;/table&gt;
 </pre>
 
 <script type="text/javascript" src="app/sample.js"></script>

@@ -1,0 +1,4 @@
+.starRating span { width:24px; height:24px; background-image: url(images/stars.png); display:inline-block; cursor: pointer; background-position: -24px 0; }
+.starRating span.chosen { background-position: 0 0; }
+.starRating:hover span { background-position: -24px 0; }
+.starRating:hover span.hoverChosen { background-position: 0 0; }

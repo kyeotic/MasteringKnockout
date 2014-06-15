@@ -1,45 +1,58 @@
 (function(app, $, ko) {
 
-	ko.bindingHandlers.datepicker = {
-	    init: function(element, valueAccessor, allBindingsAccessor) {
-	        //initialize datepicker with some optional options
-	        var options = allBindingsAccessor().datepickerOptions || {},
-	            $el = $(element);
-
-	        $el.datepicker(options);
-
-	        //handle the field changing
-	        ko.utils.registerEventHandler(element, "change", function () {
-	            var observable = valueAccessor();
-	            observable($el.datepicker("getDate"));
-	        });
-
-	        //handle disposal (if KO removes by the template binding)
-	        ko.utils.domNodeDisposal.addDisposeCallback(element, function() {
-	            $el.datepicker("destroy");
-	        });
-
+	ko.bindingHandlers.starRating = {
+	    init: function(element, valueAccessor) {
+	        $(element).addClass("starRating");
+	        for (var i = 0; i < 5; i++)
+	           $("<span>").appendTo(element);
+	       
+	        // Handle mouse events on the stars
+	        $("span", element).each(function(index) {
+	            $(this).hover(
+	                function() { 
+	                	$(this).prevAll().add(this)
+	                		.addClass("hoverChosen");
+	                }, 
+	                function() { 
+	                	$(this).prevAll().add(this)
+	                		.removeClass("hoverChosen");
+	                }                
+	            ).click(function() { 
+	                var observable = valueAccessor();
+	                observable(index+1); 
+	            });
+	        });            
 	    },
 	    update: function(element, valueAccessor) {
-	        var value = ko.unwrap(valueAccessor()),
-	            $el = $(element),
-	            current = $el.datepicker("getDate");
-
-	        if (value - current !== 0) {
-	            $el.datepicker("setDate", value);
-	        }
-	    }
+	        // Give the first x stars the "chosen" class
+	        // where x <= rating
+	        var observable = valueAccessor();
+	        $("span", element).each(function(index) {
+	            $(this).toggleClass("chosen", index < observable());
+	        });
+	    }    
 	};
 
 
-	var BindingSample = function() {
-		var self = this;
+	var BindingSample = function(init) {
+		var self = this,
+			data = init && init instanceof Array ? init : [];
 
-		self.currentDate = ko.observable(new Date());
+		self.movies = ko.observableArray(data.map(function(movie) {
+			return {
+				name: movie.name,
+				rating: ko.observable(movie.rating)
+			}
+		}))
 	};
 	
 	$(document).ready(function() {
-		ko.applyBindings(new BindingSample());
+		ko.applyBindings(new BindingSample([
+			{ name: 'The Matrix', rating: 4 },
+			{ name: 'The Incredibles', rating: 5},
+			{ name: 'Divergent', rating: 2 },
+			{ name: 'Vampire Academy', rating: 1}
+		]));
 	});
 
 })(window.app = window.app || {}, jQuery, ko);
