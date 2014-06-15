@@ -21,7 +21,7 @@
 
 	    },
 	    update: function(element, valueAccessor) {
-	        var value = ko.utils.unwrapObservable(valueAccessor()),
+	        var value = ko.unwrap(valueAccessor()),
 	            $el = $(element),
 	            current = $el.datepicker("getDate");
 
