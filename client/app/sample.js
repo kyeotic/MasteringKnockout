@@ -1,18 +1,21 @@
 (function(app, $, ko) {
 
-	ko.bindingHandlers.slideVisible = {
+	ko.bindingHandlers.labelInput = {
 	    init: function(element, valueAccessor) {
-	        var value = ko.unwrap(valueAccessor());
-	        $(element).toggle(value);
-	    },
-	    update: function(element, valueAccessor, allBindings) {
-	        var value = ko.unwrap(valueAccessor());
-	        var duration = allBindings.get('slideDuration') || 400;
+	        var input = document.createElement('input'),
+	        	label = document.createElement('label'),
+	        	labelText = valueAccessor().label,
+	        	inputValue = valueAccessor().value;
 
-	        if (value == true)
-	            $(element).slideDown(duration);
-	        else
-	            $(element).slideUp(duration);
+	        label.innerHTML = labelText;
+	        label.appendChild(input);
+
+			element.appendChild(label);
+
+			ko.applyBindingsToNode(input, {
+				value: inputValue,
+				valueUpdate: 'afterkeydown'
+			});
 	    }
 	};
 
@@ -20,10 +23,7 @@
 	var BindingSample = function() {
 		var self = this;
 
-		self.isShowing = ko.observable(true);
-		self.toggleShowing = function() {
-			self.isShowing(!self.isShowing());
-		}
+		self.name = ko.observable('Timothy');
 	};
 	
 	$(document).ready(function() {

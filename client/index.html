@@ -1,13 +1,14 @@
-<h1>Simple Binding Handler</h1>
+<h1>ApplyBindingsToNode Example</h1>
 
-<button class="btn btn-primary" data-bind="click: toggleShowing">Toggle Text</button>
-
-<p data-bind="slideVisible: isShowing, slideDuration: 200">Look, a wild "sample text" has appeared!</p>
+Original: <input data-bind="value: name, valueUpdate: 'afterkeydown'" />
+<br>
+<br>
+<div data-bind="labelInput: { label: 'Custom', value: name }"></div>
 
 <pre>
-&lt;button class=&quot;btn btn-primary&quot; data-bind=&quot;click: toggleShowing&quot;&gt;Toggle Text&lt;/button&gt;
+Original: &lt;input data-bind=&quot;value: name, valueUpdate: &#039;afterkeydown&#039;&quot; /&gt;
 
-&lt;p data-bind=&quot;slideVisible: isShowing&quot;&gt;Look, a wild &quot;sample text&quot; has appeared!&lt;/p&gt;
+&lt;div data-bind=&quot;labelInput: { label: &#039;Custom&#039;, value: name }&quot;&gt;&lt;/div&gt;
 </pre>
 
 <script type="text/javascript" src="app/sample.js"></script>
