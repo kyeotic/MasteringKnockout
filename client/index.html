@@ -1,9 +1,19 @@
-<h1>ApplyBindingsToNode Example</h1>
+<h1>Chart Binding</h1>
 
-Original: <input data-bind="value: name, valueUpdate: 'afterkeydown'" />
-<br>
-<br>
-<div data-bind="labelInput: { label: 'Custom', value: name }"></div>
+<table class="table">
+	<thead>
+		<tr>
+			<th>Value</th>
+			<th>Color</th>
+		</tr>
+	</thead>
+	<tbody data-bind="foreach: chartSeries">
+		<td><input data-bind="value: value" /></td>
+		<td><input data-bind="value: color" /></td>
+	</tbody>
+</table>
+
+<div data-bind="doughnutChart: {data: chartSeries}"></div>
 
 <pre>
 Original: &lt;input data-bind=&quot;value: name, valueUpdate: &#039;afterkeydown&#039;&quot; /&gt;
