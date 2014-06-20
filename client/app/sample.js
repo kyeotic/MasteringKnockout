@@ -1,13 +1,14 @@
 (function(app, $, ko) {
 
 	var defaultChartOptions = { 
-		height: 300, 
-		width: 300,
-		colors: ["#F7464A", "#E2EAE9", "#D4CCC5", "#949FB1", "#4D5360"],
-		animation: false
-	};
+			height: 300, 
+			width: 300,
+			colors: ["#F7464A", "#E2EAE9", "#D4CCC5", "#949FB1", "#4D5360"],
+			animation: false
+		},
+		circularChartTypes =['Doughnut', 'Pie', 'PolarArea'];
 
-	ko.bindingHandlers.doughnutChart = {
+	ko.bindingHandlers.circularChart = {
 	    init: function(element, valueAccessor) {
 	        var canvas = document.createElement('canvas'),
 	        	options = ko.utils.extend(defaultChartOptions, valueAccessor()),
@@ -20,7 +21,10 @@
 	        	canvas.height = ko.unwrap(options.height);
 	        	canvas.width = ko.unwrap(options.width);
 
-	        	var colors = ko.unwrap(options.colors);
+	        	var colors = ko.unwrap(options.colors),
+	        		chartType = ko.unwrap(options.type);
+
+
 
 	        	var data = ko.toJS(options.data).map(function(x) {
 	        		return {
@@ -29,7 +33,12 @@
 	        		}
 	        	});
 
-	        	new Chart(chartContext).Doughnut(data, options);
+	        	var chart = new Chart(chartContext);
+	        	
+	        	if (circularChartTypes.indexOf(chartType) === -1)
+	        		throw new Error('Chart Type ' + chartType + 'is not a Circular Chart Type');
+
+	        	chart[chartType](data, options);
 	        }, null, {disposeWhenNodeIsRemoved: element});
 	    }
 	};
@@ -43,8 +52,12 @@
 
 	var BindingSample = function() {
 		var self = this;
+
 		self.chartHeight = ko.observable(300);
 		self.chartWidth = ko.observable(400);
+
+		self.chartTypes = circularChartTypes;
+		self.selectedChartType = ko.observable(self.chartTypes[0]);
 
 		self.chartSeries = [
 			new ChartDatum(20, 'D97041'),

@@ -14,17 +14,26 @@
 </table>
 
 <div class="row">
-	<div class="form-group col-sm-4">
+	<div class="form-group col-sm-3">
 		<label for="chartHeight">Height</label>
 		<input data-bind="value: chartHeight" id="chartHeight" class="form-control" type="text" />
 	</div>
-	<div class="form-group col-sm-4">
+	<div class="form-group col-sm-3">
 		<label for="chartWidth">Width</label>
 		<input data-bind="value: chartWidth" id="chartWidth" class="form-control" type="text" />
 	</div>
+	<div class="form-group col-sm-3">
+		<label for="chartType">Chart Type</label>
+		<select data-bind="options: chartTypes, value: selectedChartType" id="chartType" class="form-control"></select>
+	</div>
 </div>
 <div class="container">
-	<div data-bind="doughnutChart: {data: chartSeries, width: chartWidth, height: chartHeight}"></div>
+	<div data-bind="circularChart: { 
+						data: chartSeries, 
+						width: chartWidth, 
+						height: chartHeight, 
+						type: selectedChartType 
+	}"></div>
 </div>
 
 
