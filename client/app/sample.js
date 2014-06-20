@@ -10,8 +10,8 @@
 	ko.bindingHandlers.doughnutChart = {
 	    init: function(element, valueAccessor) {
 	        var canvas = document.createElement('canvas'),
-	        	options = ko.utils.extend(defaultChartOptions, valueAccessor());
-
+	        	options = ko.utils.extend(defaultChartOptions, valueAccessor()),
+	        	chartContext = canvas.getContext('2d');
 	        
 	        element.appendChild(canvas);        
 
@@ -20,8 +20,7 @@
 	        	canvas.height = ko.unwrap(options.height);
 	        	canvas.width = ko.unwrap(options.width);
 
-	        	var chartContext = canvas.getContext('2d'),
-	        		colors = ko.unwrap(options.colors);
+	        	var colors = ko.unwrap(options.colors);
 
 	        	var data = ko.toJS(options.data).map(function(x) {
 	        		return {
