@@ -44,6 +44,8 @@
 
 	var BindingSample = function() {
 		var self = this;
+		self.chartHeight = ko.observable(300);
+		self.chartWidth = ko.observable(400);
 
 		self.chartSeries = [
 			new ChartDatum(20, 'D97041'),

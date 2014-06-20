@@ -13,7 +13,20 @@
 	</tbody>
 </table>
 
-<div data-bind="doughnutChart: {data: chartSeries}"></div>
+<div class="row">
+	<div class="form-group col-sm-4">
+		<label for="chartHeight">Height</label>
+		<input data-bind="value: chartHeight" id="chartHeight" class="form-control" type="text" />
+	</div>
+	<div class="form-group col-sm-4">
+		<label for="chartWidth">Width</label>
+		<input data-bind="value: chartWidth" id="chartWidth" class="form-control" type="text" />
+	</div>
+</div>
+<div class="container">
+	<div data-bind="doughnutChart: {data: chartSeries, width: chartWidth, height: chartHeight}"></div>
+</div>
+
 
 <pre>
 Original: &lt;input data-bind=&quot;value: name, valueUpdate: &#039;afterkeydown&#039;&quot; /&gt;
