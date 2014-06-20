@@ -18,9 +18,7 @@
 	        ko.computed(function() {
 
 	        	canvas.height = ko.unwrap(options.height);
-	        	canvas.width = ko.unwrap(options.width);
-
-	        	var chartType = ko.unwrap(options.type);
+	        	canvas.width = ko.unwrap(options.width);	        	
 
 	        	var data = ko.toJS(options.data).map(function(x) {
 	        		return {
@@ -29,7 +27,8 @@
 	        		}
 	        	});
 
-	        	var chart = new Chart(chartContext);
+	        	var chart = new Chart(chartContext),
+	        		chartType = ko.unwrap(options.type);
 	        	
 	        	if (circularChartTypes.indexOf(chartType) === -1)
 	        		throw new Error('Chart Type ' + chartType + 'is not a Circular Chart Type');
