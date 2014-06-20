@@ -24,8 +24,6 @@
 	        	var colors = ko.unwrap(options.colors),
 	        		chartType = ko.unwrap(options.type);
 
-
-
 	        	var data = ko.toJS(options.data).map(function(x) {
 	        		return {
 	        			value: parseFloat(x.value),
