@@ -27,11 +27,33 @@
 	<div data-bind="doughnutChart: {data: chartSeries, width: chartWidth, height: chartHeight}"></div>
 </div>
 
-
 <pre>
-Original: &lt;input data-bind=&quot;value: name, valueUpdate: &#039;afterkeydown&#039;&quot; /&gt;
+&lt;table class=&quot;table&quot;&gt;
+	&lt;thead&gt;
+		&lt;tr&gt;
+			&lt;th&gt;Value&lt;/th&gt;
+			&lt;th&gt;Color&lt;/th&gt;
+		&lt;/tr&gt;
+	&lt;/thead&gt;
+	&lt;tbody data-bind=&quot;foreach: chartSeries&quot;&gt;
+		&lt;td&gt;&lt;input data-bind=&quot;value: value&quot; /&gt;&lt;/td&gt;
+		&lt;td&gt;&lt;input data-bind=&quot;value: color&quot; /&gt;&lt;/td&gt;
+	&lt;/tbody&gt;
+&lt;/table&gt;
 
-&lt;div data-bind=&quot;labelInput: { label: &#039;Custom&#039;, value: name }&quot;&gt;&lt;/div&gt;
+&lt;div class=&quot;row&quot;&gt;
+	&lt;div class=&quot;form-group col-sm-4&quot;&gt;
+		&lt;label for=&quot;chartHeight&quot;&gt;Height&lt;/label&gt;
+		&lt;input data-bind=&quot;value: chartHeight&quot; id=&quot;chartHeight&quot; class=&quot;form-control&quot; type=&quot;text&quot; /&gt;
+	&lt;/div&gt;
+	&lt;div class=&quot;form-group col-sm-4&quot;&gt;
+		&lt;label for=&quot;chartWidth&quot;&gt;Width&lt;/label&gt;
+		&lt;input data-bind=&quot;value: chartWidth&quot; id=&quot;chartWidth&quot; class=&quot;form-control&quot; type=&quot;text&quot; /&gt;
+	&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;container&quot;&gt;
+	&lt;div data-bind=&quot;doughnutChart: {data: chartSeries, width: chartWidth, height: chartHeight}&quot;&gt;&lt;/div&gt;
+&lt;/div&gt;
 </pre>
 
 <script type="text/javascript" src="app/sample.js"></script>
