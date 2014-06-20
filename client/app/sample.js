@@ -3,7 +3,6 @@
 	var defaultChartOptions = { 
 		height: 300, 
 		width: 300,
-		colors: ["#F7464A", "#E2EAE9", "#D4CCC5", "#949FB1", "#4D5360"],
 		animation: false
 	};
 
@@ -19,8 +18,6 @@
 
 	        	canvas.height = ko.unwrap(options.height);
 	        	canvas.width = ko.unwrap(options.width);
-
-	        	var colors = ko.unwrap(options.colors);
 
 	        	var data = ko.toJS(options.data).map(function(x) {
 	        		return {
