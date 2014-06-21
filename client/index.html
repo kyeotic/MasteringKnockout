@@ -1,14 +1,27 @@
-<h1>ApplyBindingsToNode Example</h1>
+<h1>Managing Descendant Contexts</h1>
 
-Original: <input data-bind="value: name, valueUpdate: 'afterkeydown'" />
-<br>
-<br>
-<div data-bind="labelInput: { label: 'Custom', value: name }"></div>
+<form class="form-inline" data-bind="submit: addEntry">
+	<div class="row">
+		<div class="col-sm-6 form-group">
+			<input type="text" class="form-control input-sm" data-bind="value: entry">
+			<button type="submit" class="btn btn-primary btn-sm">Add</button>
+		</div>
+	</div>
+</form>
+
+<div data-bind="list: inputs"></div>
 
 <pre>
-Original: &lt;input data-bind=&quot;value: name, valueUpdate: &#039;afterkeydown&#039;&quot; /&gt;
+&lt;form class=&quot;form-inline&quot; data-bind=&quot;submit: addEntry&quot;&gt;
+   &lt;div class=&quot;row&quot;&gt;
+      &lt;div class=&quot;col-sm-6 form-group&quot;&gt;
+         &lt;input type=&quot;text&quot; class=&quot;form-control input-sm&quot; data-bind=&quot;value: entry&quot;&gt;
+         &lt;button type=&quot;submit&quot; class=&quot;btn btn-primary btn-sm&quot;&gt;Add&lt;/button&gt;
+      &lt;/div&gt;
+   &lt;/div&gt;
+&lt;/form&gt;
 
-&lt;div data-bind=&quot;labelInput: { label: &#039;Custom&#039;, value: name }&quot;&gt;&lt;/div&gt;
+&lt;div data-bind=&quot;list: inputs&quot;&gt;&lt;/div&gt;
 </pre>
 
 <script type="text/javascript" src="app/sample.js"></script>

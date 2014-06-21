@@ -1,21 +1,16 @@
 (function(app, $, ko) {
 
-	ko.bindingHandlers.labelInput = {
+	var listTemplate = '<ul class="list-unstyled" data-bind="foreach: items"><li data-bind="text: $data"></li></ul>';
+
+	ko.bindingHandlers.list = {
 	    init: function(element, valueAccessor) {
-	        var input = document.createElement('input'),
-	        	label = document.createElement('label'),
-	        	labelText = valueAccessor().label,
-	        	inputValue = valueAccessor().value;
+	        
+	        element.innerHTML = listTemplate;
 
-	        label.innerHTML = labelText;
-	        label.appendChild(input);
+        	ko.applyBindingsToDescendants({ items: valueAccessor()}, element);
 
-			element.appendChild(label);
-
-			ko.applyBindingsToNode(input, {
-				value: inputValue,
-				valueUpdate: 'afterkeydown'
-			});
+	        // Also tell KO *not* to bind the descendants itself, otherwise they will be bound twice
+        	return { controlsDescendantBindings: true };
 	    }
 	};
 
@@ -23,7 +18,12 @@
 	var BindingSample = function() {
 		var self = this;
 
-		self.name = ko.observable('Timothy');
+		self.inputs = ko.observableArray(['One', 'Two', 'Three']);
+		self.entry = ko.observable('');
+		self.addEntry = function() {
+			self.inputs.push(self.entry());
+			self.entry('');
+		};
 	};
 	
 	$(document).ready(function() {
