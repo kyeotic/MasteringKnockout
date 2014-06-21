@@ -1,27 +1,45 @@
 <h1>Maps Example</h1>
 
 <div class="row">
-	<div class="col-sm-3">
-		<div class="form-group">
-			<label>Zoom: <span data-bind="text: zoom"></span></label>
-			<input type="range" data-bind="value: zoom, valueUpdate: 'input'" min="1" max="20" step="1" />
-		</div>
-		<div class="form-group">
-			<label>Lat: <input data-bind="value: latitude" type="text" class="form-control" /></label>
-			<input type="range" data-bind="value: latitude, valueUpdate: 'input'" min="42" max="47" step=".00000001" />
-		</div>
-		<div class="form-group">
-			<label>Long: <input data-bind="value: longitude" type="text" class="form-control" /></label>
-			<input type="range" data-bind="value: longitude, valueUpdate: 'input'"  min="-125" max="-120" step=".00000001" />	
-		</div>
-	</div>
-	<div class="col-sm-6">
-		<div data-bind="map: { lat: latitude, long: longitude, zoom: zoom}" class="map"></div>
-	</div>
+   <div class="col-sm-3">
+      <div class="form-group">
+         <label>Zoom: <span data-bind="text: zoom"></span></label>
+         <input type="range" data-bind="value: zoom, valueUpdate: 'input'" min="1" max="20" step="1" />
+      </div>
+      <div class="form-group">
+         <label>Lat: <input data-bind="value: latitude" type="text" class="form-control" /></label>
+         <input type="range" data-bind="value: latitude, valueUpdate: 'input'" min="42" max="47" step=".00000001" />
+      </div>
+      <div class="form-group">
+         <label>Long: <input data-bind="value: longitude" type="text" class="form-control" /></label>
+         <input type="range" data-bind="value: longitude, valueUpdate: 'input'"  min="-125" max="-120" step=".00000001" /> 
+      </div>
+   </div>
+   <div class="col-sm-6">
+      <div data-bind="map: { lat: latitude, long: longitude, zoom: zoom}" class="map"></div>
+   </div>
 </div>
 
 <pre>
-&lt;div data-bind=&quot;map: { lat: latitude, long: longitude, zoom: zoom}&quot; class=&quot;map&quot;&gt;&lt;/div&gt;
+&lt;div class=&quot;row&quot;&gt;
+   &lt;div class=&quot;col-sm-3&quot;&gt;
+      &lt;div class=&quot;form-group&quot;&gt;
+         &lt;label&gt;Zoom: &lt;span data-bind=&quot;text: zoom&quot;&gt;&lt;/span&gt;&lt;/label&gt;
+         &lt;input type=&quot;range&quot; data-bind=&quot;value: zoom, valueUpdate: &#039;input&#039;&quot; min=&quot;1&quot; max=&quot;20&quot; step=&quot;1&quot; /&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;form-group&quot;&gt;
+         &lt;label&gt;Lat: &lt;input data-bind=&quot;value: latitude&quot; type=&quot;text&quot; class=&quot;form-control&quot; /&gt;&lt;/label&gt;
+         &lt;input type=&quot;range&quot; data-bind=&quot;value: latitude, valueUpdate: &#039;input&#039;&quot; min=&quot;42&quot; max=&quot;47&quot; step=&quot;.00000001&quot; /&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;form-group&quot;&gt;
+         &lt;label&gt;Long: &lt;input data-bind=&quot;value: longitude&quot; type=&quot;text&quot; class=&quot;form-control&quot; /&gt;&lt;/label&gt;
+         &lt;input type=&quot;range&quot; data-bind=&quot;value: longitude, valueUpdate: &#039;input&#039;&quot;  min=&quot;-125&quot; max=&quot;-120&quot; step=&quot;.00000001&quot; /&gt; 
+      &lt;/div&gt;
+   &lt;/div&gt;
+   &lt;div class=&quot;col-sm-6&quot;&gt;
+      &lt;div data-bind=&quot;map: { lat: latitude, long: longitude, zoom: zoom}&quot; class=&quot;map&quot;&gt;&lt;/div&gt;
+   &lt;/div&gt;
+&lt;/div&gt;
 </pre>
 
 
