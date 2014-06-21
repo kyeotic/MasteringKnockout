@@ -7,8 +7,6 @@
 
 	ko.bindingHandlers.widthSort = {
 		 init: function(element, valueAccessor) {
-			var sort = valueAccessor();
-
 			// Pull out each of the child elements into an array
 	        var children = [];
 	        for (var i = element.children.length - 1; i >= 0; i--) {
