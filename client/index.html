@@ -1,14 +1,23 @@
-<h1>ApplyBindingsToNode Example</h1>
+<h1>Size Srt</h1>
 
-Original: <input data-bind="value: name, valueUpdate: 'afterkeydown'" />
-<br>
-<br>
-<div data-bind="labelInput: { label: 'Custom', value: name }"></div>
+<h3>Some people that I used to know</h3>
+
+<ul data-bind="widthSort: true" class="oddball">
+	<li>Jimmy Dean</li>
+	<li>Sara Lee</li>
+	<li>Famous Amos</li>
+	<li>Orville Redenbacher</li>
+	<li>Dr. Pepper</li>
+</ul>
 
 <pre>
-Original: &lt;input data-bind=&quot;value: name, valueUpdate: &#039;afterkeydown&#039;&quot; /&gt;
-
-&lt;div data-bind=&quot;labelInput: { label: &#039;Custom&#039;, value: name }&quot;&gt;&lt;/div&gt;
+&lt;ul data-bind=&quot;widthSort: true&quot; class=&quot;oddball&quot;&gt;
+   &lt;li&gt;Jimmy Dean&lt;/li&gt;
+   &lt;li&gt;Sara Lee&lt;/li&gt;
+   &lt;li&gt;Famous Amos&lt;/li&gt;
+   &lt;li&gt;Orville Redenbacher&lt;/li&gt;
+   &lt;li&gt;Dr. Pepper&lt;/li&gt;
+&lt;/ul&gt;
 </pre>
 
 <script type="text/javascript" src="app/sample.js"></script>

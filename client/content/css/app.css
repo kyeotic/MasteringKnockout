@@ -1,0 +1,12 @@
+.oddball {
+	width: 190px;
+}
+
+.oddball > li {
+	list-style: none;
+	display: inline-block;
+	border: 1px solid grey;
+	margin-right: 5px;
+	margin-bottom: 5px;
+	padding: 3px;
+}

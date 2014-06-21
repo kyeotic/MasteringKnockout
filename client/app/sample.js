@@ -1,22 +1,34 @@
 (function(app, $, ko) {
 
-	ko.bindingHandlers.labelInput = {
-	    init: function(element, valueAccessor) {
-	        var input = document.createElement('input'),
-	        	label = document.createElement('label'),
-	        	labelText = valueAccessor().label,
-	        	inputValue = valueAccessor().value;
+	function is_all_ws(node) {
+	  // Use ECMA-262 Edition 3 String and RegExp features
+	  return !(/[^\t\n\r ]/.test(node.textContent)) && node.nodeType == 3;
+	}
+	
+	ko.bindingHandlers.widthSort = {
+		 init: function(element, valueAccessor) {
+			var sort = valueAccessor();
 
-	        label.innerHTML = labelText;
-	        label.appendChild(input);
+			// Pull out each of the child elements into an array
+	        var children = [];
+	        for (var i = element.children.length - 1; i >= 0; i--) {
+	        	var child = element.children[i];
+	        	//Don't take empty text nodes, they are not real nodes
+	        	if (!is_all_ws(child))
+	            	children.push(child);
+	        };
 
-			element.appendChild(label);
+	        //Width calc must be done while the node is still in the DOM
+	        children.sort(function(a, b) {
+	        	return $(a).width() <= $(b).width() ? -1 : 1;
+	        });
 
-			ko.applyBindingsToNode(input, {
-				value: inputValue,
-				valueUpdate: 'afterkeydown'
-			});
-	    }
+	        while(children.length) {
+	        	var child = children.shift();
+	        	//Append will remove the node if it's already in the DOM
+	        	element.appendChild(child);
+	        }
+		}
 	};
 
 
