@@ -1,10 +1,10 @@
 (function(app, $, ko) {
 
-	function is_all_ws(node) {
+	function isWhitespaceNode(node) {
 	  // Use ECMA-262 Edition 3 String and RegExp features
 	  return !(/[^\t\n\r ]/.test(node.textContent)) && node.nodeType == 3;
 	}
-	
+
 	ko.bindingHandlers.widthSort = {
 		 init: function(element, valueAccessor) {
 			var sort = valueAccessor();
@@ -14,7 +14,7 @@
 	        for (var i = element.children.length - 1; i >= 0; i--) {
 	        	var child = element.children[i];
 	        	//Don't take empty text nodes, they are not real nodes
-	        	if (!is_all_ws(child))
+	        	if (!isWhitespaceNode(child))
 	            	children.push(child);
 	        };
 
