@@ -1,7 +1,6 @@
 (function(app, $, ko) {
 
 	function isWhitespaceNode(node) {
-	  // Use ECMA-262 Edition 3 String and RegExp features
 	  return !(/[^\t\n\r ]/.test(node.textContent)) && node.nodeType == 3;
 	}
 
@@ -22,9 +21,8 @@
 	        });
 
 	        while(children.length) {
-	        	var child = children.shift();
 	        	//Append will remove the node if it's already in the DOM
-	        	element.appendChild(child);
+	        	element.appendChild(children.shift());
 	        }
 		}
 	};
