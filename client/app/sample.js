@@ -7,9 +7,10 @@
 	ko.bindingHandlers.widthSort = {
 		 init: function(element, valueAccessor) {
 			// Pull out each of the child elements into an array
-	        var children = [];
-	        for (var i = element.children.length - 1; i >= 0; i--) {
-	        	var child = element.children[i];
+	        var children = [],
+	        	childNodes = ko.virtualElements.childNodes(element);
+	        for (var i = childNodes.length - 1; i >= 0; i--) {
+	        	var child = childNodes[i];
 	        	//Don't take empty text nodes, they are not real nodes
 	        	if (!isWhitespaceNode(child))
 	            	children.push(child);
@@ -20,12 +21,11 @@
 	        	return $(a).width() <= $(b).width() ? -1 : 1;
 	        });
 
-	        while(children.length) {
-	        	//Append will remove the node if it's already in the DOM
-	        	element.appendChild(children.shift());
-	        }
+	        ko.virtualElements.setDomNodeChildren(element, children);
 		}
 	};
+
+	ko.virtualElements.allowedBindings.widthSort = true;
 
 
 	var BindingSample = function() {
