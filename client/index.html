@@ -4,7 +4,7 @@
 	<div class="col-sm-3">
 		<div class="form-group">
 			<label>Zoom: <span data-bind="text: zoom"></span></label>
-			<input type="range" data-bind="value: zoom" min="1" max="20" step="1" />
+			<input type="range" data-bind="value: zoom, valueUpdate: 'input'" min="1" max="20" step="1" />
 		</div>
 		<div class="form-group">
 			<label>Lat: <input data-bind="value: latitude" type="text" /></label>
