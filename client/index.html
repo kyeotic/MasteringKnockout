@@ -1,15 +1,8 @@
-<h1>Managing Descendant Contexts</h1>
+<h1>Stop Descendant Binding</h1>
 
-<form class="form-inline" data-bind="submit: addEntry">
-	<div class="row">
-		<div class="col-sm-6 form-group">
-			<input type="text" class="form-control input-sm" data-bind="value: entry">
-			<button type="submit" class="btn btn-primary btn-sm">Add</button>
-		</div>
-	</div>
-</form>
-
-<div data-bind="list: inputs"></div>
+<!-- ko stopBinding: true -->
+<h4 data-bind="text: title">Unbound</h4>
+<!-- /ko -->
 
 <pre>
 &lt;form class=&quot;form-inline&quot; data-bind=&quot;submit: addEntry&quot;&gt;
