@@ -1,29 +1,48 @@
 (function(app, $, ko) {
 
-	ko.bindingHandlers.labelInput = {
-	    init: function(element, valueAccessor) {
-	        var input = document.createElement('input'),
-	        	label = document.createElement('label'),
-	        	labelText = valueAccessor().label,
-	        	inputValue = valueAccessor().value;
-
-	        label.innerHTML = labelText;
-	        label.appendChild(input);
-
-			element.appendChild(label);
-
-			ko.applyBindingsToNode(input, {
-				value: inputValue,
-				valueUpdate: 'afterkeydown'
-			});
-	    }
+	ko.maps = {
+		defaults: {
+			zoom: 5,
+			lat: 45.51, 
+			long: -122.67,
+			mapType: google.maps.MapTypeId.ROADMAP
+		},
+		mapType: {
+			hybrid: "hybrid",
+			roadmap: "roadmap",
+			satellite: "satellite",
+			terrain: "terrain"
+		}
 	};
 
+	ko.bindingHandlers.map = {
+		init: function(element, valueAccessor) {
+			var data = valueAccessor(),
+				options = ko.utils.extend(ko.maps.defaults, data),
+				//just get the relevant options
+				mapOptions = {
+					zoom: ko.unwrap(options.zoom),
+					center: new google.maps.LatLng(ko.unwrap(options.lat), ko.unwrap(options.long)),
+					mapTypeId: options.mapType
+				},
+				map = new google.maps.Map(element, mapOptions);
+
+			ko.computed(function() {
+				map.setZoom(parseFloat(ko.unwrap(options.zoom)));
+			}, null, { disposeWhenNodeIsRemoved: element });
+
+			ko.computed(function() {
+				map.panTo(new google.maps.LatLng(ko.unwrap(options.lat), ko.unwrap(options.long)));
+			}, null, { disposeWhenNodeIsRemoved: element });
+		}
+	};
 
 	var BindingSample = function() {
 		var self = this;
 
-		self.name = ko.observable('Timothy');
+		self.zoom = ko.observable(8);
+		self.latitude = ko.observable(45.51312335271636);
+		self.longitude = ko.observable(-122.67063820362091);
 	};
 	
 	$(document).ready(function() {

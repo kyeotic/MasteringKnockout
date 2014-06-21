@@ -1,9 +1,24 @@
-<h1>ApplyBindingsToNode Example</h1>
+<h1>Maps Example</h1>
 
-Original: <input data-bind="value: name, valueUpdate: 'afterkeydown'" />
-<br>
-<br>
-<div data-bind="labelInput: { label: 'Custom', value: name }"></div>
+<div class="row">
+	<div class="col-sm-3">
+		<div class="form-group">
+			<label>Zoom: <span data-bind="text: zoom"></span></label>
+			<input type="range" data-bind="value: zoom" min="1" max="20" step="1" />
+		</div>
+		<div class="form-group">
+			<label>Lat: <input data-bind="value: latitude" type="text" /></label>
+			<input type="range" data-bind="value: latitude, valueUpdate: 'input'" class="form-control" min="42" max="47" step=".00000001" />
+		</div>
+		<div class="form-group">
+			<label>Long: <input data-bind="value: longitude" type="text" /></label>
+			<input type="range" data-bind="value: longitude, valueUpdate: 'input'" class="form-control" min="-125" max="-120" step=".00000001" />	
+		</div>
+	</div>
+	<div class="col-sm-6">
+		<div data-bind="map: { lat: latitude, long: longitude, zoom: zoom}" class="map"></div>
+	</div>
+</div>
 
 <pre>
 Original: &lt;input data-bind=&quot;value: name, valueUpdate: &#039;afterkeydown&#039;&quot; /&gt;
@@ -11,4 +26,7 @@ Original: &lt;input data-bind=&quot;value: name, valueUpdate: &#039;afterkeydown
 &lt;div data-bind=&quot;labelInput: { label: &#039;Custom&#039;, value: name }&quot;&gt;&lt;/div&gt;
 </pre>
 
+
+<link rel="stylesheet" href="content/css/app.css" type="text/css" media="all" />
+<script type="text/javascript" src="//maps.google.com/maps/api/js?sensor=false&amp;.js"></script>
 <script type="text/javascript" src="app/sample.js"></script>
