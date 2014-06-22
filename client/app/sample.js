@@ -43,7 +43,7 @@
 					fullName: 'James Hamilton',
 					descendants: [
 						{
-							fullName: 'Alexander Hamilton',
+							fullName: 'Alex Hamilton',
 							descendants: [
 								{
 									fullName: 'John Hamilton',
