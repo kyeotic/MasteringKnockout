@@ -25,8 +25,7 @@
 	        	ko.applyBindings(context, element.firstChild)
 	        }
 	        else
-	        	ko.applyBindingsToDescendants(bindingContext.extend(context), element);
-        	
+	        	ko.applyBindingsToDescendants(bindingContext.extend(context), element);        	
 
 	        // Also tell KO *not* to bind the descendants itself, otherwise they will be bound twice
         	return { controlsDescendantBindings: true };
