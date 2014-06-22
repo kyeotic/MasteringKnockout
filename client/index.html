@@ -29,7 +29,33 @@
 </div>
 
 <pre>
-&lt;div data-bind=&quot;tree: { data: person, children: &#039;children&#039;, name: &#039;fullName&#039;}&quot;&gt;&lt;/div&gt;
+&lt;div data-bind=&quot;merge: { source: springCourse, target: summerCourse }&quot;&gt;
+	&lt;h3 data-bind=&quot;text:: $parent.name&quot;&gt;&lt;/h3&gt;
+	&lt;div&gt;
+		&lt;label for=&quot;knots&quot;&gt;Knots&lt;/label&gt;
+		&lt;input type=&quot;checkbox&quot; id=&quot;knots&quot; disabled data-bind=&quot;checked: knots&quot;&gt;
+	&lt;/div&gt;
+	&lt;div&gt;
+		&lt;label for=&quot;woodworking&quot;&gt;Woodworking&lt;/label&gt;
+		&lt;input type=&quot;checkbox&quot; id=&quot;woodworking&quot; disabled data-bind=&quot;checked: woodworking&quot;&gt;
+	&lt;/div&gt;
+	&lt;div&gt;
+		&lt;label for=&quot;metalworking&quot;&gt;Metalworking&lt;/label&gt;
+		&lt;input type=&quot;checkbox&quot; id=&quot;metalworking&quot; disabled data-bind=&quot;checked: metalworking&quot;&gt;
+	&lt;/div&gt;
+	&lt;div&gt;
+		&lt;label for=&quot;tracking&quot;&gt;Tracking&lt;/label&gt;
+		&lt;input type=&quot;checkbox&quot; id=&quot;tracking&quot; disabled data-bind=&quot;checked: tracking&quot;&gt;
+	&lt;/div&gt;
+	&lt;div&gt;
+		&lt;label for=&quot;rafting&quot;&gt;Rafting&lt;/label&gt;
+		&lt;input type=&quot;checkbox&quot; id=&quot;rafting&quot; disabled data-bind=&quot;checked: rafting&quot;&gt;
+	&lt;/div&gt;
+	&lt;div&gt;
+		&lt;label for=&quot;diving&quot;&gt;Diving&lt;/label&gt;
+		&lt;input type=&quot;checkbox&quot; id=&quot;diving&quot; disabled data-bind=&quot;checked: diving&quot;&gt;
+	&lt;/div&gt;
+&lt;/div&gt;
 </pre>
 
 <script type="text/javascript" src="app/sample.js"></script>
