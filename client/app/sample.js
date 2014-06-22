@@ -5,9 +5,7 @@
 	        
 	        var value = valueAccessor(),
 	        	merge = ko.utils.extend(value.target, value.source);
-	        	child = bindingContext.createChildContext(bindingContext.$rawData, null, function(context) {
-	        		ko.utils.extend(context, merge);
-	        	});
+	        	child = bindingContext.createChildContext(merge);
 
 			ko.applyBindingsToDescendants(child, element);        	
 
