@@ -1,20 +1,13 @@
 <h1>Stop Descendant Binding</h1>
 
-<!-- ko stopBinding: true -->
-<h4 data-bind="text: title">Unbound</h4>
-<!-- /ko -->
+<div data-bind="stopBinding: true">
+	<h4 data-bind="text: 'Bound'">Unbound</h4>
+</div>
 
 <pre>
-&lt;form class=&quot;form-inline&quot; data-bind=&quot;submit: addEntry&quot;&gt;
-   &lt;div class=&quot;row&quot;&gt;
-      &lt;div class=&quot;col-sm-6 form-group&quot;&gt;
-         &lt;input type=&quot;text&quot; class=&quot;form-control input-sm&quot; data-bind=&quot;value: entry&quot;&gt;
-         &lt;button type=&quot;submit&quot; class=&quot;btn btn-primary btn-sm&quot;&gt;Add&lt;/button&gt;
-      &lt;/div&gt;
-   &lt;/div&gt;
-&lt;/form&gt;
-
-&lt;div data-bind=&quot;list: inputs&quot;&gt;&lt;/div&gt;
+&lt;div data-bind=&quot;stopBinding: true&quot;&gt;
+	&lt;h4 data-bind=&quot;text: &#039;Bound&#039;&quot;&gt;Unbound&lt;/h4&gt;
+&lt;/div&gt;
 </pre>
 
 <script type="text/javascript" src="app/sample.js"></script>
