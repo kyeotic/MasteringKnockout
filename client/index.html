@@ -1,6 +1,32 @@
-<h1>Changing the $root context</h1>
+<h1>Creating and Extending Contexts</h1>
 
-<div class="tree" data-bind="tree: { data: person, children: 'descendants', name: 'fullName'}"></div>
+<div data-bind="merge: { source: springCourse, target: summerCourse }">
+	<h3 data-bind="text:: $parent.name"></h3>
+	<div>
+		<label for="knots">Knots</label>
+		<input type="checkbox" id="knots" disabled data-bind="checked: knots">
+	</div>
+	<div>
+		<label for="woodworking">Woodworking</label>
+		<input type="checkbox" id="woodworking" disabled data-bind="checked: woodworking">
+	</div>
+	<div>
+		<label for="metalworking">Metalworking</label>
+		<input type="checkbox" id="metalworking" disabled data-bind="checked: metalworking">
+	</div>
+	<div>
+		<label for="tracking">Tracking</label>
+		<input type="checkbox" id="tracking" disabled data-bind="checked: tracking">
+	</div>
+	<div>
+		<label for="rafting">Rafting</label>
+		<input type="checkbox" id="rafting" disabled data-bind="checked: rafting">
+	</div>
+	<div>
+		<label for="diving">Diving</label>
+		<input type="checkbox" id="diving" disabled data-bind="checked: diving">
+	</div>
+</div>
 
 <pre>
 &lt;div data-bind=&quot;tree: { data: person, children: &#039;children&#039;, name: &#039;fullName&#039;}&quot;&gt;&lt;/div&gt;
