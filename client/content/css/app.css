@@ -1,0 +1,6 @@
+.tree li {
+	border-left: 1px dotted grey;
+	padding-left: 3px;
+	margin-top: 10px;
+	list-style: none;
+}
