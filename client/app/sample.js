@@ -16,7 +16,7 @@
 
 	var BindingSample = function() {
 		var self = this;
-		self.name = 'Mr. Rogers';
+		self.name = 'Scout Retreat';
 		self.springCourse = { knots: true, woodworking: true, metalworking: true };
 		self.summerCourse = { rafting: true, diving: true, tracking: false };
 	};
