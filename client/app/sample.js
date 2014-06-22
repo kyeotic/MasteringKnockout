@@ -5,9 +5,9 @@
 	        
 	        var value = valueAccessor(),
 	        	merge = ko.utils.extend(value.target, value.source);
-	        	child = bindingContext.createChildContext(merge);
+	        	context = bindingContext.extend(merge);
 
-			ko.applyBindingsToDescendants(child, element);        	
+			ko.applyBindingsToDescendants(context, element);        	
 
 	        // Also tell KO *not* to bind the descendants itself, otherwise they will be bound twice
         	return { controlsDescendantBindings: true };

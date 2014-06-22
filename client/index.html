@@ -1,7 +1,7 @@
 <h1>Creating and Extending Contexts</h1>
 
 <div data-bind="merge: { source: springCourse, target: summerCourse }">
-	<h3 data-bind="text: $parent.name"></h3>
+	<h3 data-bind="text: name"></h3>
 	<div>
 		<label for="knots">Knots</label>
 		<input type="checkbox" id="knots" disabled data-bind="checked: knots">
@@ -30,7 +30,7 @@
 
 <pre>
 &lt;div data-bind=&quot;merge: { source: springCourse, target: summerCourse }&quot;&gt;
-	&lt;h3 data-bind=&quot;text:: $parent.name&quot;&gt;&lt;/h3&gt;
+	&lt;h3 data-bind=&quot;text:: name&quot;&gt;&lt;/h3&gt;
 	&lt;div&gt;
 		&lt;label for=&quot;knots&quot;&gt;Knots&lt;/label&gt;
 		&lt;input type=&quot;checkbox&quot; id=&quot;knots&quot; disabled data-bind=&quot;checked: knots&quot;&gt;
