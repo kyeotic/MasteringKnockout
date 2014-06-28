@@ -1,17 +1,19 @@
 <h1>Preprocess: Uppercase</h1>
 
-<span data-bind="text: firstName"></span><br>
 <span data-bind="text: 'That Guy'"></span><br>
+
+<input type="text" data-bind="value: firstName, valueUpdate: 'afterkeydown'"><br>
+<span data-bind="text: firstName"></span><br>
 <span data-bind="text: firstName() + '!!!'"></span><br>
 
-<input type="text" data-bind="value: firstName, valueUpdate: 'afterkeydown'">
+
 
 <pre>
-&lt;span data-bind=&quot;text: firstName&quot;&gt;&lt;/span&gt;&lt;br&gt;
 &lt;span data-bind=&quot;text: &#039;That Guy&#039;&quot;&gt;&lt;/span&gt;&lt;br&gt;
-&lt;span data-bind=&quot;text: firstName() + &#039;!!!&#039;&quot;&gt;&lt;/span&gt;&lt;br&gt;
 
-&lt;input type=&quot;text&quot; data-bind=&quot;value: firstName, valueUpdate: &#039;afterkeydown&#039;&quot;&gt;
+&lt;input type=&quot;text&quot; data-bind=&quot;value: firstName, valueUpdate: &#039;afterkeydown&#039;&quot;&gt;&lt;br&gt;
+&lt;span data-bind=&quot;text: firstName&quot;&gt;&lt;/span&gt;&lt;br&gt;
+&lt;span data-bind=&quot;text: firstName() + &#039;!!!&#039;&quot;&gt;&lt;/span&gt;&lt;br&gt;
 </pre>
 
 <script type="text/javascript" src="app/sample.js"></script>
