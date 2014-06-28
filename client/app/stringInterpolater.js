@@ -3,16 +3,29 @@
 */
 (function(app, $, ko) {
 
-    var expressionRegex = /{{([\s\S]+?)}}/g;
+    var curlyRegex = /{{([\s\S]+?)}}/g,
+        erbRegex = /\<\%([\s\S]+?)\%\>/g;
     ko.bindingProvider.instance.preprocessNode = function(node) {
         if (node.nodeType === 3 && node.nodeValue) {
             // Preprocess by replacing {{ expr }} with <!-- ko text: expr --><!-- /ko --> nodes
-            var newNodes = replaceExpressionsInText(node.nodeValue, expressionRegex, function(expressionText) {
+            var curlyNodes = replaceExpressionsInText(node.nodeValue, curlyRegex, function(expressionText) {
                 return [
                     document.createComment("ko text:" + expressionText),
                     document.createComment("/ko")
                 ];
             });
+
+            var erbNodes = replaceExpressionsInText(node.nodeValue, erbRegex, function(expressionText) {
+                var span = document.createElement('span');
+                span.setAttribute('data-bind', 'text: ' + expressionText);
+                return [span];
+            });
+
+            //Because of the leading/trialing space method, this would double up HTML
+            if (curlyNodes && erbNodes)
+                throw new Error("Using {{ nodes }} and <% nodes %> together is not supported.");
+
+            var newNodes = curlyNodes || erbNodes;
 
             // Insert the resulting nodes into the DOM and remove the original unpreprocessed node
             if (newNodes) {
