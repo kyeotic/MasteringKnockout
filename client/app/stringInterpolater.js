@@ -4,7 +4,7 @@
 (function(app, $, ko) {
 
     var curlyRegex = /{{([\s\S]+?)}}/g,
-        erbRegex = /\<\%([\s\S]+?)\%\>/g;
+        erbRegex = /\<\%=([\s\S]+?)\%\>/g;
     ko.bindingProvider.instance.preprocessNode = function(node) {
         if (node.nodeType === 3 && node.nodeValue) {
             // Preprocess by replacing {{ expr }} with <!-- ko text: expr --><!-- /ko --> nodes
