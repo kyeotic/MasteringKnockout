@@ -3,19 +3,18 @@
 */
 (function(app, $, ko) {
 
-    var curlyRegex = /{{([\s\S]+?)}}/g,
-        erbRegex = /\<\%=([\s\S]+?)\%\>/g;
     ko.bindingProvider.instance.preprocessNode = function(node) {
         if (node.nodeType === 3 && node.nodeValue) {
             // Preprocess by replacing {{ expr }} with <!-- ko text: expr --><!-- /ko --> nodes
-            var curlyNodes = replaceExpressionsInText(node.nodeValue, curlyRegex, function(expressionText) {
+            var curlyNodes = replaceExpressionsInText(node.nodeValue, /{{([\s\S]+?)}}/g, function(expressionText) {
                 return [
                     document.createComment("ko text:" + expressionText),
                     document.createComment("/ko")
                 ];
             });
 
-            var erbNodes = replaceExpressionsInText(node.nodeValue, erbRegex, function(expressionText) {
+            // Replace <%= expr %> with data bound span's
+            var erbNodes = replaceExpressionsInText(node.nodeValue, /\<\%=([\s\S]+?)\%\>/g, function(expressionText) {
                 var span = document.createElement('span');
                 span.setAttribute('data-bind', 'text: ' + expressionText);
                 return [span];
