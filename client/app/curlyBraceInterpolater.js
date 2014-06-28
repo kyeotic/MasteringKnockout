@@ -4,6 +4,27 @@
 (function(app, $, ko) {
 
     var expressionRegex = /{{([\s\S]+?)}}/g;
+    ko.bindingProvider.instance.preprocessNode = function(node) {
+        if (node.nodeType === 3 && node.nodeValue) {
+            // Preprocess by replacing {{ expr }} with <!-- ko text: expr --><!-- /ko --> nodes
+            var newNodes = replaceExpressionsInText(node.nodeValue, expressionRegex, function(expressionText) {
+                return [
+                    document.createComment("ko text:" + expressionText),
+                    document.createComment("/ko")
+                ];
+            });
+
+            // Insert the resulting nodes into the DOM and remove the original unpreprocessed node
+            if (newNodes) {
+                for (var i = 0; i < newNodes.length; i++) {
+                    node.parentNode.insertBefore(newNodes[i], node);
+                }
+                node.parentNode.removeChild(node);
+                return newNodes;
+            }
+        }
+    };
+    
     function replaceExpressionsInText(text, expressionRegex, callback) {
         var prevIndex = expressionRegex.lastIndex = 0,
             resultNodes = null,
@@ -32,26 +53,5 @@
 
         return resultNodes;
     }
-
-    ko.bindingProvider.instance.preprocessNode = function(node) {
-        if (node.nodeType === 3 && node.nodeValue) {
-            // Preprocess by replacing {{ expr }} with <!-- ko text: expr --><!-- /ko --> nodes
-            var newNodes = replaceExpressionsInText(node.nodeValue, expressionRegex, function(expressionText) {
-                return [
-                    document.createComment("ko text:" + expressionText),
-                    document.createComment("/ko")
-                ];
-            });
-
-            // Insert the resulting nodes into the DOM and remove the original unpreprocessed node
-            if (newNodes) {
-                for (var i = 0; i < newNodes.length; i++) {
-                    node.parentNode.insertBefore(newNodes[i], node);
-                }
-                node.parentNode.removeChild(node);
-                return newNodes;
-            }
-        }
-    };
 
 })(window.app = window.app || {}, jQuery, ko);
