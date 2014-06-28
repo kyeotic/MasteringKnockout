@@ -1,20 +1,11 @@
 (function(app, $, ko) {
 
-	ko.bindingHandlers.valueFlash = {
-		preprocess: function(value, name, addBinding) {
-			addBinding('value', value);
-		    return value;
-		},
-		update: function(element, valueAccessor) {
-        	ko.unwrap(valueAccessor());  //unwrap to get dependency
-	        $(element).css({opacity: 0}).animate({opacity: 1}, 500);
-	    }
-	};
-
 	var BindingSample = function() {
 		var self = this;
 
 		self.firstName = ko.observable('Timothy');
+		self.lastName = ko.observable('Moran');
+		self.birthDate = ko.observable('3/19/1987');
 	};
 	
 	$(document).ready(function() {

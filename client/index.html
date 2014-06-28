@@ -1,9 +1,14 @@
-<h1>Preprocess: Wrap Binding</h1>
+<h1>Preprocess: Interpolation</h1>
 
-<input type="text" data-bind="valueFlash: firstName">
+First Name: {{ firstName }}<br>
+Last Name: {{ lastName }}<br>
+Birth Date: {{ birthDate }}<br>
 
 <pre>
-&lt;input type=&quot;text&quot; data-bind=&quot;valueFlash: firstName&quot;&gt;
+First Name: {{ firstName }}
+Last Name: {{ lastName }}
+Birth Date: {{ birthDate }}
 </pre>
 
+<script type="text/javascript" src="app/curlyBraceInterpolater.js"></script>
 <script type="text/javascript" src="app/sample.js"></script>
