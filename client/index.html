@@ -1,14 +1,12 @@
-<h1>Preprocess: Interpolation</h1>
+<h1>Binding Providers</h1>
 
-First Name: {{ firstName }}<br>
-Last Name: {{ lastName }}<br>
-Birth Date: {{ birthDate }}<br>
+<span ng-bind={{name}}></span><br>
+<input type="text" ng-model="{{name}}" />
 
 <pre>
-First Name: {{ firstName }}
-Last Name: {{ lastName }}
-Birth Date: {{ birthDate }}
+&lt;span ng-bind={{name}}&gt;&lt;/span&gt;&lt;br&gt;
+&lt;input type=&quot;text&quot; ng-model=&quot;{{name}}&quot; /&gt;
 </pre>
 
-<script type="text/javascript" src="app/curlyBraceInterpolater.js"></script>
+<script type="text/javascript" src="app/angularProvider.js"></script>
 <script type="text/javascript" src="app/sample.js"></script>

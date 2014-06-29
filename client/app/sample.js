@@ -3,9 +3,7 @@
 	var BindingSample = function() {
 		var self = this;
 
-		self.firstName = ko.observable('Timothy');
-		self.lastName = ko.observable('Moran');
-		self.birthDate = ko.observable('3/19/1987');
+		self.name = ko.observable('Timothy');
 	};
 	
 	$(document).ready(function() {
