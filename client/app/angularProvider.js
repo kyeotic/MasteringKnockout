@@ -21,6 +21,10 @@ ko.angularBindingProvider = function() {
       return node.attributes && node.hasAttribute(attributeName);
    }
 
+   function hasAngularBinding(node) {
+      return directives.some(function(d) { return nodeHasAttribute(node, d.name) });
+   }
+
    function getAngularBindingsString(node) {
       if (!node.attributes) {
          return null;
@@ -42,7 +46,7 @@ ko.angularBindingProvider = function() {
    //Public methods
    this.nodeHasBindings = function(node) {
       return baseProvider.nodeHasBindings(node) 
-         || directives.some(function(d) { return nodeHasAttribute(node, d.name) });
+         || hasAngularBinding(node);
    };
    this.getBindings = function(node, bindingContext) {
       var bindingsString = baseProvider.getBindingsString(node, bindingContext) 
