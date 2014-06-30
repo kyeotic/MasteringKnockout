@@ -20,7 +20,7 @@ ko.angularBindingProvider = function() {
         return node.attributes && node.hasAttribute(attributeName);
     }
 
-    function getBindingsString(node) {
+    function getAngularBindingsString(node) {
         if (!node.attributes) {
           return null;
         }
@@ -43,14 +43,14 @@ ko.angularBindingProvider = function() {
     };
     this.getBindings = function(node, bindingContext) {
         var bindingsString = defaultBindingProvider.getBindingsString(node, bindingContext) 
-            || getBindingsString(node);
+            || getAngularBindingsString(node);
         return bindingsString ? 
             defaultBindingProvider.parseBindingsString(bindingsString, bindingContext, node) : 
             null;
     };
     this.getBindingAccessors = function(node, bindingContext) {
         var bindingsString = defaultBindingProvider.getBindingsString(node, bindingContext)
-            || getBindingsString(node);
+            || getAngularBindingsString(node);
         return bindingsString ? 
             defaultBindingProvider.parseBindingsString(bindingsString, bindingContext, node, {'valueAccessors':true}) : 
             null;
