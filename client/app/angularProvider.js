@@ -9,7 +9,6 @@ ko.angularBindingProvider = function() {
    var baseProvider = new ko.bindingProvider();
 
    var expressionRegex = /{{([\s\S]+?)}}/g;
-
    function parseExpression(node, attributeName) {
       expressionRegex.lastIndex = 0;
       var attribute = node.getAttribute(attributeName),
@@ -17,21 +16,14 @@ ko.angularBindingProvider = function() {
       return match ? match[1] : null;
    }
 
-   function nodeHasAttribute(node, attributeName) {
-      return node.attributes && node.hasAttribute(attributeName);
-   }
-
-   function hasAngularBinding(node) {
-      return directives.some(function(d) { return nodeHasAttribute(node, d.name) });
+   function getNodeBindings(node) {
+      return directives.filter(function(d) { 
+         return node.attributes && node.hasAttribute(d.name);
+      });
    }
 
    function getAngularBindingsString(node) {
-      if (!node.attributes) {
-         return null;
-      }
-      var bindings = directives.filter(function(d) {
-         return nodeHasAttribute(node, d.name)
-      });
+      var bindings = getNodeBindings(node);
       if (!bindings)
          return null;
 
@@ -46,7 +38,7 @@ ko.angularBindingProvider = function() {
    //Public methods
    this.nodeHasBindings = function(node) {
       return baseProvider.nodeHasBindings(node) 
-         || hasAngularBinding(node);
+         || getNodeBindings(node).length > 0;
    };
    this.getBindings = function(node, bindingContext) {
       var bindingsString = baseProvider.getBindingsString(node, bindingContext) 
