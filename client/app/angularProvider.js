@@ -1,20 +1,16 @@
 (function(app, $, ko) {
 
-var directives = [{
-   name: 'ng-model',
-   binding: 'value',
-   adds: "valueUpdate: 'afterkeydown'"
-}, {
-   name: 'ng-bind',
-   binding: 'text'
-}];
+var directives = [
+   { name: 'ng-model', binding: 'value', adds: "valueUpdate: 'afterkeydown'"}, 
+   { name: 'ng-bind',   binding: 'text'}
+];
 
 ko.angularBindingProvider = function() {
-   var defaultBindingProvider = new ko.bindingProvider();
+   var baseProvider = new ko.bindingProvider();
 
    var expressionRegex = /{{([\s\S]+?)}}/g;
 
-   function parseAttributeExpression(node, attributeName) {
+   function parseExpression(node, attributeName) {
       expressionRegex.lastIndex = 0;
       var attribute = node.getAttribute(attributeName),
          match = expressionRegex.exec(attribute);
@@ -36,7 +32,7 @@ ko.angularBindingProvider = function() {
          return null;
 
       return bindings.map(function(d) {
-         var result = d.binding + ':' + parseAttributeExpression(node, d.name);
+         var result = d.binding + ':' + parseExpression(node, d.name);
          if (d.adds)
             result += ',' + d.adds;
          return result;
@@ -45,22 +41,21 @@ ko.angularBindingProvider = function() {
 
    //Public methods
    this.nodeHasBindings = function(node) {
-      return defaultBindingProvider.nodeHasBindings(node) || directives.some(function(d) {
-         return nodeHasAttribute(node, d.name)
-      });
+      return baseProvider.nodeHasBindings(node) 
+         || directives.some(function(d) { return nodeHasAttribute(node, d.name) });
    };
    this.getBindings = function(node, bindingContext) {
-      var bindingsString = defaultBindingProvider.getBindingsString(node, bindingContext) || getAngularBindingsString(node);
+      var bindingsString = baseProvider.getBindingsString(node, bindingContext) 
+         || getAngularBindingsString(node);
       return bindingsString ?
-         defaultBindingProvider.parseBindingsString(bindingsString, bindingContext, node) :
+         baseProvider.parseBindingsString(bindingsString, bindingContext, node) :
          null;
    };
    this.getBindingAccessors = function(node, bindingContext) {
-      var bindingsString = defaultBindingProvider.getBindingsString(node, bindingContext) || getAngularBindingsString(node);
+      var bindingsString = baseProvider.getBindingsString(node, bindingContext) 
+         || getAngularBindingsString(node);
       return bindingsString ?
-         defaultBindingProvider.parseBindingsString(bindingsString, bindingContext, node, {
-            'valueAccessors': true
-         }) :
+         baseProvider.parseBindingsString(bindingsString, bindingContext, node, { 'valueAccessors': true }) :
          null;
    };
 };
