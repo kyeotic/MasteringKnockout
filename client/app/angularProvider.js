@@ -1,7 +1,7 @@
 (function(app, $, ko) {
 
 var directives = [
-   { name: 'ng-model', binding: 'value', adds: "valueUpdate: 'afterkeydown'"}, 
+   { name: 'ng-model', binding: "valueUpdate: 'afterkeydown', value"}, 
    { name: 'ng-bind',   binding: 'text'}
 ];
 
@@ -28,10 +28,7 @@ ko.angularBindingProvider = function() {
          return null;
 
       return bindings.map(function(d) {
-         var result = d.binding + ':' + parseExpression(node, d.name);
-         if (d.adds)
-            result += ',' + d.adds;
-         return result;
+         return d.binding + ':' + parseExpression(node, d.name);
       }).join(',');
    }
 
