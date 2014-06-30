@@ -24,12 +24,11 @@ ko.angularBindingProvider = function() {
 
    function getAngularBindingsString(node) {
       var bindings = getNodeBindings(node);
-      if (!bindings)
-         return null;
-
-      return bindings.map(function(d) {
-         return d.binding + ':' + parseExpression(node, d.name);
-      }).join(',');
+      return bindings.length > 0 ?
+               bindings.map(function(d) {
+                  return d.binding + ':' + parseExpression(node, d.name);
+               }).join(',') :
+               null;
    }
 
    //Public methods
