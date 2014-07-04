@@ -17,8 +17,10 @@ ko.angularBindingProvider = function() {
    }
 
    function getNodeBindings(node) {
+      if (!node.attributes)
+         return false;
       return directives.filter(function(d) { 
-         return node.attributes && node.hasAttribute(d.name);
+         return node.hasAttribute(d.name);
       });
    }
 
