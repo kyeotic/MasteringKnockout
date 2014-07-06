@@ -4,6 +4,8 @@
 		var self = this;
 
 		self.name = ko.observable('Timothy');
+		self.locations = ['Portland', 'Seattle', 'New York City'];
+		self.selectedLocation = ko.observable();
 		self.isAdmin = ko.observable(true)
 	};
 	
