@@ -48,27 +48,27 @@ var conventionBindings = function(node, bindingContext) {
       throw 'Can\'t resolve member: ' + name;
    }
 
-   var dataFn = function() {
+   var valueAccessor = function() {
       return data;
    };
    var unwrapped = ko.utils.peekObservable(data);
    var type = typeof unwrapped;
 
-   for (var index in ko.bindingConventions.conventionBinders) {
-      if (ko.bindingConventions.conventionBinders[index].rules !== undefined) {
-         var convention = ko.bindingConventions.conventionBinders[index];
-         var should = true;
+for (var index in ko.bindingConventions.conventionBinders) {
+   if (ko.bindingConventions.conventionBinders[index].rules !== undefined) {
+      var convention = ko.bindingConventions.conventionBinders[index];
+      var should = true;
 
-         convention.rules.forEach(function (rule) {
-            should = should && rule(name, node, bindings, unwrapped, type, data, bindingContext);
-         });
+      convention.rules.forEach(function (rule) {
+         should = should && rule(name, node, bindings, unwrapped, type, data, bindingContext);
+      });
 
-         if (should) {
-            convention.apply(name, node, bindings, unwrapped, type, dataFn, bindingContext);
-            break;
-         }
+      if (should) {
+         convention.apply(name, node, bindings, unwrapped, type, valueAccessor, bindingContext);
+         break;
       }
    }
+}
 
    return bindings;
 };
@@ -76,18 +76,22 @@ var conventionBindings = function(node, bindingContext) {
 
 ko.bindingConventions.conventionBinders.options = {
   rules: [function (name, element, bindings, unwrapped) { return element.tagName === 'SELECT' && unwrapped.push; } ],
-  apply: function (name, element, bindings, unwrapped, type, dataFn, bindingContext) {
-      bindings.options = dataFn;
+  apply: function (name, element, bindings, unwrapped, type, valueAccessor, bindingContext) {
+      bindings.options = valueAccessor;
       singularize(name, function (singularized) {
-          var selectedName = 'selected' + getPascalCased(singularized);
-          selected = setBinding(bindings, 'value', selectedName, bindingContext);
+         var selectedName = 'selected' + getPascalCased(singularized);
+         if (bindingContext.$data[selectedName] !== undefined) {
+            bindings['value'] = function() {
+               return bindingContext.$data[selectedName];
+            };
+         }
       });
   }
 };
 
 ko.bindingConventions.conventionBinders.input = {
   rules: [function (name, element) { return element.tagName === 'INPUT' || element.tagName === 'TEXTAREA'; } ],
-  apply: function (name, element, bindings, unwrapped, type, dataFn, bindingContext) {
+  apply: function (name, element, bindings, unwrapped, type, valueAccessor, bindingContext) {
       var bindingName = null;
       if (type === 'boolean') {
           element.setAttribute('type', 'checkbox');
@@ -95,7 +99,7 @@ ko.bindingConventions.conventionBinders.input = {
       } else {
           bindingName = 'value';
       }
-      bindings[bindingName] = dataFn;
+      bindings[bindingName] = valueAccessor;
   }
 };
 
