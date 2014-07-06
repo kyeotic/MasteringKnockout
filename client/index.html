@@ -1,12 +1,22 @@
 <h1>Binding Providers</h1>
 
-<span ng-bind={{name}}></span><br>
-<input type="text" ng-model="{{name}}" />
+<label>Name
+	<input data-name="name" />
+</label>
+<label>Admin
+	<input data-name="isAdmin" />
+</label>
+
+<pre data-bind="text: ko.toJSON($data, null, 2)"></pre>
 
 <pre>
-&lt;span ng-bind={{name}}&gt;&lt;/span&gt;&lt;br&gt;
-&lt;input type=&quot;text&quot; ng-model=&quot;{{name}}&quot; /&gt;
+&lt;label&gt;Name
+	&lt;input data-name=&quot;name&quot; /&gt;
+&lt;/label&gt;
+&lt;label&gt;Admin
+	&lt;input data-name=&quot;isAdmin&quot; /&gt;
+&lt;/label&gt;
 </pre>
 
-<script type="text/javascript" src="app/angularProvider.js"></script>
+<script type="text/javascript" src="app/conventionsProvider.js"></script>
 <script type="text/javascript" src="app/sample.js"></script>

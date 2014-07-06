@@ -4,6 +4,7 @@
 		var self = this;
 
 		self.name = ko.observable('Timothy');
+		self.isAdmin = ko.observable(true)
 	};
 	
 	$(document).ready(function() {
