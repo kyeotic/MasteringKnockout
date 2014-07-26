@@ -10,21 +10,10 @@
                 </button>
                 <a class="brand navbar-brand" data-bind="attr: { href: '/' }, text: title"></a>
             </div>
-
-            <nav role="navigation" class="collapse navbar-collapse" id="navbar-collapse-group">
-                <ul class="nav navbar-nav">
-                    <li>
-                        <button class="btn btn-default navbar-btn" data-bind="click: setList">List</button>
-                    </li>
-                    <li>
-                        <button class="btn btn-default navbar-btn" data-bind="click: setEdit">Edit</button>
-                    </li>
-                </ul>
-            </nav>
         </div>
     </header>
-    
+
     <div class="page-host container">
-        <div data-bind="compose: currentModel"></div>
+        <div data-bind="compose: 'shell/sub.html'"></div>
     </div>
 </div>
