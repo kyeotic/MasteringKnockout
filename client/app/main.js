@@ -17,7 +17,7 @@ require.config({
     waitSeconds: 30
 });
 
-define(['durandal/system', 'durandal/app', 'common/extensions'],
+define(['durandal/system', 'durandal/app'],
 function(system, app, extensions) {
 
     system.debug(true);
@@ -28,8 +28,6 @@ function(system, app, extensions) {
         router:true,
         dialog: true
     });
-
-    extensions.install();
 
     app.title = 'Mastering Knockout';
     app.start().then(function () {
