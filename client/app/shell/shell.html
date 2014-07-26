@@ -12,23 +12,19 @@
             </div>
 
             <nav role="navigation" class="collapse navbar-collapse" id="navbar-collapse-group">
-                <ul class="nav navbar-nav" data-bind="foreach: router.navigationModel">
-                    <li data-bind="css: { active: isActive }">
-                        <a class="" data-bind="attr: { href: hash }, text: title"></a>
+                <ul class="nav navbar-nav">
+                    <li>
+                        <button class="btn btn-default navbar-btn" data-bind="click: setList">List</button>
+                    </li>
+                    <li>
+                        <button class="btn btn-default navbar-btn" data-bind="click: setEdit">Edit</button>
                     </li>
                 </ul>
-                <div class="nav navbar-nav navbar-right">
-                    <i class="fa fa-spinner fa-3x fa-spin" data-bind="visible: router.isNavigating"></i>
-                </div>
             </nav>
         </div>
     </header>
     
     <div class="page-host container">
-        <!-- ko router: { 
-                            model: router.activeItem,
-                            cacheViews: false 
-                        }-->
-        <!-- /ko -->
+        <div data-bind="compose: currentModel"></div>
     </div>
 </div>
