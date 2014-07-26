@@ -80,7 +80,7 @@ define(['knockout', 'contacts/contact'], function(ko, Contact) {
 
 	Note that the contact coming in is the Contact viewmodel
 	The Done() callback in jQuery gets the full contact, but the only thing we need to update is the id
-	The callback() doesn't need to receive the contact, because the called already has it
+	The callback() doesn't need to receive the contact, because the caller already has it
 	As long as we update the original object with the id before calling the callback() they will have the data they need
 	However, if you wanted to pass it back you could
 
