@@ -1,5 +1,5 @@
 define(['knockout', 'durandal/app', 'contacts/edit', 'contacts/list'], 
-function (router, ko, app, EditVm, ListVm) {
+function (ko, app, EditVm, ListVm) {
 	var listVm = new ListVm(),
 		editVm = new EditVm();
 	return {
