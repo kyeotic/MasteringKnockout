@@ -20,7 +20,9 @@ require.config({
 define(['durandal/system', 'durandal/app', 'common/extensions'],
 function(system, app, extensions) {
 
+    //>>excludeStart("build", true);
     system.debug(true);
+    //>>excludeEnd("build");  
 
     //specify which plugins to install and their configuration
     app.configurePlugins({
