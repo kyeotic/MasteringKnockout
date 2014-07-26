@@ -9,7 +9,9 @@ function (router, ko, app) {
 				{ route: '', moduleId: 'contacts/list', title: 'Contacts', nav: true },
 				{ route: 'contacts/new', moduleId: 'contacts/edit', title: 'New Contact', nav: true },
 				{ route: 'contacts/:id', moduleId: 'contacts/edit', title: 'Contact Details', nav: false }
-			]).buildNavigationModel();
+			])
+			.buildNavigationModel()
+			.mapUnknownRoutes('shell/error', 'not-found');
 
 			return router.activate();
 		}
