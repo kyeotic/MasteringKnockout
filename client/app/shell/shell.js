@@ -1,5 +1,4 @@
-define(['plugins/router', 'knockout', 'durandal/app'], 
-function (router, ko, app) {
+define(function (ko, app) {
 	return {
 		title: 'Welcome!'
 	};
