@@ -1,5 +1,5 @@
-define(['contacts/contact'], function(Contact) {
-	function supportsWebStorage() {
+define(['knockout', 'contacts/contact'], function(ko, Contact) {
+  function supportsWebStorage() {
 	try {
 	  return 'localStorage' in window && window['localStorage'] !== null;
 	} catch (e) {
@@ -95,6 +95,10 @@ define(['contacts/contact'], function(Contact) {
 		}
 	  }
 	  callback(typedContacts);
+	},
+	getContact: function(id, callback) {
+		var contact = contacts[id];
+		callback(new Contact(contact));
 	},
 	createContact: function(contact, callback) {
 	  contact.id(UUID.generate());

@@ -6,7 +6,9 @@ function (router, ko, app) {
 		activate: function() {
 
 			router.map([
-				{ route: '', moduleId: 'contacts/list', title: 'Contacts', nav: true }
+				{ route: '', moduleId: 'contacts/list', title: 'Contacts', nav: true },
+				{ route: 'contacts/new', moduleId: 'contacts/edit', title: 'Contacts', nav: false },
+				{ route: 'contacts/:id', moduleId: 'contacts/edit', title: 'Contacts', nav: false }
 			]).buildNavigationModel();
 
 			return router.activate();

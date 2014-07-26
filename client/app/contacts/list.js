@@ -11,6 +11,7 @@ define(['durandal/app', 'knockout', 'services/mock', 'plugins/router'], function
 			dataService.getContacts(function(contacts) {
 				self.contacts(contacts);
 			});
+			return true;
 		};
 
 		//
