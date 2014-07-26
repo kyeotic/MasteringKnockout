@@ -3,7 +3,7 @@ var fs = require('fs'),
     clientDir = __dirname + '/client/',
     express = require('express'),
     app = express(),
-    shellPath = clientDir + 'shell.html',
+    shellPath = clientDir + 'index.html',
     fileEncoding = 'UTF8';
 
 var viewEngine = function(filename, options, callback) {

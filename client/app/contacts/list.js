@@ -1,43 +1,29 @@
-(function(app, $, ko) {
-	app.ContactsPageViewmodel = function(dataService) {
+define(['durandal/app', 'knockout', 'services/mock', 'plugins/router'], function(app, ko, dataService, router) {
+	return function ContactListVM() {
 		var self = this;
 
 		self.contacts = ko.observableArray();
 
-		//Note: since our data service is sending back exactly the data we need (typed with the Contact object)
-		//we could write this call like this: dataService.getContacts(self.contacts);
-		//Since the contacts array is a function, it can be used as a callback
-		dataService.getContacts(function(contacts) {
-			self.contacts(contacts);
-		});
+		self.activate = function() {
+			//Note: since our data service is sending back exactly the data we need (typed with the Contact object)
+			//we could write this call like this: dataService.getContacts(self.contacts);
+			//Since the contacts array is a function, it can be used as a callback
+			dataService.getContacts(function(contacts) {
+				self.contacts(contacts);
+			});
+		};
 
 		//
 		//CRUD Operations
 
-		self.entryContact = ko.observable(null);
-
 		self.newEntry = function() {
-			self.entryContact(new app.Contact());
+			router.navigate('contacts/new');
 		};
-		self.cancelEntry = function() {
-			self.entryContact(null);
-		};
+		
 		self.editContact = function(contact) {
-			self.entryContact(contact);
+			router.navigate('contacts/' + contact.id());
 		};
-
-		self.saveEntry = function() {
-			if (self.entryContact().id() === 0) {
-				dataService.createContact(self.entryContact(), function() {
-					self.contacts.push(self.entryContact());
-					self.entryContact(null);
-				});
-			} else {
-				dataService.updateContact(self.entryContact(), function() {
-					self.entryContact(null);
-				});
-			}     
-		};
+		
 		self.deleteContact = function(contact) {
 			dataService.removeContact(contact.id(), function() {
 				self.contacts.remove(contact);
@@ -70,10 +56,6 @@
 				method: 'notifyWhenChangesStop'
 			}
 		});
+
 	};
-
-	$(document).ready(function() {
-		ko.applyBindings(new app.ContactsPageViewmodel(app.mockDataService));
-	});
-
-})(window.app = window.app || {}, jQuery, ko);
+});

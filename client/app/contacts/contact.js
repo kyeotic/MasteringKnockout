@@ -1,5 +1,5 @@
-(function(app, $, ko) {
-	app.Contact = function(init) {
+define(['knockout'], function(ko) {
+	return function Contact(init) {
 		var self = this;
 		self.id = ko.observable(0);
 		self.firstName = ko.observable('');
@@ -17,13 +17,33 @@
 				return 'New Contact';
 		});
 
+		self.saveEntry = function() {
+			if (self.entryContact().id() === 0) {
+				dataService.createContact(self.entryContact(), function() {
+					self.contacts.push(self.entryContact());
+					self.entryContact(null);
+				});
+			} else {
+				dataService.updateContact(self.entryContact(), function() {
+					self.entryContact(null);
+				});
+			}     
+		};
+
+		self.close = function() {
+			router.navigate('');
+		};
+
 		//Generic update method, merge all properties into the viewmodel
-		self.update = function(update) {
+		self.update = function(update, options) {
 			data = update || {};
 			Object.keys(data).forEach(function(prop) {
 				if (ko.isObservable(self[prop]))
 					self[prop](data[prop]);
 			});
+
+			if (options && options.isDirty)
+				self.dirtyFlag.reset();
 		};
 
 		//Set the initial values using our handy-dandy update method.
@@ -36,4 +56,4 @@
 			return copy;
 		};
 	};
-})(window.app = window.app || {}, jQuery, ko);
+});

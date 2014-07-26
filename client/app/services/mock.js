@@ -1,6 +1,5 @@
-(function(app, $, ko) {
-
-  function supportsWebStorage() {
+define(['contacts/contact'], function(Contact) {
+	function supportsWebStorage() {
 	try {
 	  return 'localStorage' in window && window['localStorage'] !== null;
 	} catch (e) {
@@ -79,20 +78,20 @@
 		});
 	}
 
-	Note that the contact coming in is the app.Contact viewmodel
+	Note that the contact coming in is the Contact viewmodel
 	The Done() callback in jQuery gets the full contact, but the only thing we need to update is the id
 	The callback() doesn't need to receive the contact, because the called already has it
 	As long as we update the original object with the id before calling the callback() they will have the data they need
 	However, if you wanted to pass it back you could
 
   */
-  app.mockDataService = {
+  return {
 	getContacts: function(callback) {
 	  //Return our POJO contacts as real contact objects
 	  var typedContacts = [];
 	  for (var c in contacts) {
 		if (contacts.hasOwnProperty(c)) {
-		  typedContacts.push(new app.Contact(contacts[c]))
+		  typedContacts.push(new Contact(contacts[c]))
 		}
 	  }
 	  callback(typedContacts);
@@ -131,5 +130,4 @@
 	  callback();
 	}
   };
-
-})(window.app = window.app || {}, jQuery, ko);
+});
