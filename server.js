@@ -2,43 +2,19 @@ var fs = require('fs'),
     port = process.env.PORT || 3000,
     clientDir = __dirname + '/client/',
     express = require('express'),
-    app = express(),
-    shellPath = clientDir + 'index.html',
-    fileEncoding = 'UTF8';
-
-var viewEngine = function(filename, options, callback) {
-    fs.readFile(shellPath, fileEncoding, function(err, shell) {
-        fs.readFile(filename, fileEncoding, function (err, data) {
-            callback(null, shell.replace('{{ body }}', data));
-        });
-    });
-};
+    app = express();
 
 //Configure
 app.configure(function() {
-    app.set('views', __dirname + '/client');
-    app.set("view options", {layout: false});
-	app.engine('html', viewEngine);
-	app.set('view engine', 'html');
     app.use(express.compress());
     app.use(express.methodOverride());
+    app.use(express['static'](clientDir));    
     app.use(app.router);
-    app.use(express['static'](clientDir));
 });
 
 //Index Route
-app.get('/', function(req, res){
-    res.render('index');
-});
-
-//Contacts Route
-app.get('/contacts', function(req, res){
-    res.render('contacts');
-});
-
-//Settings Route
-app.get('/settings', function(req, res){
-    res.render('settings');
+app.get('/*', function(req, res){
+    res.sendfile(clientDir + '/index.html');
 });
 
 //Start Listening

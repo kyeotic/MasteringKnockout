@@ -3,6 +3,7 @@ function (router, ko, app) {
 	return {
 		title: app.title,
 		router: router,
+		rouzou: router,
 		activate: function() {
 
 			router.map([
@@ -13,7 +14,7 @@ function (router, ko, app) {
 			.buildNavigationModel()
 			.mapUnknownRoutes('shell/error', 'not-found');
 
-			return router.activate();
+			return router.activate({ pushState: true });
 		}
 	};
 });
