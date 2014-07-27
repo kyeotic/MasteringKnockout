@@ -14,7 +14,7 @@ function (router, ko, app) {
 			.buildNavigationModel()
 			.mapUnknownRoutes('shell/error', 'not-found');
 
-			return router.activate();
+			return router.activate({ pushState: true });
 		}
 	};
 });
