@@ -6,7 +6,7 @@ require.config({
         'transitions' : '/lib/durandal/js/transitions',
         'knockout': '/lib/knockout-3.1.0',
         'bootstrap': '/lib/bootstrap-3.1.1',
-        'jquery': '/lib/jquery-1.11.1.min'
+        'jquery': '/lib/jquery-2.1.1.min'
     },
     shim: {
         'bootstrap': {

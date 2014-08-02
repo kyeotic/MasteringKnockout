@@ -1,4 +1,5 @@
-define(['durandal/app', 'knockout', 'services/mock', 'plugins/router'], function(app, ko, dataService, router) {
+define(['durandal/app', 'knockout', 'services/mock', 'plugins/router'],
+function(app, ko, dataService, router) {
 	return function ContactListVM() {
 		var self = this;
 
@@ -26,9 +27,14 @@ define(['durandal/app', 'knockout', 'services/mock', 'plugins/router'], function
 		};
 		
 		self.deleteContact = function(contact) {
-			dataService.removeContact(contact.id(), function() {
-				self.contacts.remove(contact);
-			});     
+			app.showMessage('Are you sure you want to delete ' + contact.displayName() + '?', 'Delete Contact?', ['No', 'Yes'])
+				.then(function(response) {
+					if (response === 'Yes') {
+						dataService.removeContact(contact.id(), function() {
+							self.contacts.remove(contact);
+						}); 
+					}
+				});
 		};
 
 		//
