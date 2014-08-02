@@ -1,5 +1,5 @@
-define(['durandal/app', 'knockout', 'services/mock', 'plugins/router'],
-function(app, ko, dataService, router) {
+define(['durandal/app', 'knockout', 'services/mock', 'plugins/router', 'contacts/edit'],
+function(app, ko, dataService, router, ContactVM) {
 	return function ContactListVM() {
 		var self = this;
 
@@ -19,7 +19,11 @@ function(app, ko, dataService, router) {
 		//CRUD Operations
 
 		self.newEntry = function() {
-			router.navigate('contacts/new');
+			app.showDialog(new ContactVM())
+				.then(function(newContact) {
+					if (newContact)
+						self.contacts.push(newContact);
+				});
 		};
 		
 		self.editContact = function(contact) {

@@ -1,3 +1,9 @@
 .page-host {
 	margin-top: 65px;
 }
+
+.edit-container {
+	padding: 20px;
+	min-width: 600px;
+	background-color: #222222;
+}

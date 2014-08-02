@@ -1,5 +1,5 @@
-define(['durandal/system', 'knockout', 'plugins/router', 'services/mock', 'contacts/contact'], 
-function(system, ko, router, dataService, Contact) {
+define(['durandal/system', 'knockout', 'plugins/router', 'services/mock', 'contacts/contact', 'plugins/dialog'], 
+function(system, ko, router, dataService, Contact, dialog) {
 	return function EditContactVm(init) {
 		var self = this;
 
@@ -7,25 +7,29 @@ function(system, ko, router, dataService, Contact) {
 
 		self.activate = function(id) {
 			//Id is only present when editing
-			if (!id) return;
-
-			dataService.getContact(id, self.contact);
+			if (id)
+				dataService.getContact(id, self.contact);			
 		};
 
 		self.saveEntry = function() {
-			if (self.contact().id() === 0) {
-				dataService.createContact(self.contact(), function() {
-					router.navigate('');
-				});
-			} else {
-				dataService.updateContact(self.contact(), function() {
-					router.navigate('');
-				});
-			}     
+			var action = self.contact().id() === 0 
+						? dataService.createContact 
+						: dataService.updateContact;
+
+			action(self.contact(), function() {
+				self.close(self.contact());
+			});
 		};
 
-		self.close = function() {
-			router.navigate('');
+		self.cancel = function() {
+			self.close(null);
+		};
+
+		self.close = function(result) {
+			if (dialog.getDialog(self))
+				dialog.close(self, result);
+			else
+				router.navigate('');
 		};
 	};
 });
