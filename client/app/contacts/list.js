@@ -6,13 +6,9 @@ function(app, ko, dataService, router) {
 		self.contacts = ko.observableArray();
 
 		self.activate = function() {
-			//Note: since our data service is sending back exactly the data we need (typed with the Contact object)
-			//we could write this call like this: dataService.getContacts(self.contacts);
-			//Since the contacts array is a function, it can be used as a callback
 			dataService.getContacts(function(contacts) {
 				self.contacts(contacts);
 			});
-			return true;
 		};
 
 		//

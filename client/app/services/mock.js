@@ -61,30 +61,6 @@ define(['knockout', 'contacts/contact'], function(ko, Contact) {
 	storage.set('contacts', JSON.stringify(contacts));
   };
 
-  /*
-	This object is intended to mock a real AJAX data service, hence the use of callbacks.
-	This is what create contact might look like as a real jQuery.ajax call, while still maintaining
-	the same functionality - strong typing, handling updating the observable values
-
-	createContact: function(contact, callback) {
-	  $.ajax({
-		  type: "POST",
-		  url: "/contacts",
-		  data: ko.toJS(contact)
-		})
-		.done(function(response) {
-		  contact.id(response.id);
-		  callback()
-		});
-	}
-
-	Note that the contact coming in is the Contact viewmodel
-	The Done() callback in jQuery gets the full contact, but the only thing we need to update is the id
-	The callback() doesn't need to receive the contact, because the caller already has it
-	As long as we update the original object with the id before calling the callback() they will have the data they need
-	However, if you wanted to pass it back you could
-
-  */
   return {
 	getContacts: function(callback) {
 	  //Return our POJO contacts as real contact objects
@@ -94,7 +70,9 @@ define(['knockout', 'contacts/contact'], function(ko, Contact) {
 		  typedContacts.push(new Contact(contacts[c]))
 		}
 	  }
-	  callback(typedContacts);
+	  setTimeout(function() {
+	  	callback(typedContacts);
+	  }, 1000);
 	},
 	getContact: function(id, callback) {
 		var contact = contacts[id];
@@ -107,7 +85,10 @@ define(['knockout', 'contacts/contact'], function(ko, Contact) {
 	  //Save it
 	  saveAllContacts();
 	  //Return the new contact
-	  callback();
+	  setTimeout(function() {
+	  	callback();
+	  }, 1000);
+	  
 	},
 	updateContact: function(contact, callback) {
 	  //Create an unwrapped copy
@@ -124,14 +105,19 @@ define(['knockout', 'contacts/contact'], function(ko, Contact) {
 	  saveAllContacts();
 
 	  //Echo back to notify success
-	  callback();
+	  setTimeout(function() {
+	  	callback();
+	  }, 1000);
+	  
 	},
 	removeContact: function(contactId, callback) {
 	  //If the contact doesn't exist, removing should still succeed
 	  delete contacts[contactId];
 	  saveAllContacts();
 
-	  callback();
+	  setTimeout(function() {
+	  	callback();
+	  }, 1000);
 	}
   };
 });
