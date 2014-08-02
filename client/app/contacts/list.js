@@ -1,14 +1,17 @@
-define(['durandal/app', 'knockout', 'services/mock', 'plugins/router'],
-function(app, ko, dataService, router) {
+define(['durandal/app', 'knockout', 'services/mock', 'plugins/router', 'durandal/system'],
+function(app, ko, dataService, router, system) {
 	return function ContactListVM() {
 		var self = this;
 
 		self.contacts = ko.observableArray();
 
 		self.activate = function() {
-			dataService.getContacts(function(contacts) {
-				self.contacts(contacts);
-			});
+			return system.defer(function(defer) {
+				dataService.getContacts(function(contacts) {
+					self.contacts(contacts);
+					defer.resolve();
+				});
+			}).promise();
 		};
 
 		//
