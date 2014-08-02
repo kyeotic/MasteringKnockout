@@ -8,7 +8,7 @@ function(system, ko, router, dataService, Contact, dialog) {
 		self.activate = function(id) {
 			//Id is only present when editing
 			if (id)
-				dataService.getContact(id, self.contact);			
+				dataService.getContact(id, self.contact);
 		};
 
 		self.saveEntry = function() {
