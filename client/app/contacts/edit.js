@@ -9,7 +9,7 @@ function(system, ko, router, dataService, Contact, system) {
 			//Id is only present when editing
 			if (!id) return;
 
-			system.defer(function(defer) {
+			return system.defer(function(defer) {
 				dataService.getContact(id, function(contact) {
 					self.contact(contact);
 					defer.resolve();
