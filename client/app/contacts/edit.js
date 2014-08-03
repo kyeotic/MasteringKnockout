@@ -27,10 +27,7 @@ function(app, ko, router, dataService, Contact) {
 		self.canDeactivate = function() {
 			if (!self.contact().state.isDirty())
 				return true;
-			return app.showMessage('You have unsaved changes. Are you sure you want to leave?', 'Cancel Edit?', ['No', 'Yes'])
-				.then(function(response) {
-					return response === 'Yes';
-				});
+			return app.showMessage('You have unsaved changes. Are you sure you want to leave?', 'Cancel Edit?', ['No', 'Yes']);
 		};
 	};
 });
