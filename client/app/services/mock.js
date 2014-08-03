@@ -76,7 +76,9 @@ define(['knockout', 'contacts/contact'], function(ko, Contact) {
 	},
 	getContact: function(id, callback) {
 		var contact = contacts[id];
-		callback(new Contact(contact));
+		setTimeout(function() {
+			callback(new Contact(contact));
+		}, 1000);	
 	},
 	createContact: function(contact, callback) {
 	  contact.id(UUID.generate());
