@@ -1,4 +1,4 @@
-define(['knockout',], function(ko, router) {
+define(['knockout'], function(ko, router) {
 	return function Contact(init) {
 		var self = this;
 		self.id = ko.observable(0);
@@ -35,5 +35,7 @@ define(['knockout',], function(ko, router) {
 			delete copy.displayName;
 			return copy;
 		};
+
+		self.state = ko.dirtyFlag(self);
 	};
 });

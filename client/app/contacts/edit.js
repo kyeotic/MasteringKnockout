@@ -1,5 +1,5 @@
-define(['durandal/system', 'knockout', 'plugins/router', 'services/mock', 'contacts/contact'], 
-function(system, ko, router, dataService, Contact) {
+define(['durandal/app', 'knockout', 'plugins/router', 'services/mock', 'contacts/contact'], 
+function(app, ko, router, dataService, Contact) {
 	return function EditContactVm(init) {
 		var self = this;
 
@@ -22,6 +22,15 @@ function(system, ko, router, dataService, Contact) {
 
 		self.close = function() {
 			router.navigate('');
+		};
+
+		self.canDeactivate = function() {
+			if (!self.contact().state.isDirty())
+				return true;
+			return app.showMessage('You have unsaved changes. Are you sure you want to leave?', 'Cancel Edit?', ['No', 'Yes'])
+				.then(function(response) {
+					return response === 'Yes';
+				});
 		};
 	};
 });
