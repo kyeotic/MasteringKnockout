@@ -7,21 +7,17 @@ function(system, ko, router, dataService, Contact) {
 
 		self.activate = function(id) {
 			//Id is only present when editing
-			if (!id) return;
-
-			dataService.getContact(id, self.contact);
+			if (id)
+				return dataService.getContact(id).then(self.contact);
 		};
 
 		self.saveEntry = function() {
-			if (self.contact().id() === 0) {
-				dataService.createContact(self.contact(), function() {
-					router.navigate('');
-				});
-			} else {
-				dataService.updateContact(self.contact(), function() {
-					router.navigate('');
-				});
-			}     
+			var action = self.contact().id() === 0
+						? dataService.createContact
+						: dataService.updateContact;
+			action(self.contact()).then(function() {
+				router.navigate('');
+			});   
 		};
 
 		self.close = function() {

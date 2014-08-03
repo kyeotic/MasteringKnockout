@@ -6,12 +6,8 @@ function(app, ko, dataService, router, system) {
 		self.contacts = ko.observableArray();
 
 		self.activate = function() {
-			return system.defer(function(defer) {
-				dataService.getContacts(function(contacts) {
-					self.contacts(contacts);
-					defer.resolve();
-				});
-			}).promise();
+			return dataService.getContacts()
+				.then(self.contacts);
 		};
 
 		//
@@ -29,7 +25,7 @@ function(app, ko, dataService, router, system) {
 			app.showMessage('Are you sure you want to delete ' + contact.displayName() + '?', 'Delete Contact?', ['No', 'Yes'])
 				.then(function(response) {
 					if (response === 'Yes') {
-						dataService.removeContact(contact.id(), function() {
+						dataService.removeContact(contact.id()).then(function() {
 							self.contacts.remove(contact);
 						}); 
 					}
