@@ -1,5 +1,5 @@
-define(['durandal/system', 'knockout', 'plugins/router', 'services/mock', 'contacts/contact'], 
-function(system, ko, router, dataService, Contact) {
+define(['durandal/system', 'knockout', 'plugins/router', 'services/mock', 'contacts/contact', 'durandal/system'], 
+function(system, ko, router, dataService, Contact, system) {
 	return function EditContactVm(init) {
 		var self = this;
 
@@ -9,7 +9,12 @@ function(system, ko, router, dataService, Contact) {
 			//Id is only present when editing
 			if (!id) return;
 
-			dataService.getContact(id, self.contact);
+			system.defer(function(defer) {
+				dataService.getContact(id, function(contact) {
+					self.contact(contact);
+					defer.resolve();
+				});
+			}).promise();
 		};
 
 		self.saveEntry = function() {
