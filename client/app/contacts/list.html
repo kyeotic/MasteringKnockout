@@ -8,5 +8,8 @@
       <button class="btn btn-primary" data-bind="click: newEntry">Add Contact</button>
     </div>
   </div>
-  <div data-bind="widget: { kind: 'contactList', data: displayContacts, edit: editContact, delete: deleteContact }"></div>
+  <div data-bind="contactList: { data: displayContacts, 
+                                 edit: editContact, 
+                                 delete: deleteContact }">
+  </div>
 </div>
