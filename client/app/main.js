@@ -28,7 +28,10 @@ function(system, app, extensions) {
     app.configurePlugins({
         //Durandal plugins
         router:true,
-        dialog: true
+        dialog: true,
+        widget: {
+            kinds: ['contactList']
+        }
     });
 
     extensions.install();
