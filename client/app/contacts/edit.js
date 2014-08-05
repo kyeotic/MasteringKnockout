@@ -16,6 +16,7 @@ function(app, ko, router, dataService, Contact) {
 						? dataService.createContact
 						: dataService.updateContact;
 			action(self.contact()).then(function() {
+				self.contact().state.reset();
 				router.navigate('');
 			});   
 		};
