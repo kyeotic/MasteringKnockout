@@ -19,7 +19,7 @@ function(app, ko, dataService, router, ContactVM) {
 		//CRUD Operations
 
 		self.newEntry = function() {
-			app.showDialog(new ContactVM())
+			new ContactVM().show()
 				.then(function(newContact) {
 					if (newContact)
 						self.contacts.push(newContact);

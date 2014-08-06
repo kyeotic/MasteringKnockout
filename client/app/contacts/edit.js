@@ -21,6 +21,10 @@ function(system, ko, router, dataService, Contact, dialog) {
 			});
 		};
 
+		self.show = function() {
+			return dialog.show(self);
+		};
+
 		self.cancel = function() {
 			self.close(null);
 		};
