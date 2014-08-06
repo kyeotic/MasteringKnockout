@@ -8,9 +8,8 @@
       <button class="btn btn-primary" data-bind="click: newEntry">Add Contact</button>
     </div>
   </div>
-  <div data-bind="contactList: { data: displayContacts, 
-                                 edit: editContact, 
-                                 delete: deleteContact }">
+  <div data-bind="contactList: { data: displayContacts, delete: deleteContact }">
      <small data-part="phone"><em data-bind="text: phoneNumber"></em></small>
+     <button data-part="edit-btn" data-bind="click: $root.editContact" class="btn btn-sm btn-default">Edit</button>
   </div>
 </div>
