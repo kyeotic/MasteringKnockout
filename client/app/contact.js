@@ -1,5 +1,5 @@
-(function(app, $, ko) {
-	app.Contact = function(init) {
+define(['knockout'], function(ko) {
+	return function Contact(init) {
 		var self = this;
 		self.id = ko.observable(0);
 		self.firstName = ko.observable('');
@@ -36,4 +36,4 @@
 			return copy;
 		};
 	};
-})(window.app = window.app || {}, jQuery, ko);
+});

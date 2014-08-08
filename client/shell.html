@@ -7,10 +7,6 @@
         <link rel="alternate stylesheet" href="content/css/bootstrap-3.1.1-cosmo.css" type="text/css" media="all" title="cosmo" />
 
         <link rel="stylesheet" href="content/css/font-awesome-4.0.3.css" type="text/css" media="all" />
-
-        <script type="text/javascript" src="lib/jquery-2.1.1.min.js"></script>
-        <script type="text/javascript" src="lib/knockout-3.1.0.js"></script>
-        <script type="text/javascript" src="lib/bootstrap-3.1.1.js"></script>
     </head>
     <body>
         <!-- Navbar -->
@@ -41,5 +37,6 @@
         <div class="container" id="appHost">
             {{ body }}
         </div>
+        <script type="text/javascript" src="/lib/require-2.1.js" data-main="/app/main"></script>
     </body>
 </html>

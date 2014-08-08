@@ -1,5 +1,5 @@
-(function(app, $, ko) {
-	app.ContactsPageViewmodel = function(dataService) {
+define(['knockout', 'contact', 'dataService'], function(ko, Contact, dataService) {
+	return function ContactsPageViewmodel() {
 		var self = this;
 
 		self.contacts = ko.observableArray();
@@ -71,9 +71,4 @@
 			}
 		});
 	};
-
-	$(document).ready(function() {
-		ko.applyBindings(new app.ContactsPageViewmodel(app.mockDataService));
-	});
-
-})(window.app = window.app || {}, jQuery, ko);
+});
