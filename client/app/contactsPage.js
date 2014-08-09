@@ -17,7 +17,7 @@ define(['knockout', 'contact', 'dataService'], function(ko, Contact, dataService
 		self.entryContact = ko.observable(null);
 
 		self.newEntry = function() {
-			self.entryContact(new app.Contact());
+			self.entryContact(new Contact());
 		};
 		self.cancelEntry = function() {
 			self.entryContact(null);
