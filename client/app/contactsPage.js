@@ -13,16 +13,7 @@ define(['knockout', 'contact', 'dataService'], function(ko, Contact, dataService
 
 		//List Component
 		ko.components.register('contact-list', {
-			template: 
-				'<ul class="list-unstyled" data-bind="foreach: contacts">'
-				    +'<li>'
-				      +'<h3>'
-				        +'<span data-bind="text: displayName"></span> <small data-bind="text: phoneNumber"></small> '
-				        +'<button class="btn btn-sm btn-default" data-bind="click: $parent.edit">Edit</button> '
-				        +'<button class="btn btn-sm btn-danger" data-bind="click: $parent.delete">Delete</button>'
-				      +'</h3>'
-				    +'</li>'
-				  +'</ul>'
+			template: { element: 'contact-list-template' }				
 		});
 
 		//
