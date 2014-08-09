@@ -7,7 +7,7 @@ require.config({
     shim: {
         'bootstrap': {
             deps: ['jquery'],
-            exports: 'jQuery'
+            exports: '$.fn.popover'
         }
     },
     waitSeconds: 30
