@@ -13,7 +13,7 @@ require.config({
     waitSeconds: 30
 });
 
-define(['jquery', 'knockout', 'contactsPage'], function($, ko, ContactsPageViewmodel) {
+define(['jquery', 'knockout', 'contactsPage', 'bootstrap'], function($, ko, ContactsPageViewmodel) {
     $(document).ready(function() {
         ko.applyBindings(new ContactsPageViewmodel());
     });
