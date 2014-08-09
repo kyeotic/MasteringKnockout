@@ -9,8 +9,7 @@ require.config({
             deps: ['jquery'],
             exports: '$.fn.popover'
         }
-    },
-    waitSeconds: 30
+    }
 });
 
 define(['jquery', 'knockout', 'contactsPage', 'bootstrap'], function($, ko, ContactsPageViewmodel) {
