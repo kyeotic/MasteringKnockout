@@ -11,11 +11,9 @@ define(['knockout', 'contact', 'dataService'], function(ko, Contact, dataService
 			self.contacts(contacts);
 		});
 
-		var template = document.getElementById('contact-list-template');
-
 		//List Component
 		ko.components.register('contact-list', {
-			template: template.content
+			template: { require: 'text!contact-list.html'}
 		});
 
 		//

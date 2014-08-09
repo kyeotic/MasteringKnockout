@@ -1,5 +1,6 @@
 require.config({
     paths: {
+        'text': '/lib/require-text-2.0.12',
         'knockout': '/lib/knockout-3.2.0',
         'bootstrap': '/lib/bootstrap-3.1.1',
         'jquery': '/lib/jquery-2.1.1.min'
