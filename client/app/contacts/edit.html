@@ -25,19 +25,3 @@
     </form>
   </div>
 </div>
-
-<div data-bind="ifnot: entryContact">
-  <h2>Contacts</h2>
-  <div class="row">
-    <div class="col-xs-8">
-      <input type="search" class="form-control" data-bind="value: query, valueUpdate: 'afterkeydown'" placeholder="Search Contacts">
-    </div>
-    <div class="col-xs-4">
-      <button class="btn btn-primary" data-bind="click: newEntry">Add Contact</button>
-    </div>
-  </div>
-  <contact-list params="contacts: displayContacts, 
-                        edit: editContact, 
-                        delete: deleteContact">
-  </contact-list>
-</div>

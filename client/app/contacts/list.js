@@ -1,5 +1,7 @@
-define(['knockout', 'contact', 'dataService'], function(ko, Contact, dataService) {
-	return function ContactsPageViewmodel() {
+define(['knockout', 'text!contacts/list.html', 'core/dataService', 'core/router'], 
+function(ko, templateString, dataService, router) {
+
+	function ContactsListViewmodel(params) {
 		var self = this;
 
 		self.contacts = ko.observableArray();
@@ -11,33 +13,14 @@ define(['knockout', 'contact', 'dataService'], function(ko, Contact, dataService
 			self.contacts(contacts);
 		});
 
-		//
-		//CRUD Operations
-
-		self.entryContact = ko.observable(null);
-
 		self.newEntry = function() {
-			self.entryContact(new Contact());
-		};
-		self.cancelEntry = function() {
-			self.entryContact(null);
-		};
-		self.editContact = function(contact) {
-			self.entryContact(contact);
+			router.navigate('/contacts/new');
 		};
 
-		self.saveEntry = function() {
-			if (self.entryContact().id() === 0) {
-				dataService.createContact(self.entryContact(), function() {
-					self.contacts.push(self.entryContact());
-					self.entryContact(null);
-				});
-			} else {
-				dataService.updateContact(self.entryContact(), function() {
-					self.entryContact(null);
-				});
-			}     
+		self.editContact = function(contact) {
+			router.navigate('/contacts/' + contact.id());
 		};
+
 		self.deleteContact = function(contact) {
 			dataService.removeContact(contact.id(), function() {
 				self.contacts.remove(contact);
@@ -70,5 +53,11 @@ define(['knockout', 'contact', 'dataService'], function(ko, Contact, dataService
 				method: 'notifyWhenChangesStop'
 			}
 		});
-	};
+
+		self.dispose = function() {
+			self.contacts.removeAll();
+		};
+	}
+
+	return { template: templateString, viewModel: ContactsListViewmodel };
 });

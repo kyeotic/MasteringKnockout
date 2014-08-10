@@ -1,4 +1,4 @@
-define(['knockout', 'contact'], function(ko, Contact) {
+define(['knockout', 'contacts/contact'], function(ko, Contact) {
 	function supportsWebStorage() {
 		try {
 			return 'localStorage' in window && window['localStorage'] !== null;
@@ -86,6 +86,10 @@ define(['knockout', 'contact'], function(ko, Contact) {
 
 	*/
 	return {
+		getContact: function(id, callback) {
+			var contact = contacts[id];
+			callback(contact ? new Contact(contact) : null);
+		},
 		getContacts: function(callback) {
 			//Return our POJO contacts as real contact objects
 			var typedContacts = [];

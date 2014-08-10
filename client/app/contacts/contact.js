@@ -21,7 +21,7 @@ define(['knockout'], function(ko) {
 		self.update = function(update) {
 			data = update || {};
 			Object.keys(data).forEach(function(prop) {
-				if (ko.isObservable(self[prop]))
+				if (ko.isWriteableObservable(self[prop]))
 					self[prop](data[prop]);
 			});
 		};
