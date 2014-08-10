@@ -11,23 +11,6 @@ define(['knockout', 'contact', 'dataService'], function(ko, Contact, dataService
 			self.contacts(contacts);
 		});
 
-		function ListViewmodel(params) {
-			this.contacts = params.contacts;
-			this.edit = params.edit;
-			this.delete = function(contact) {
-				console.log('Mock Deleting Contact', ko.toJS(contact));
-			};
-		};
-
-		//List Component
-		ko.components.register('contact-list', {
-			template: { require: 'text!contact-list.html'},
-			viewModel: { createViewModel: function(params, componentInfo) {
-				console.log('Initializing component for', componentInfo.element);
-				return new ListViewmodel(params);
-			}}
-		});
-
 		//
 		//CRUD Operations
 

@@ -14,6 +14,12 @@ require.config({
 });
 
 define(['jquery', 'knockout', 'contactsPage', 'bootstrap'], function($, ko, ContactsPageViewmodel) {
+
+    ko.components.register('contact-list', {
+        template: { require: 'text!contact-list.html'},
+        viewModel: { require: 'contact-list'}
+    });
+
     $(document).ready(function() {
         ko.applyBindings(new ContactsPageViewmodel());
     });
