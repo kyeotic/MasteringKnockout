@@ -8,8 +8,5 @@ define(['knockout', 'text!contact-list.html'], function(ko, templateString) {
 		};
 	}
 
-	return {
-        template: templateString,
-        viewModel: ListViewmodel
-    };
+	return { template: templateString, viewModel: ListViewmodel };
 });
