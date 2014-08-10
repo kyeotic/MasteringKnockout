@@ -13,7 +13,7 @@ define(['knockout', 'contact', 'dataService'], function(ko, Contact, dataService
 
 		//List Component
 		ko.components.register('contact-list', {
-			template: { element: 'contact-list-template' }				
+			template: { element: 'contactListTemplate' }
 		});
 
 		//
