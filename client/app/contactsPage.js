@@ -22,7 +22,10 @@ define(['knockout', 'contact', 'dataService'], function(ko, Contact, dataService
 		//List Component
 		ko.components.register('contact-list', {
 			template: { require: 'text!contact-list.html'},
-			viewModel: ListViewmodel
+			viewModel: { createViewModel: function(params, componentInfo) {
+				console.log('Initializing component for', componentInfo.element);
+				return new ListViewmodel(params);
+			}}
 		});
 
 		//
