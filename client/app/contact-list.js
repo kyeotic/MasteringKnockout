@@ -6,6 +6,9 @@ define(['knockout', 'text!contact-list.html'], function(ko, templateString) {
 		this.delete = function(contact) {
 			console.log('Mock Deleting Contact', ko.toJS(contact));
 		};
+		this.dispose = function() {
+			console.log('List Component Disposing');
+		};
 	}
 
 	return { template: templateString, viewModel: ListViewmodel };
