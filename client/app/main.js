@@ -48,7 +48,7 @@ define(['jquery', 'knockout', 'sammy', 'bootstrap'], function($, ko, Sammy) {
                 app.setRoute(config.component, params);
             });
         });
-    }).run();
+    });
 
     $(document).ready(function() {
         sammyConfig.run('#/');
