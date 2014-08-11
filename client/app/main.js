@@ -33,16 +33,16 @@ define(['jquery', 'knockout', 'sammy', 'bootstrap'], function($, ko, Sammy) {
 			, { route: '#/settings', 							component: 'settings-page', module: 'settings/page' }
 		];
 
-		pages.forEach(function(config) {
+		pages.forEach(function(page) {
 			//Register the component, only needs to hapen
-			ko.components.register(config.component, { require: config.module });
+			ko.components.register(page.component, { require: page.module });
 
 			//Force routes to be an array
-			if (!(config.route instanceof Array))
-				config.route = [config.route];
+			if (!(page.route instanceof Array))
+				page.route = [page.route];
 
 			//Register routes with Sammy
-			config.route.forEach(function(route) {
+			page.route.forEach(function(route) {
 				self.get(route, function() {
 
 					//Collect the parameters, if present
@@ -52,7 +52,7 @@ define(['jquery', 'knockout', 'sammy', 'bootstrap'], function($, ko, Sammy) {
 					});
 
 					//Set the page
-					pageVm.setRoute(config.component, params);
+					pageVm.setRoute(page.component, params);
 				});
 			});
 		});
