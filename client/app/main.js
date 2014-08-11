@@ -20,6 +20,7 @@ define(['jquery', 'knockout', 'sammy', 'bootstrap'], function($, ko, Sammy) {
 		name: ko.observable(),
 		data: ko.observable(),
 		setRoute: function(name, data) {
+			//Set data first, otherwise component will get old data
 			this.data(data);
 			this.name(name);
 		}

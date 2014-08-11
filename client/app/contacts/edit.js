@@ -2,11 +2,9 @@ define(['knockout', 'text!contacts/edit.html', 'core/dataService', 'core/router'
 function(ko, templateString, dataService, router, Contact) {
 
 	function ContactEditViewmodel(params) {
-		//
-		//CRUD Operations
 
 		self.entryContact = ko.observable(new Contact());
-
+		
 		if (params && params.id) {
 			dataService.getContact(params.id, function(contact) {
 				if (contact)

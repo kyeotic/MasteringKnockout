@@ -1,7 +1,7 @@
 define(['knockout', 'text!contacts/list.html', 'core/dataService', 'core/router'], 
 function(ko, templateString, dataService, router) {
 
-	function ContactsListViewmodel(params) {
+	function ContactsListViewmodel() {
 		var self = this;
 
 		self.contacts = ko.observableArray();
