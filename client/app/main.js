@@ -15,8 +15,7 @@ require.config({
 });
 
 define(['jquery', 'knockout', 'sammy', 'bootstrap'], function($, ko, Sammy) {
-
-	var page = {
+	var pageVm = {
 		name: ko.observable(),
 		data: ko.observable(),
 		setRoute: function(name, data) {
@@ -53,7 +52,7 @@ define(['jquery', 'knockout', 'sammy', 'bootstrap'], function($, ko, Sammy) {
 					});
 
 					//Set the page
-					page.setRoute(config.component, params);
+					pageVm.setRoute(config.component, params);
 				});
 			});
 		});
@@ -61,6 +60,6 @@ define(['jquery', 'knockout', 'sammy', 'bootstrap'], function($, ko, Sammy) {
 
 	$(document).ready(function() {
 		sammyConfig.run('#/');
-		ko.applyBindings(page);
+		ko.applyBindings(pageVm);
 	});
 });
