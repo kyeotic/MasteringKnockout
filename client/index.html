@@ -34,7 +34,9 @@
         </nav>
 
         <!-- Main Application Body -->
-        <div id="appHost" class="container" data-bind="component: { name: page, params: data }"></div>
+        <div id="appHost" class="container" data-bind="if: name">
+            <!-- ko component: { name: name, params: data } --><!-- /ko -->
+        </div>
         <script type="text/javascript" src="/lib/require-2.1.js" data-main="/app/main"></script>
     </body>
 </html>

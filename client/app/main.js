@@ -1,57 +1,65 @@
 require.config({
-    paths: {
-        'text': '/lib/require-text-2.0.12',
-        'knockout': '/lib/knockout-3.2.0',
-        'bootstrap': '/lib/bootstrap-3.1.1',
-        'jquery': '/lib/jquery-2.1.1.min',
-        'sammy': '/lib/sammy-0.7.4'
-    },
-    shim: {
-        'bootstrap': {
-            deps: ['jquery'],
-            exports: '$.fn.popover'
-        }
-    }
+	paths: {
+		'text': '/lib/require-text-2.0.12',
+		'knockout': '/lib/knockout-3.2.0',
+		'bootstrap': '/lib/bootstrap-3.1.1',
+		'jquery': '/lib/jquery-2.1.1.min',
+		'sammy': '/lib/sammy-0.7.4'
+	},
+	shim: {
+		'bootstrap': {
+			deps: ['jquery'],
+			exports: '$.fn.popover'
+		}
+	}
 });
 
 define(['jquery', 'knockout', 'sammy', 'bootstrap'], function($, ko, Sammy) {
 
-    ko.components.register('contact-list', { require: 'contacts/list' });
-    ko.components.register('contact-edit', { require: 'contacts/edit' });
-    ko.components.register('settings-page', { require: 'settings/page' });
+	var page = {
+		name: ko.observable(),
+		data: ko.observable(),
+		setRoute: function(name, data) {
+			this.data(data);
+			this.name(name);
+		}
+	};
 
-    var app = {
-        page: ko.observable('home-page'),
-        data: ko.observable(),
-        setRoute: function(name, data) {
-            this.data(data);
-            this.page(name);
-        }
-    };
+	var sammyConfig = Sammy('#appHost', function() {
+		var self = this;
+		var pages = [
+			  { route: ['/', '#/'], 							component: 'contact-list', 	module: 'contacts/list'} 
+			, { route: ['#/contacts/new', '#/contacts/:id'], 	component: 'contact-edit', 	module: 'contacts/edit' } 
+			, { route: '#/settings', 							component: 'settings-page', module: 'settings/page' }
+		];
 
-    var sammyConfig = Sammy('#appHost', function() {
-        var self = this,
-            routes = [
-                          { route:'#/',               component: 'contact-list'   }
-                        , { route:'/',                component: 'contact-list'   }
-                        , { route:'#/contacts/new',   component: 'contact-edit'   }
-                        , { route:'#/contacts/:id',   component: 'contact-edit'   }
-                        , { route:'#/settings',       component: 'settings-page'  }
-                    ];
-            
-        routes.forEach(function(config) {
-            self.get(config.route, function() {
-                var params = {};                
-                ko.utils.objectForEach(this.params, function(name, value) {
-                    params[name] = value;
-                });
-                app.setRoute(config.component, params);
-            });
-        });
-    });
+		pages.forEach(function(config) {
+			//Register the component, only needs to hapen
+			ko.components.register(config.component, { require: config.module });
 
-    $(document).ready(function() {
-        sammyConfig.run('#/');
-        ko.applyBindings(app);
-    });
+			//Force routes to be an array
+			if (!(config.route instanceof Array))
+				config.route = [config.route];
+
+			//Register routes with Sammy
+			config.route.forEach(function(route) {
+				self.get(route, function() {
+
+					//Collect the parameters, if present
+					var params = {};
+					ko.utils.objectForEach(this.params, function(name, value) {
+						params[name] = value;
+					});
+
+					//Set the page
+					page.setRoute(config.component, params);
+				});
+			});
+		});
+	});
+
+	$(document).ready(function() {
+		sammyConfig.run('#/');
+		ko.applyBindings(page);
+	});
 });
