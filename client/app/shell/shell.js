@@ -1,15 +1,10 @@
-define(['plugins/router', 'knockout', 'durandal/app', 'services/mock'], 
-function (router, ko, app, dataService) {
+define(['plugins/router', 'knockout', 'durandal/app', 'login/nav'], 
+function (router, ko, app, loginVm) {
 	return {
 		title: app.title,
 		router: router,
-		username: dataService.getLoginName(),
-		logout: function() {
-			dataService.logout();
-			location.href = '/';
-		},
+		login: loginVm,
 		activate: function() {
-
 			router.map([
 				{ route: '', moduleId: 'contacts/list', title: 'Contacts', nav: true },
 				{ route: 'contacts/new', moduleId: 'contacts/edit', title: 'New Contact', nav: true },
