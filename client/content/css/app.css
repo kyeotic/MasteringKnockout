@@ -1,3 +1,19 @@
 .page-host {
 	margin-top: 65px;
 }
+
+.form-signin {
+	max-width: 300px;
+	padding: 19px 29px 29px;
+	margin: 40px auto 20px;
+}
+.form-signin .form-signin-heading,
+.form-signin .checkbox {
+	margin-bottom: 10px;
+}
+.form-signin input[type="text"],
+.form-signin input[type="password"] {
+	height: auto;
+	margin-bottom: 15px;
+	padding: 7px 9px;
+}

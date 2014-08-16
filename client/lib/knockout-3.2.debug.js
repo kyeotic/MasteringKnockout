@@ -1,5 +1,5 @@
 /*!
- * Knockout JavaScript library v3.2.0-beta
+ * Knockout JavaScript library v3.2.0
  * (c) Steven Sanderson - http://knockoutjs.com/
  * License: MIT (http://www.opensource.org/licenses/mit-license.php)
  */
@@ -33,20 +33,20 @@ var DEBUG=true;
 var ko = typeof koExports !== 'undefined' ? koExports : {};
 // Google Closure Compiler helpers (used only to make the minified file smaller)
 ko.exportSymbol = function(koPath, object) {
-	var tokens = koPath.split(".");
+    var tokens = koPath.split(".");
 
-	// In the future, "ko" may become distinct from "koExports" (so that non-exported objects are not reachable)
-	// At that point, "target" would be set to: (typeof koExports !== "undefined" ? koExports : ko)
-	var target = ko;
+    // In the future, "ko" may become distinct from "koExports" (so that non-exported objects are not reachable)
+    // At that point, "target" would be set to: (typeof koExports !== "undefined" ? koExports : ko)
+    var target = ko;
 
-	for (var i = 0; i < tokens.length - 1; i++)
-		target = target[tokens[i]];
-	target[tokens[tokens.length - 1]] = object;
+    for (var i = 0; i < tokens.length - 1; i++)
+        target = target[tokens[i]];
+    target[tokens[tokens.length - 1]] = object;
 };
 ko.exportProperty = function(owner, publicName, object) {
-  owner[publicName] = object;
+    owner[publicName] = object;
 };
-ko.version = "3.2.0-beta";
+ko.version = "3.2.0";
 
 ko.exportSymbol('version', ko.version);
 ko.utils = (function () {
@@ -315,17 +315,6 @@ ko.utils = (function () {
                 string.trim ?
                     string.trim() :
                     string.toString().replace(/^[\s\xa0]+|[\s\xa0]+$/g, '');
-        },
-
-        stringTokenize: function (string, delimiter) {
-            var result = [];
-            var tokens = (string || "").split(delimiter);
-            for (var i = 0, j = tokens.length; i < j; i++) {
-                var trimmed = ko.utils.stringTrim(tokens[i]);
-                if (trimmed !== "")
-                    result.push(trimmed);
-            }
-            return result;
         },
 
         stringStartsWith: function (string, startsWith) {
@@ -1298,6 +1287,7 @@ ko.isWriteableObservable = function (instance) {
 ko.exportSymbol('observable', ko.observable);
 ko.exportSymbol('isObservable', ko.isObservable);
 ko.exportSymbol('isWriteableObservable', ko.isWriteableObservable);
+ko.exportSymbol('isWritableObservable', ko.isWriteableObservable);
 ko.observableArray = function (initialValues) {
     initialValues = initialValues || [];
 
@@ -3220,12 +3210,12 @@ ko.exportSymbol('bindingProvider', ko.bindingProvider);
             var element = templateConfig['element'];
             if (isDomElement(element)) {
                 // Element instance - copy its child nodes
-                callback(ko.utils.cloneNodes(element.childNodes));
+                callback(cloneNodesFromTemplateSourceElement(element));
             } else if (typeof element === 'string') {
                 // Element ID - find it, then copy its child nodes
                 var elemInstance = document.getElementById(element);
                 if (elemInstance) {
-                    callback(ko.utils.cloneNodes(elemInstance.childNodes));
+                    callback(cloneNodesFromTemplateSourceElement(elemInstance));
                 } else {
                     errorCallback('Cannot find element with ID ' + element);
                 }
@@ -3261,6 +3251,25 @@ ko.exportSymbol('bindingProvider', ko.bindingProvider);
         } else {
             errorCallback('Unknown viewModel value: ' + viewModelConfig);
         }
+    }
+
+    function cloneNodesFromTemplateSourceElement(elemInstance) {
+        switch (ko.utils.tagNameLower(elemInstance)) {
+            case 'script':
+                return ko.utils.parseHtmlFragment(elemInstance.text);
+            case 'textarea':
+                return ko.utils.parseHtmlFragment(elemInstance.value);
+            case 'template':
+                // For browsers with proper <template> element support (i.e., where the .content property
+                // gives a document fragment), use that document fragment.
+                if (isDocumentFragment(elemInstance.content)) {
+                    return ko.utils.cloneNodes(elemInstance.content.childNodes);
+                }
+        }
+
+        // Regular elements such as <div>, and <template> elements on old browsers that don't really
+        // understand <template> and just treat it as a regular container
+        return ko.utils.cloneNodes(elemInstance.childNodes);
     }
 
     function isDomElement(obj) {
@@ -4083,17 +4092,194 @@ ko.bindingHandlers['submit'] = {
     }
 };
 ko.bindingHandlers['text'] = {
-	'init': function() {
-		// Prevent binding on the dynamically-injected text node (as developers are unlikely to expect that, and it has security implications).
-		// It should also make things faster, as we no longer have to consider whether the text node might be bindable.
+    'init': function() {
+        // Prevent binding on the dynamically-injected text node (as developers are unlikely to expect that, and it has security implications).
+        // It should also make things faster, as we no longer have to consider whether the text node might be bindable.
         return { 'controlsDescendantBindings': true };
-	},
+    },
     'update': function (element, valueAccessor) {
         ko.utils.setTextContent(element, valueAccessor());
     }
 };
 ko.virtualElements.allowedBindings['text'] = true;
-ko.bindingHandlers['uniqueName'] = {
+(function () {
+
+if (window && window.navigator) {
+    var parseVersion = function (matches) {
+        if (matches) {
+            return parseFloat(matches[1]);
+        }
+    };
+
+    // Detect various browser versions because some old versions don't fully support the 'input' event
+    var operaVersion = window.opera && window.opera.version && parseInt(window.opera.version()),
+        userAgent = window.navigator.userAgent,
+        safariVersion = parseVersion(userAgent.match(/^(?:(?!chrome).)*version\/([^ ]*) safari/i)),
+        firefoxVersion = parseVersion(userAgent.match(/Firefox\/([^ ]*)/));
+}
+
+// IE 8 and 9 have bugs that prevent the normal events from firing when the value changes.
+// But it does fire the 'selectionchange' event on many of those, presumably because the
+// cursor is moving and that counts as the selection changing. The 'selectionchange' event is
+// fired at the document level only and doesn't directly indicate which element changed. We
+// set up just one event handler for the document and use 'activeElement' to determine which
+// element was changed.
+if (ko.utils.ieVersion < 10) {
+    var selectionChangeRegisteredName = ko.utils.domData.nextKey(),
+        selectionChangeHandlerName = ko.utils.domData.nextKey();
+    var selectionChangeHandler = function(event) {
+        var target = this.activeElement,
+            handler = target && ko.utils.domData.get(target, selectionChangeHandlerName);
+        if (handler) {
+            handler(event);
+        }
+    };
+    var registerForSelectionChangeEvent = function (element, handler) {
+        var ownerDoc = element.ownerDocument;
+        if (!ko.utils.domData.get(ownerDoc, selectionChangeRegisteredName)) {
+            ko.utils.domData.set(ownerDoc, selectionChangeRegisteredName, true);
+            ko.utils.registerEventHandler(ownerDoc, 'selectionchange', selectionChangeHandler);
+        }
+        ko.utils.domData.set(element, selectionChangeHandlerName, handler);
+    };
+}
+
+ko.bindingHandlers['textInput'] = {
+    'init': function (element, valueAccessor, allBindings) {
+
+        var previousElementValue = element.value,
+            timeoutHandle,
+            elementValueBeforeEvent;
+
+        var updateModel = function (event) {
+            clearTimeout(timeoutHandle);
+            elementValueBeforeEvent = timeoutHandle = undefined;
+
+            var elementValue = element.value;
+            if (previousElementValue !== elementValue) {
+                // Provide a way for tests to know exactly which event was processed
+                if (DEBUG && event) element['_ko_textInputProcessedEvent'] = event.type;
+                previousElementValue = elementValue;
+                ko.expressionRewriting.writeValueToProperty(valueAccessor(), allBindings, 'textInput', elementValue);
+            }
+        };
+
+        var deferUpdateModel = function (event) {
+            if (!timeoutHandle) {
+                // The elementValueBeforeEvent variable is set *only* during the brief gap between an
+                // event firing and the updateModel function running. This allows us to ignore model
+                // updates that are from the previous state of the element, usually due to techniques
+                // such as rateLimit. Such updates, if not ignored, can cause keystrokes to be lost.
+                elementValueBeforeEvent = element.value;
+                var handler = DEBUG ? updateModel.bind(element, {type: event.type}) : updateModel;
+                timeoutHandle = setTimeout(handler, 4);
+            }
+        };
+
+        var updateView = function () {
+            var modelValue = ko.utils.unwrapObservable(valueAccessor());
+
+            if (modelValue === null || modelValue === undefined) {
+                modelValue = '';
+            }
+
+            if (elementValueBeforeEvent !== undefined && modelValue === elementValueBeforeEvent) {
+                setTimeout(updateView, 4);
+                return;
+            }
+
+            // Update the element only if the element and model are different. On some browsers, updating the value
+            // will move the cursor to the end of the input, which would be bad while the user is typing.
+            if (element.value !== modelValue) {
+                previousElementValue = modelValue;  // Make sure we ignore events (propertychange) that result from updating the value
+                element.value = modelValue;
+            }
+        };
+
+        var onEvent = function (event, handler) {
+            ko.utils.registerEventHandler(element, event, handler);
+        };
+
+        if (DEBUG && ko.bindingHandlers['textInput']['_forceUpdateOn']) {
+            // Provide a way for tests to specify exactly which events are bound
+            ko.utils.arrayForEach(ko.bindingHandlers['textInput']['_forceUpdateOn'], function(eventName) {
+                if (eventName.slice(0,5) == 'after') {
+                    onEvent(eventName.slice(5), deferUpdateModel);
+                } else {
+                    onEvent(eventName, updateModel);
+                }
+            });
+        } else {
+            if (ko.utils.ieVersion < 10) {
+                // Internet Explorer <= 8 doesn't support the 'input' event, but does include 'propertychange' that fires whenever
+                // any property of an element changes. Unlike 'input', it also fires if a property is changed from JavaScript code,
+                // but that's an acceptable compromise for this binding. IE 9 does support 'input', but since it doesn't fire it
+                // when using autocomplete, we'll use 'propertychange' for it also.
+                onEvent('propertychange', function(event) {
+                    if (event.propertyName === 'value') {
+                        updateModel(event);
+                    }
+                });
+
+                if (ko.utils.ieVersion == 8) {
+                    // IE 8 has a bug where it fails to fire 'propertychange' on the first update following a value change from
+                    // JavaScript code. It also doesn't fire if you clear the entire value. To fix this, we bind to the following
+                    // events too.
+                    onEvent('keyup', updateModel);      // A single keystoke
+                    onEvent('keydown', updateModel);    // The first character when a key is held down
+                }
+                if (ko.utils.ieVersion >= 8) {
+                    // Internet Explorer 9 doesn't fire the 'input' event when deleting text, including using
+                    // the backspace, delete, or ctrl-x keys, clicking the 'x' to clear the input, dragging text
+                    // out of the field, and cutting or deleting text using the context menu. 'selectionchange'
+                    // can detect all of those except dragging text out of the field, for which we use 'dragend'.
+                    // These are also needed in IE8 because of the bug described above.
+                    registerForSelectionChangeEvent(element, updateModel);  // 'selectionchange' covers cut, paste, drop, delete, etc.
+                    onEvent('dragend', deferUpdateModel);
+                }
+            } else {
+                // All other supported browsers support the 'input' event, which fires whenever the content of the element is changed
+                // through the user interface.
+                onEvent('input', updateModel);
+
+                if (safariVersion < 5 && ko.utils.tagNameLower(element) === "textarea") {
+                    // Safari <5 doesn't fire the 'input' event for <textarea> elements (it does fire 'textInput'
+                    // but only when typing). So we'll just catch as much as we can with keydown, cut, and paste.
+                    onEvent('keydown', deferUpdateModel);
+                    onEvent('paste', deferUpdateModel);
+                    onEvent('cut', deferUpdateModel);
+                } else if (operaVersion < 11) {
+                    // Opera 10 doesn't always fire the 'input' event for cut, paste, undo & drop operations.
+                    // We can try to catch some of those using 'keydown'.
+                    onEvent('keydown', deferUpdateModel);
+                } else if (firefoxVersion < 4.0) {
+                    // Firefox <= 3.6 doesn't fire the 'input' event when text is filled in through autocomplete
+                    onEvent('DOMAutoComplete', updateModel);
+
+                    // Firefox <=3.5 doesn't fire the 'input' event when text is dropped into the input.
+                    onEvent('dragdrop', updateModel);       // <3.5
+                    onEvent('drop', updateModel);           // 3.5
+                }
+            }
+        }
+
+        // Bind to the change event so that we can catch programmatic updates of the value that fire this event.
+        onEvent('change', updateModel);
+
+        ko.computed(updateView, null, { disposeWhenNodeIsRemoved: element });
+    }
+};
+ko.expressionRewriting.twoWayBindings['textInput'] = true;
+
+// textinput is an alias for textInput
+ko.bindingHandlers['textinput'] = {
+    // preprocess is the only way to set up a full alias
+    'preprocess': function (value, name, addBinding) {
+        addBinding('textInput', value);
+    }
+};
+
+})();ko.bindingHandlers['uniqueName'] = {
     'init': function (element, valueAccessor) {
         if (valueAccessor()) {
             var name = "ko_unique_" + (++ko.bindingHandlers['uniqueName'].currentIndex);
@@ -4368,10 +4554,10 @@ ko.exportSymbol('__tr_ambtns', ko.templateRewriting.applyMemoizedBindingsToNextS
     //                                           with the rendered template output.
     // You can implement your own template source if you want to fetch/store templates somewhere other than in DOM elements.
     // Template sources need to have the following functions:
-    //   text() 			- returns the template text from your storage location
-    //   text(value)		- writes the supplied template text to your storage location
-    //   data(key)			- reads values stored using data(key, value) - see below
-    //   data(key, value)	- associates "value" with this template and the key "key". Is used to store information like "isRewritten".
+    //   text()             - returns the template text from your storage location
+    //   text(value)        - writes the supplied template text to your storage location
+    //   data(key)          - reads values stored using data(key, value) - see below
+    //   data(key, value)   - associates "value" with this template and the key "key". Is used to store information like "isRewritten".
     //
     // Optionally, template sources can also have the following functions:
     //   nodes()            - returns a DOM element containing the nodes of this template, where available

@@ -18,7 +18,10 @@
                     </li>
                 </ul>
                 <div class="nav navbar-nav navbar-right">
-                    <i class="fa fa-spinner fa-3x fa-spin" data-bind="visible: router.isNavigating"></i>
+                    <p class="navbar-text">                    
+                        <span data-bind="text: username"></span> | 
+                        <a href="#" data-bind="click: logout" class="navbar-link">Logout</a>
+                    </p>
                 </div>
             </nav>
         </div>
