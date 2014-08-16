@@ -6,7 +6,7 @@ function (router, ko, app, dataService) {
 		username: dataService.getLoginName(),
 		logout: function() {
 			dataService.logout();
-			location.reload();
+			location.href = '/';
 		},
 		activate: function() {
 
