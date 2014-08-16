@@ -73,24 +73,6 @@ define(['knockout', 'contacts/contact', 'durandal/system'], function(ko, Contact
 	}
 
 	return {
-		//Login
-		isLoggedIn: function() {
-			return storage.get('loginToken') != null;
-		},
-		getLoginName: function() {
-			return storage.get('loginToken');
-		},
-		tryLogin: function(username, password) {
-			var success = username === password;
-			if (success)
-				storage.set('loginToken', username);
-
-			return getTimeoutPromise(success);
-		},
-		logout: function() {
-			storage.remove('loginToken');
-		},
-
 		//Contacts
 		getContacts: function() {
 			var typedContacts = [];

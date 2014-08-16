@@ -1,13 +1,8 @@
-define(['plugins/router', 'knockout', 'durandal/app', 'services/mock'], 
-function (router, ko, app, dataService) {
+define(['plugins/router', 'knockout', 'durandal/app'], 
+function (router, ko, app) {
 	return {
 		title: app.title,
 		router: router,
-		username: dataService.getLoginName(),
-		logout: function() {
-			dataService.logout();
-			location.href = '/';
-		},
 		activate: function() {
 
 			router.map([
