@@ -9,10 +9,10 @@
 <!-- ko ifnot: isLoggedIn -->
 	<form class="navbar-form" data-bind="submit: signIn">
 		<div class="form-group" data-bind="css: { 'has-error': signInError }">
-			<input type="text" class="form-control input-sm" placeholder="Username" data-bind="textInput: username" />
+			<input type="text" class="form-control input-sm login-input" placeholder="Username" data-bind="textInput: username" />
 		</div>
 		<div class="form-group" data-bind="css: { 'has-error': signInError }">
-			<input type="password" class="form-control input-sm" placeholder="Password" data-bind="textInput: password" />
+			<input type="password" class="form-control input-sm login-input" placeholder="Password" data-bind="textInput: password" />
 		</div>
 		<button class="btn btn-sm" data-bind="css: { 'btn-primary': !signInError(), 'btn-danger': signInError }" type="submit">Sign in</button>
 	</form>
