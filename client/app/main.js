@@ -17,7 +17,7 @@ require.config({
     waitSeconds: 30
 });
 
-define(['durandal/system', 'durandal/app'],
+define(['durandal/system', 'durandal/app', 'bootstrap'],
 function(system, app, extensions) {
 
     system.debug(true);
