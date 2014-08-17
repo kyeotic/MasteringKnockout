@@ -73,33 +73,33 @@ function(ko, Contact, system, Events) {
 		}).promise();
 	}
 
-	var dataService = {};
-	Events.includeIn(dataService);
+var dataService = {};
+Events.includeIn(dataService);
 
-	//Contacts
-	dataService.getContacts = function() {
-		var typedContacts = [];
-		for (var c in contacts) {
-			if (contacts.hasOwnProperty(c)) {
-				typedContacts.push(new Contact(contacts[c]))
-			}
+//Contacts
+dataService.getContacts = function() {
+	var typedContacts = [];
+	for (var c in contacts) {
+		if (contacts.hasOwnProperty(c)) {
+			typedContacts.push(new Contact(contacts[c]))
 		}
-		return getTimeoutPromise(typedContacts);
-	};
-	dataService.getContact = function(id, callback) {
-		return getTimeoutPromise(new Contact(contacts[id]));
-	};
-	dataService.createContact = function(contact) {
-		contact.id(UUID.generate());
-		//Add it to the cache
-		contacts[contact.id()] = ko.toJS(contact);
-		//Save it
-		saveAllContacts();
-		return getTimeoutPromise(contact).then(function() {
-			dataService.trigger('contact:added', contact);
-			return contact;
-		});
-	};
+	}
+	return getTimeoutPromise(typedContacts);
+};
+dataService.getContact = function(id, callback) {
+	return getTimeoutPromise(new Contact(contacts[id]));
+};
+dataService.createContact = function(contact) {
+	contact.id(UUID.generate());
+	//Add it to the cache
+	contacts[contact.id()] = ko.toJS(contact);
+	//Save it
+	saveAllContacts();
+	return getTimeoutPromise(contact).then(function() {
+		dataService.trigger('contact:added', contact);
+		return contact;
+	});
+};
 	dataService.updateContact = function(contact) {
 		//Create an unwrapped copy
 		contactId = contact.id();
