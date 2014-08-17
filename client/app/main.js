@@ -17,7 +17,7 @@ require.config({
     waitSeconds: 30
 });
 
-define(['durandal/system', 'durandal/app', 'common/extensions', 'services/mock'],
+define(['durandal/system', 'durandal/app', 'common/extensions', 'services/mock', 'bootstrap'],
 function(system, app, extensions, dataService) {
 
     //>>excludeStart("build", true);
