@@ -1,4 +1,5 @@
-define(['knockout', 'contacts/contact', 'durandal/system'], function(ko, Contact, system) {
+define(['knockout', 'contacts/contact', 'durandal/system', 'durandal/events'], 
+function(ko, Contact, system, Events) {
 
 	var timeoutFake = 10;
 
@@ -72,49 +73,55 @@ define(['knockout', 'contacts/contact', 'durandal/system'], function(ko, Contact
 		}).promise();
 	}
 
-	return {
-		//Contacts
-		getContacts: function() {
-			var typedContacts = [];
-			for (var c in contacts) {
-				if (contacts.hasOwnProperty(c)) {
-					typedContacts.push(new Contact(contacts[c]))
-				}
+	var dataService = {};
+	Events.includeIn(dataService);
+
+	//Contacts
+	dataService.getContacts = function() {
+		var typedContacts = [];
+		for (var c in contacts) {
+			if (contacts.hasOwnProperty(c)) {
+				typedContacts.push(new Contact(contacts[c]))
 			}
-			return getTimeoutPromise(typedContacts);
-		},
-		getContact: function(id, callback) {
-			return getTimeoutPromise(new Contact(contacts[id]));
-		},
-		createContact: function(contact) {
-			contact.id(UUID.generate());
-			//Add it to the cache
-			contacts[contact.id()] = ko.toJS(contact);
-			//Save it
-			saveAllContacts();
-			return getTimeoutPromise(contact);
-		},
-		updateContact: function(contact) {
-			//Create an unwrapped copy
-			contactId = contact.id();
-
-			if (contactId === undefined || contactId === 0)
-				throw new Error('Unable to update contact, it must first be created to receive an id');
-
-			if (contacts[contactId] === undefined)
-				throw new Error('Unable to update contact, it does not exist');
-
-			//Set the contact
-			contacts[contactId] = ko.toJS(contact);
-			saveAllContacts();
-			return getTimeoutPromise(contact);
-		},
-		removeContact: function(contactId) {
-			//If the contact doesn't exist, removing should still succeed
-			delete contacts[contactId];
-			saveAllContacts();
-
-			return getTimeoutPromise();
 		}
+		return getTimeoutPromise(typedContacts);
 	};
+	dataService.getContact = function(id, callback) {
+		return getTimeoutPromise(new Contact(contacts[id]));
+	};
+	dataService.createContact = function(contact) {
+		contact.id(UUID.generate());
+		//Add it to the cache
+		contacts[contact.id()] = ko.toJS(contact);
+		//Save it
+		saveAllContacts();
+		return getTimeoutPromise(contact).then(function() {
+			dataService.trigger('contact:added', contact);
+			return contact;
+		});
+	};
+	dataService.updateContact = function(contact) {
+		//Create an unwrapped copy
+		contactId = contact.id();
+
+		if (contactId === undefined || contactId === 0)
+			throw new Error('Unable to update contact, it must first be created to receive an id');
+
+		if (contacts[contactId] === undefined)
+			throw new Error('Unable to update contact, it does not exist');
+
+		//Set the contact
+		contacts[contactId] = ko.toJS(contact);
+		saveAllContacts();
+		return getTimeoutPromise(contact);
+	};
+	dataService.removeContact = function(contactId) {
+		//If the contact doesn't exist, removing should still succeed
+		delete contacts[contactId];
+		saveAllContacts();
+
+		return getTimeoutPromise();
+	};
+
+	return dataService;
 });

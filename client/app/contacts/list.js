@@ -14,7 +14,7 @@ function(app, ko, dataService, router, system) {
 			return singleActivate;
 		};
 
-		app.on('contact:added', self.contacts.push, self.contacts);
+		dataService.on('contact:added', self.contacts.push, self.contacts);
 
 		//
 		//CRUD Operations

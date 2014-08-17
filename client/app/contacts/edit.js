@@ -11,21 +11,14 @@ function(app, ko, router, dataService, Contact) {
 				return dataService.getContact(id).then(self.contact);
 		};
 
-		var contactAdded = app.proxy('contact:added');
-		var goToList = function() {
-			self.contact().state.reset();
-			router.navigate('');
-		}
-
 		self.saveEntry = function() {
-			if (self.contact().id() === 0) {
-				dataService.createContact(self.contact())
-					.then(contactAdded)
-					.then(goToList);
-			} else {
-				dataService.updateContact(self.contact())
-					.then(goToList);
-			}
+			var action = self.contact().id() === 0
+						? dataService.createContact
+						: dataService.updateContact;
+			action(self.contact()).then(function() {
+				self.contact().state.reset();
+				router.navigate('');
+			});   
 		};
 
 		self.close = function() {
