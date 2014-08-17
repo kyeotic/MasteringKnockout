@@ -8,8 +8,16 @@
       <button class="btn btn-primary" data-bind="click: newEntry">Add Contact</button>
     </div>
   </div>
-  <div data-bind="contactList: { data: displayContacts, delete: deleteContact }">
-     <small data-part="phone"><em data-bind="text: phoneNumber"></em></small>
-     <button data-part="edit-btn" data-bind="click: $root.editContact" class="btn btn-sm btn-default">Edit</button>
-  </div>
+  <ul class="list-unstyled" data-bind="foreach: displayContacts">
+    <li>
+      <h3>
+        <span data-bind="text: displayName"></span>
+        <small data-bind="text: phoneNumber" data-part="phone"></small>
+        <!-- ko if: $parent.canEdit -->
+        <button class="btn btn-sm btn-default" data-part="edit-btn" data-bind="click: $parent.editContact">Edit</button>
+        <button class="btn btn-sm btn-danger" data-bind="click: $parent.deleteContact">Delete</button>
+        <!-- /ko -->
+      </h3>
+    </li>
+  </ul>
 </div>

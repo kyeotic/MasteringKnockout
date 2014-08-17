@@ -1,9 +1,9 @@
-define(['plugins/router', 'knockout', 'durandal/app', 'login/nav'], 
-function (router, ko, app, loginVm) {
+define(['plugins/router', 'knockout', 'durandal/app', 'login/nav', 'services/mock'], 
+function (router, ko, app, LoginVm, dataService) {
 	return {
 		title: app.title,
 		router: router,
-		login: loginVm,
+		login: new LoginVm,
 		activate: function() {
 			router.map([
 				{ route: '', moduleId: 'contacts/list', title: 'Contacts', nav: true },
@@ -12,6 +12,15 @@ function (router, ko, app, loginVm) {
 			])
 			.buildNavigationModel()
 			.mapUnknownRoutes('shell/error', 'not-found');
+
+			var contactRoute = router.navigationModel()[1];
+
+			ko.computed(function() {
+				if (dataService.isLoggedIn() && router.navigationModel().indexOf(contactRoute) === -1)
+					router.navigationModel.push(contactRoute);
+				else
+					router.navigationModel.remove(contactRoute);
+			});
 
 			return router.activate({ pushState: true });
 		}

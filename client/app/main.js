@@ -30,7 +30,7 @@ function(system, app, extensions) {
         router:true,
         dialog: true,
         widget: {
-            kinds: ['contactList']
+            kinds: []
         }
     });
 

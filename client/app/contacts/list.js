@@ -1,14 +1,20 @@
 define(['durandal/app', 'knockout', 'services/mock', 'plugins/router', 'durandal/system'],
 function(app, ko, dataService, router, system) {
-	return function ContactListVM() {
+	function ContactListVM() {
 		var self = this;
 
 		self.contacts = ko.observableArray();
 
+		var singleActivate = dataService.getContacts()
+			.then(function(contacts) {
+				self.contacts(contacts);
+			});
+
 		self.activate = function() {
-			return dataService.getContacts()
-				.then(self.contacts);
+			return singleActivate;
 		};
+
+		dataService.on('contact:added', self.contacts.push, self.contacts);
 
 		//
 		//CRUD Operations
@@ -31,6 +37,10 @@ function(app, ko, dataService, router, system) {
 					}
 				});
 		};
+
+		self.canEdit = ko.computed(function() {
+			return dataService.isLoggedIn();
+		});
 
 		//
 		//Searching
@@ -60,4 +70,6 @@ function(app, ko, dataService, router, system) {
 		});
 
 	};
+
+	return new ContactListVM();
 });

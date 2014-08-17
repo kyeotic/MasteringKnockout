@@ -9,9 +9,12 @@ define(['durandal/app', 'knockout', 'services/mock'], function(app, ko, dataServ
 		self.signInError = ko.observable(false);
 
 		if (dataService.isLoggedIn()) {
-			self.username(dataService.getLoginName())
-			self.isLoggedIn(true);
+			self.username(dataService.loginName())
 		}
+
+		self.isLoggedIn = ko.computed(function() {
+			return dataService.isLoggedIn();
+		});
 
 		self.signIn = function() {
 			if (self.isLoggedIn())
@@ -22,7 +25,6 @@ define(['durandal/app', 'knockout', 'services/mock'], function(app, ko, dataServ
 				.then(function(result) {
 					if (result) {
 						self.password('');
-						self.isLoggedIn(true);
 						return;
 					}
 					self.signInError(true);
@@ -32,7 +34,6 @@ define(['durandal/app', 'knockout', 'services/mock'], function(app, ko, dataServ
 		self.logout = function() {
 			self.username('');
 			self.password('');
-			self.isLoggedIn(false);
 			dataService.logout();
 		};
 	};
