@@ -17,8 +17,8 @@ require.config({
     waitSeconds: 30
 });
 
-define(['durandal/system', 'durandal/app', 'common/extensions'],
-function(system, app, extensions) {
+define(['durandal/system', 'durandal/app', 'common/extensions', 'services/mock'],
+function(system, app, extensions, dataService) {
 
     //>>excludeStart("build", true);
     system.debug(true);
@@ -38,6 +38,6 @@ function(system, app, extensions) {
 
     app.title = 'Mastering Knockout';
     app.start().then(function () {
-        app.setRoot('shell/shell');
+        app.setRoot(dataService.isLoggedIn() ? 'shell/shell' : 'login/page');
     });
 });
