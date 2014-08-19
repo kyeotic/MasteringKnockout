@@ -5,6 +5,10 @@ function(app, ko, router, dataService, Contact) {
 
 		self.contact = ko.observable(new Contact());
 
+		self.canActivate = function() {
+			return dataService.isLoggedIn();
+		};
+
 		self.activate = function(id) {
 			//Id is only present when editing
 			if (id)

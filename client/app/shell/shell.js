@@ -7,19 +7,20 @@ function (router, ko, app, LoginVm, dataService) {
 		activate: function() {
 			router.map([
 				{ route: '', moduleId: 'contacts/list', title: 'Contacts', nav: true },
-				{ route: 'contacts/new', moduleId: 'contacts/edit', title: 'New Contact', nav: true },
+				{ route: 'contacts/new', moduleId: 'contacts/edit', title: 'New Contact', nav: true, auth: true },
 				{ route: 'contacts/:id', moduleId: 'contacts/edit', title: 'Contact Details', nav: false }
 			])
 			.buildNavigationModel()
 			.mapUnknownRoutes('shell/error', 'not-found');
 
-			var contactRoute = router.navigationModel()[1];
-
-			ko.computed(function() {
-				if (dataService.isLoggedIn() && router.navigationModel().indexOf(contactRoute) === -1)
-					router.navigationModel.push(contactRoute);
+			var navigationModel = router.navigationModel();
+			router.navigationModel = ko.computed(function() {
+				if (dataService.isLoggedIn())
+					return navigationModel;
 				else
-					router.navigationModel.remove(contactRoute);
+					return navigationModel.filter(function(route) {
+						return !route.auth;
+					});
 			});
 
 			return router.activate({ pushState: true });

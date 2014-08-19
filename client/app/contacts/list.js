@@ -24,6 +24,8 @@ function(app, ko, dataService, router, system) {
 		};
 		
 		self.editContact = function(contact) {
+			if (!self.canEdit())
+				return;
 			router.navigate('contacts/' + contact.id());
 		};
 		
