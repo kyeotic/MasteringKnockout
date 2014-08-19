@@ -12,9 +12,9 @@ function (router, ko, app, LoginVm, dataService) {
 			])
 			.buildNavigationModel()
 			.mapUnknownRoutes('shell/error', 'not-found');
-
-			var navigationModel = router.navigationModel();
-			router.navigationModel = ko.computed(function() {
+			
+			this.navigationModel = ko.computed(function() {
+				var navigationModel = router.navigationModel();
 				if (dataService.isLoggedIn())
 					return navigationModel;
 				else
