@@ -1,6 +1,6 @@
 define(['durandal/app', 'knockout', 'plugins/router', 'services/mock', 'contacts/contact'], 
 function(app, ko, router, dataService, Contact) {
-	return function EditContactVm(init) {
+	function EditContactVm(init) {
 		var self = this;
 
 		self.contact = ko.observable(new Contact());
@@ -31,4 +31,6 @@ function(app, ko, router, dataService, Contact) {
 			return app.showMessage('You have unsaved changes. Are you sure you want to leave?', 'Cancel Edit?', ['No', 'Yes']);
 		};
 	};
+
+	return new EditContactVm();
 });
