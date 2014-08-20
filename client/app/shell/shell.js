@@ -8,7 +8,7 @@ function (router, ko, app, LoginVm, dataService) {
 			router.map([
 				{ route: '', moduleId: 'contacts/list', title: 'Contacts', nav: true },
 				{ route: 'contacts/new', moduleId: 'contacts/edit', title: 'New Contact', nav: true, auth: true },
-				{ route: 'contacts/:id', moduleId: 'contacts/edit', title: 'Contact Details', nav: false }
+				{ route: 'contacts/:id', moduleId: 'contacts/edit', title: 'Contact Details', nav: false, auth: true }
 			])
 			.buildNavigationModel()
 			.mapUnknownRoutes('shell/error', 'not-found');
@@ -22,6 +22,10 @@ function (router, ko, app, LoginVm, dataService) {
 						return !route.auth;
 					});
 			});
+
+			router.guardRoute = function(model, instruction) {
+				return !(instruction.config.auth && !dataService.isLoggedIn()) || 'shell/error';
+			};
 
 			return router.activate({ pushState: true });
 		}
