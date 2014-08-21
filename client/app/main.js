@@ -3,15 +3,16 @@ require.config({
         'text': '/lib/require/text',
         'durandal':'/lib/durandal/js',
         'plugins' : '/lib/durandal/js/plugins',
-        'transitions' : '/lib/durandal/js/transitions',
+        // 'transitions' : '/lib/durandal/js/transitions',
         'knockout': '/lib/knockout-3.2.debug',
         'bootstrap': '/lib/bootstrap-3.1.1',
-        'jquery': '/lib/jquery-2.1.1.min'
+        'jquery': '/lib/jquery-2.1.1.min',
+        'jquery-ui': '/lib/jquery-ui.min'
     },
     shim: {
         'bootstrap': {
             deps: ['jquery'],
-            exports: 'jQuery'
+            exports: '$.fn.popover'
         }
     },
     waitSeconds: 30
