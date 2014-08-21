@@ -23,8 +23,10 @@ define(['durandal/system', 'jquery', 'jquery-ui'], function(system, $) {
 
 	        if (currentView)
 				$(currentView).hide('slide', { direction: outDirection, easing: easing }, outDuration, newView ? slideIn : endTransition);
-			else
-				slideIn();
+			else {
+				$(newView).show();
+				endTransition();
+			}
 
 		}).promise();
 	};
