@@ -67,5 +67,6 @@ function(app, ko, dataService, router, system) {
 
 	};
 
-	return new ContactListVM();
+	return ContactListVM;
+	//return new ContactListVM();
 });
