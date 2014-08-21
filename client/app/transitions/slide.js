@@ -28,4 +28,4 @@ define(['durandal/system', 'jquery', 'jquery-ui'], function(system, $) {
 
 		}).promise();
 	};
-})
+});
