@@ -1,5 +1,6 @@
 .page-host {
 	margin-top: 65px;
+	position: relative;
 }
 
 .form-signin {

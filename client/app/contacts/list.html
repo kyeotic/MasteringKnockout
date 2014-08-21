@@ -1,15 +1,17 @@
-<div>
-  <h2>Contacts</h2>
-  <div class="row">
-    <div class="col-xs-8">
-      <input type="search" class="form-control" data-bind="value: query, valueUpdate: 'afterkeydown'" placeholder="Search Contacts">
+<div class="row">
+  <div class="col-xs-12">
+    <h2>Contacts</h2>
+    <div class="row">
+      <div class="col-xs-8">
+        <input type="search" class="form-control" data-bind="value: query, valueUpdate: 'afterkeydown'" placeholder="Search Contacts">
+      </div>
+      <div class="col-xs-4">
+        <button class="btn btn-primary" data-bind="click: newEntry">Add Contact</button>
+      </div>
     </div>
-    <div class="col-xs-4">
-      <button class="btn btn-primary" data-bind="click: newEntry">Add Contact</button>
+    <div data-bind="contactList: { data: displayContacts, delete: deleteContact }">
+       <small data-part="phone"><em data-bind="text: phoneNumber"></em></small>
+       <button data-part="edit-btn" data-bind="click: $root.editContact" class="btn btn-sm btn-default">Edit</button>
     </div>
-  </div>
-  <div data-bind="contactList: { data: displayContacts, delete: deleteContact }">
-     <small data-part="phone"><em data-bind="text: phoneNumber"></em></small>
-     <button data-part="edit-btn" data-bind="click: $root.editContact" class="btn btn-sm btn-default">Edit</button>
-  </div>
+  </div>  
 </div>
