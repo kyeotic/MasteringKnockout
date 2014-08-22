@@ -28,7 +28,7 @@ function(app, ko, dataService, router, ListItem) {
 				.then(function(response) {
 					if (response === 'Yes') {
 						dataService.removeContact(contact.id()).then(function() {
-							self.contacts.remove(contact);
+							self.contacts.remove(listItem);
 						}); 
 					}
 				});

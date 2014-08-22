@@ -32,5 +32,5 @@ function(app, ko, router, dataService, Contact) {
 		};
 	};
 
-	return new EditContactVm();
+	return EditContactVm;
 });
