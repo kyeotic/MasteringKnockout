@@ -3,6 +3,12 @@
 	position: relative;
 }
 
+.edit-container {
+	padding: 20px;
+	min-width: 600px;
+	background-color: #222222;
+}
+
 .page-sub-host {
 	position: relative;
 }
