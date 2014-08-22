@@ -1,5 +1,7 @@
 <h3 data-bind="with: contact">
 	<span data-bind="text: displayName"></span>
 	<small data-bind="text: phoneNumber" data-part="phone"></small>
-	<button class="btn btn-sm btn-default" data-part="edit-btn" data-bind="click: $parent.edit">Edit</button>
+	<div class="inline" data-part="btn-container">
+		<button class="btn btn-sm btn-default" data-part="edit-btn" data-bind="click: edit">Edit</button>
+	</div>
 </h3>
