@@ -3,6 +3,10 @@
 	position: relative;
 }
 
+.page-sub-host {
+	position: relative;
+}
+
 .form-signin {
 	max-width: 300px;
 	padding: 19px 29px 29px;

@@ -1,0 +1,17 @@
+<div class="row">
+	<div class="col-sm-12 col-md-10 col-lg-8">
+		<h1>About</h1>
+
+		<p>This site is a tutorial application for use in the book <em>Mastering Knockout</em>, a book for developers who are interested in learning to use the popular JavaScript library KnockoutJS.</p>
+
+		<ul class="nav nav-tabs" role="tablist" data-bind="foreach: router.navigationModel">
+			<li data-bind="css: { active: isActive }">
+			    <a class="" data-bind="attr: { href: hash }, text: title"></a>
+			</li>
+		</ul>
+		<div class="page-sub-host">
+			<!-- ko router: { cacheViews: false }--> <!-- /ko -->
+		</div>
+	</div>
+</div>
+
