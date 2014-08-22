@@ -22,7 +22,7 @@ function(app, ko, router, dataService, Contact, dialog) {
 		};
 
 		self.show = function() {
-			return dialog.show(self);
+			return dialog.showBootstrap(self);
 		};
 
 		self.cancel = function() {
