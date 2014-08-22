@@ -12,7 +12,8 @@
     <ul class="list-unstyled" data-bind="foreach: displayContacts">
       <li data-bind="compose: { model: $data, mode: 'templated' }">
       <div data-part="btn-container" class="inline">
-          <button data-bind="click: $root.deleteContact" class="btn btn-sm btn-danger">Delete</button>
+        <button class="btn btn-sm btn-default"  data-bind="click: edit">Edit</button>
+        <button data-bind="click: $root.deleteContact" class="btn btn-sm btn-danger">Delete</button>
       </div>
       </li>
     </ul>

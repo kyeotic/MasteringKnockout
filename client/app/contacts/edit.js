@@ -9,8 +9,6 @@ function(app, ko, router, dataService, Contact) {
 			//Id is only present when editing
 			if (id)
 				return dataService.getContact(id).then(self.contact);
-			else
-				self.contact(new Contact())
 		};
 
 		self.saveEntry = function() {
