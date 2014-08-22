@@ -31,22 +31,22 @@ define(['knockout', 'plugins/dialog'], function(ko, dialog) {
 		//
         //Create new context for bootstrap dialogs
         dialog.addContext('bootstrap', {
-            addHost: function (theDialog) {
-                var body = $('body');
-                $('<div class="modal fade" id="bootstrapModal"><div class="modal-dialog"><div class="modal-content" id="modalHost"></div></div></div>').appendTo(body);
-                theDialog.host = $('#modalHost').get(0);
+            addHost: function (dialogInstance) {
+                var body = $('body'),
+                	host = $('<div class="modal fade"><div class="modal-dialog"><div class="modal-content"></div></div></div>');
+                host.appendTo(body);
+                dialogInstance.host = host.find('.modal-content').get(0);
+                dialogInstance.modalHost = host;
             },
-            removeHost: function (theDialog) {
-                //This was originally in a timeout, though I don't know why
-                //If you encouter problems with closing later, put the timeout back in for 10ms
-                $('#bootstrapModal').modal('hide');
+            removeHost: function (dialogInstance) {
+            	$(dialogInstance.modalHost).modal('hide');
                 $('body').removeClass('modal-open');
                 $('.modal-backdrop').remove();
             },
             compositionComplete: function (child, parent, context) {
-                var theDialog = dialog.getDialog(context.model),
+                var dialogInstance = dialog.getDialog(context.model),
                     $child = $(child);
-                $('#bootstrapModal').modal({ backdrop: 'static', keyboard: false, show: true });
+                $(dialogInstance.modalHost).modal({ backdrop: 'static', keyboard: false, show: true });
 
                 //Setting a short timeout is need in IE8, otherwise we could do this straight away
                 setTimeout(function () {
@@ -54,8 +54,8 @@ define(['knockout', 'plugins/dialog'], function(ko, dialog) {
                 }, 1);
 
                 if ($child.hasClass('autoclose') || context.model.autoclose) {
-                    $(theDialog.blockout).click(function () {
-                        theDialog.close();
+                    $(dialogInstance.blockout).click(function () {
+                        dialogInstance.close();
                     });
                 }
             }
