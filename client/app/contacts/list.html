@@ -9,9 +9,8 @@
         <button class="btn btn-primary" data-bind="click: newEntry">Add Contact</button>
       </div>
     </div>
-    <div data-bind="contactList: { data: displayContacts, delete: deleteContact }">
-       <small data-part="phone"><em data-bind="text: phoneNumber"></em></small>
-       <button data-part="edit-btn" data-bind="click: $root.editContact" class="btn btn-sm btn-default">Edit</button>
-    </div>
-  </div>  
+    <ul class="list-unstyled" data-bind="foreach: displayContacts">
+      <li data-bind="compose: $data"></li>
+    </ul>
+  </div>
 </div>

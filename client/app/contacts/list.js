@@ -1,20 +1,19 @@
-define(['durandal/app', 'knockout', 'services/mock', 'plugins/router', 'durandal/system'],
-function(app, ko, dataService, router, system) {
+define(['durandal/app', 'knockout', 'services/mock', 'plugins/router', 'contacts/listItem'],
+function(app, ko, dataService, router, ListItem) {
 	function ContactListVM() {
 		var self = this;
 
 		self.contacts = ko.observableArray();
 
-		var singleActivate = dataService.getContacts()
-			.then(function(contacts) {
-				self.contacts(contacts);
-			});
-
 		self.activate = function() {
-			return singleActivate;
+			return dataService.getContacts()
+				.then(function(contacts) {
+					var listItems = contacts.map(function(contact) {
+						return new ListItem(contact);
+					})
+					self.contacts(listItems);
+				});;
 		};
-
-		dataService.on('contact:added', self.contacts.push, self.contacts);
 
 		//
 		//CRUD Operations
@@ -23,11 +22,8 @@ function(app, ko, dataService, router, system) {
 			router.navigate('contacts/new');
 		};
 		
-		self.editContact = function(contact) {
-			router.navigate('contacts/' + contact.id());
-		};
-		
-		self.deleteContact = function(contact) {
+		self.deleteContact = function(listItem) {
+			var contact = listItem.contact;
 			app.showMessage('Are you sure you want to delete ' + contact.displayName() + '?', 'Delete Contact?', ['No', 'Yes'])
 				.then(function(response) {
 					if (response === 'Yes') {
@@ -49,7 +45,8 @@ function(app, ko, dataService, router, system) {
 				return self.contacts();
 			var query = self.query().toLowerCase();
 			//Otherwise, filter all contacts using the query
-			return ko.utils.arrayFilter(self.contacts(), function(c) {
+			return ko.utils.arrayFilter(self.contacts(), function(item) {
+				var c = item.contact;
 				return c.displayName().toLowerCase().indexOf(query) !== -1
 						// || c.firstName().toLowerCase().indexOf(query) !== -1
 						// || c.lastName().toLowerCase().indexOf(query) !== -1
