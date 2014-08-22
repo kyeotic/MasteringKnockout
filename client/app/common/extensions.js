@@ -58,8 +58,7 @@ define(['knockout', 'plugins/dialog'], function(ko, dialog) {
                         theDialog.close();
                     });
                 }
-            },
-            attached: null
+            }
         });
 	}	
 
