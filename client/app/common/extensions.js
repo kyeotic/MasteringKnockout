@@ -1,4 +1,4 @@
-define(['knockout'], function(ko) {
+define(['knockout', 'plugins/dialog'], function(ko, dialog) {
 	function install() {
 		ko.dirtyFlag = function(root, isInitiallyDirty) {
 		    var result = function() {},

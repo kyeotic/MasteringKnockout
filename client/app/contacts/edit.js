@@ -1,5 +1,5 @@
-define(['durandal/app', 'knockout', 'plugins/router', 'services/mock', 'contacts/contact'], 
-function(app, ko, router, dataService, Contact) {
+define(['durandal/app', 'knockout', 'plugins/router', 'services/mock', 'contacts/contact', 'plugins/dialog'], 
+function(app, ko, router, dataService, Contact, dialog) {
 	function EditContactVm(init) {
 		var self = this;
 
@@ -21,8 +21,19 @@ function(app, ko, router, dataService, Contact) {
 			});   
 		};
 
-		self.close = function() {
-			router.navigate('');
+		self.show = function() {
+			return dialog.show(self);
+		};
+
+		self.cancel = function() {
+			self.close(null);
+		};
+
+		self.close = function(result) {
+			if (dialog.getDialog(self))
+				dialog.close(self, result);
+			else
+				router.navigate('');
 		};
 
 		self.canDeactivate = function() {
