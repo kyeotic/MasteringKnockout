@@ -27,6 +27,40 @@ define(['knockout'], function(ko) {
 		        });
 		    }
 		};
+
+		//
+        //Create new context for bootstrap dialogs
+        dialog.addContext('bootstrap', {
+            addHost: function (theDialog) {
+                var body = $('body');
+                $('<div class="modal fade" id="bootstrapModal"><div class="modal-dialog"><div class="modal-content" id="modalHost"></div></div></div>').appendTo(body);
+                theDialog.host = $('#modalHost').get(0);
+            },
+            removeHost: function (theDialog) {
+                //This was originally in a timeout, though I don't know why
+                //If you encouter problems with closing later, put the timeout back in for 10ms
+                $('#bootstrapModal').modal('hide');
+                $('body').removeClass('modal-open');
+                $('.modal-backdrop').remove();
+            },
+            compositionComplete: function (child, parent, context) {
+                var theDialog = dialog.getDialog(context.model),
+                    $child = $(child);
+                $('#bootstrapModal').modal({ backdrop: 'static', keyboard: false, show: true });
+
+                //Setting a short timeout is need in IE8, otherwise we could do this straight away
+                setTimeout(function () {
+                    $child.find('.autofocus').first().focus();
+                }, 1);
+
+                if ($child.hasClass('autoclose') || context.model.autoclose) {
+                    $(theDialog.blockout).click(function () {
+                        theDialog.close();
+                    });
+                }
+            },
+            attached: null
+        });
 	}	
 
 	return {
