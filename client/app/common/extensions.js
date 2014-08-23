@@ -60,6 +60,12 @@ define(['jquery', 'knockout', 'plugins/dialog', 'bootstrap'], function($, ko, di
                 }
             }
         });
+
+		//rebind dialog.show to default to a new context
+        var oldShow = dialog.show;
+        dialog.show = function(obj, data, context) {
+            return oldShow.call(dialog, obj, data, context || 'bootstrap');
+        };
 	}	
 
 	return {
