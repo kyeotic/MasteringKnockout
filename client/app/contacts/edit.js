@@ -17,7 +17,7 @@ function(app, ko, router, dataService, Contact, dialog) {
 						: dataService.updateContact;
 			action(self.contact()).then(function() {
 				self.contact().state.reset();
-				router.navigate('');
+				self.close(self.contact());
 			});   
 		};
 
