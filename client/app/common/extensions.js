@@ -59,7 +59,6 @@ define(['jquery', 'knockout', 'plugins/dialog', 'bootstrap'], function($, ko, di
                     });
                 }
             }
-
         });
 	}	
 
