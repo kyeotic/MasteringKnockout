@@ -22,7 +22,7 @@ function(app, ko, dataService, router, ListItem, ContactVM, activator) {
 			new ContactVM().show()
 				.then(function(newContact) {
 					if (newContact)
-						self.contacts.push(newContact);
+						self.contacts.push( new ListItem(newContact));
 				});
 		};
 		

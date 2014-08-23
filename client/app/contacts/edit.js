@@ -8,7 +8,7 @@ function(app, ko, router, dataService, Contact, dialog) {
 		self.activate = function(id) {
 			//Comes from manual construction
 			if (initContact) {
-				self.contact(initContact);
+				self.contact(new Contact(ko.toJS(initContact)));
 				return;
 			}
 			//Id is only present when editing
@@ -21,9 +21,10 @@ function(app, ko, router, dataService, Contact, dialog) {
 						? dataService.createContact
 						: dataService.updateContact;
 			action(self.contact()).then(function() {
+				if (initContact)
+					initContact.update(ko.toJS(self.contact()));
 				self.contact().state.reset();
-				if (!initContact)
-					router.navigate('');
+				self.close(self.contact());
 			});   
 		};
 
