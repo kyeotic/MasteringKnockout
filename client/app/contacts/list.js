@@ -1,5 +1,5 @@
-define(['durandal/app', 'knockout', 'services/mock', 'plugins/router', 'contacts/listItem', 'contacts/edit'],
-function(app, ko, dataService, router, ListItem, ContactVM) {
+define(['durandal/app', 'knockout', 'services/mock', 'plugins/router', 'contacts/listItem', 'contacts/edit', 'durandal/activator'],
+function(app, ko, dataService, router, ListItem, ContactVM, activator) {
 	function ContactListVM() {
 		var self = this;
 
@@ -36,6 +36,14 @@ function(app, ko, dataService, router, ListItem, ContactVM) {
 						}); 
 					}
 				});
+		};
+
+		self.editContact = activator.create();
+
+		self.quickEdit = function(listItem) {
+			self.editContact(new ContactVM(listItem.contact, function() {
+				self.editContact(null);
+			}));
 		};
 
 		//

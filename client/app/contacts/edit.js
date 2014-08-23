@@ -1,11 +1,16 @@
 define(['durandal/app', 'knockout', 'plugins/router', 'services/mock', 'contacts/contact', 'plugins/dialog'], 
 function(app, ko, router, dataService, Contact, dialog) {
-	function EditContactVm(init) {
+	function EditContactVm(initContact, closeCallback) {
 		var self = this;
 
 		self.contact = ko.observable(new Contact());
 
 		self.activate = function(id) {
+			//Comes from manual construction
+			if (initContact) {
+				self.contact(initContact);
+				return;
+			}
 			//Id is only present when editing
 			if (id)
 				return dataService.getContact(id).then(self.contact);
@@ -17,7 +22,8 @@ function(app, ko, router, dataService, Contact, dialog) {
 						: dataService.updateContact;
 			action(self.contact()).then(function() {
 				self.contact().state.reset();
-				router.navigate('');
+				if (!initContact)
+					router.navigate('');
 			});   
 		};
 
@@ -30,7 +36,9 @@ function(app, ko, router, dataService, Contact, dialog) {
 		};
 
 		self.close = function(result) {
-			if (dialog.getDialog(self))
+			if (closeCallback)
+				closeCallback();
+			else if (dialog.getDialog(self))
 				dialog.close(self, result);
 			else
 				router.navigate('');
