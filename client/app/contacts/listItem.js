@@ -5,7 +5,7 @@ define(['knockout', 'plugins/router'], function(ko, router) {
 		self.contact = contact;
 
 		self.edit = function() {
-			router.navigate('contacts/' + self.contact.id());
+			router.navigate('contacts/' + self.contact.id);
 		};
 	};
 });

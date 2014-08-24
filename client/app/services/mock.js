@@ -110,9 +110,9 @@ function(ko, Contact, system, Events) {
 		return getTimeoutPromise(new Contact(contacts[id]));
 	};
 	dataService.createContact = function(contact) {
-		contact.id(UUID.generate());
+		contact.id = UUID.generate();
 		//Add it to the cache
-		contacts[contact.id()] = ko.toJS(contact);
+		contacts[contact.id] = ko.toJS(contact);
 		//Save it
 		saveAllContacts();
 		return getTimeoutPromise(contact).then(function() {
@@ -122,7 +122,7 @@ function(ko, Contact, system, Events) {
 	};
 	dataService.updateContact = function(contact) {
 		//Create an unwrapped copy
-		contactId = contact.id();
+		contactId = contact.id;
 
 		if (contactId === undefined || contactId === 0)
 			throw new Error('Unable to update contact, it must first be created to receive an id');

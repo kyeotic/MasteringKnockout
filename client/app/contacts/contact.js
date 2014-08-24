@@ -1,18 +1,21 @@
-define(['knockout'], function(ko, router) {
+define(['knockout', 'plugins/observable'], function(ko, observable) {
 	return function Contact(init) {
 		var self = this;
-		self.id = ko.observable(0);
-		self.firstName = ko.observable('');
-		self.lastName = ko.observable('');
-		self.nickname = ko.observable('');
-		self.phoneNumber = ko.observable('');
 
-		self.displayName = ko.computed(function() {
-			var nickname = self.nickname() || '';
+		self.id = 0;
+		self.firstName = '';
+		self.lastName = '';
+		self.nickname = '';
+		self.phoneNumber = '';
+
+		observable.convertObject(self);
+
+		observable.defineProperty(self, 'displayName', function() {
+			var nickname = self.nickname || '';
 			if (nickname.length > 0)
 				return nickname;
-			else if ((self.firstName() || '').length > 0)
-				return self.firstName() + ' ' + self.lastName();
+			else if ((self.firstName || '').length > 0)
+				return self.firstName + ' ' + self.lastName;
 			else
 				return 'New Contact';
 		});
@@ -21,8 +24,8 @@ define(['knockout'], function(ko, router) {
 		self.update = function(update) {
 			data = update || {};
 			Object.keys(data).forEach(function(prop) {
-				if (ko.isWriteableObservable(self[prop]))
-					self[prop](data[prop]);
+				if (ko.isWriteableObservable(observable(self, prop)))
+					self[prop] = data[prop];
 			});
 		};
 

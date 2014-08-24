@@ -29,7 +29,8 @@ function(system, app, extensions, dataService) {
     app.configurePlugins({
         //Durandal plugins
         router:true,
-        dialog: true
+        dialog: true,
+        observable: true
     });
 
     extensions.install();
