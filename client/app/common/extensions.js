@@ -1,5 +1,21 @@
-define(['knockout', 'plugins/dialog'], function(ko, dialog) {
+define(['knockout', 'plugins/dialog', 'jquery'], function(ko, dialog, $) {
 	function install() {
+
+		ko.bindingHandlers.on = {
+			init: function(element, valueAccessor, allBindings, viewModel, bindingContext) {
+				var options = valueAccessor();
+				var handler = function() {
+					options.method.call(bindingContext.$rawData,ko.dataFor(this));
+				};
+
+				$(element).on(options.event, options.selector, handler);
+
+				ko.utils.domNodeDisposal.addDisposeCallback(element, function() {
+					$(element).off(options.event, options.selector, handler);
+				});
+			}
+		};
+
 		ko.dirtyFlag = function(root, isInitiallyDirty) {
 		    var result = function() {},
 		        _initialState = ko.observable(ko.toJSON(root)),

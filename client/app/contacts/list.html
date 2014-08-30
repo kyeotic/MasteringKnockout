@@ -9,11 +9,11 @@
         <button class="btn btn-primary" data-bind="click: newEntry">Add Contact</button>
       </div>
     </div>
-    <ul class="list-unstyled" data-bind="foreach: displayContacts">
+    <ul class="list-unstyled" data-bind="foreach: displayContacts, on: { event: 'click', selector: '.remove-btn', method: deleteContact }">
       <li data-bind="compose: { model: $data, mode: 'templated' }">
       <div data-part="btn-container" class="inline">
         <button class="btn btn-sm btn-default"  data-bind="click: edit">Edit</button>
-        <button data-bind="click: $root.deleteContact" class="btn btn-sm btn-danger">Delete</button>
+        <button class="btn btn-sm btn-danger remove-btn">Delete</button>
       </div>
       </li>
     </ul>
