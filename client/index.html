@@ -1,23 +1,20 @@
-<h1>Knockout Mapping</h1>
+<h1>Knockout Keno</h1>
 
-<h2>Viewmodel from JS</h2>
-<div data-bind="template: { name: 'personTemplate', data: vm} "></div>
-<pre data-bind="text: ko.toJSON({ name: vm.name, age: vm.age }, null, 2)"></pre>
+<h2>AutoComplete</h2>
+<input data-bind="kendoAutoComplete: { data: autocompleteOptions, value: autocompleteValue }" />
+Selected: <strong data-bind="text: autocompleteValue"> </strong>
 
-<h2>Viewmodel from JSON</h2>
-<div data-bind="template: { name: 'personTemplate', data: jsonVm} "></div>
-<pre data-bind="text: ko.toJSON({ name: jsonVm.name, age: jsonVm.age }, null, 2)"></pre>
+<h2>Window</h2>
+<input type="checkbox" data-bind="checked: windowOpen" /> Open<br/>
+<div data-bind="kendoWindow: { isOpen: windowOpen, visible: false }">
+    Window Content
+</div>
 
-<script type="text/html" id="personTemplate">
-	<label>
-		Name
-		<input type="text" class="form-control" data-bind="value: name" />
-	</label>
-	<label>
-		Age
-		<input type="text" class="form-control" data-bind="value: age" />
-	</label>
-</script>
+<h2>DateTime Picker</h2>
+<input data-bind="kendoDateTimePicker: startDate" />
+<hr/>
+<div data-bind="text: startDate"> </div>
+
 
 <pre>
 var mockServerResponse = {

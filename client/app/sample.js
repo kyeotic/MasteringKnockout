@@ -1,20 +1,16 @@
 (function(app, $, ko) {
 
-	var mockServerResponse = {
-		name: 'Timothy Moran',
-		age: 24
+	var viewModel = {
+		autocompleteOptions: ko.observableArray(['Portland', 'Seattle', 'San Francisco']),
+		autocompleteValue: ko.observable(),
+
+		windowOpen: ko.observable(),
+
+		startDate: ko.observable(new Date())
 	};
-
-	var mockServerJSON = JSON.stringify(mockServerResponse);
-
-	var mappedViewmodel = ko.mapping.fromJS(mockServerResponse);
-	var jsonMappedViewmodel = ko.mapping.fromJSON(mockServerJSON);
 	
 	$(document).ready(function() {
-		ko.applyBindings({
-			vm: mappedViewmodel,
-			jsonVm: jsonMappedViewmodel
-		});
+		ko.applyBindings(viewModel);
 	});
 
 })(window.app = window.app || {}, jQuery, ko);
