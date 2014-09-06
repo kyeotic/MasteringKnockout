@@ -1,20 +1,17 @@
 (function(app, $, ko) {
 
-	var mockServerResponse = {
-		name: 'Timothy Moran',
-		age: 24
-	};
+	var Viewmodel = function() {
+		var self = this;
+		self.tooltipText = ko.observable('Tooltip Text');
+		self.progressVal = ko.observable(20);
 
-	var mockServerJSON = JSON.stringify(mockServerResponse);
-
-	var mappedViewmodel = ko.mapping.fromJS(mockServerResponse);
-	var jsonMappedViewmodel = ko.mapping.fromJSON(mockServerJSON);
+		self.progressWidth = ko.computed(function(){
+	        return self.progressVal() + '%';
+	    });
+	}
 	
 	$(document).ready(function() {
-		ko.applyBindings({
-			vm: mappedViewmodel,
-			jsonVm: jsonMappedViewmodel
-		});
+		ko.applyBindings(new Viewmodel());
 	});
 
 })(window.app = window.app || {}, jQuery, ko);
