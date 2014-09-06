@@ -1,19 +1,10 @@
 (function(app, $, ko) {
 
-	var mockServerResponse = {
-		name: 'Timothy Moran',
-		age: 24
-	};
-
-	var mockServerJSON = JSON.stringify(mockServerResponse);
-
-	var mappedViewmodel = ko.mapping.fromJS(mockServerResponse);
-	var jsonMappedViewmodel = ko.mapping.fromJSON(mockServerJSON);
-	
 	$(document).ready(function() {
-		ko.applyBindings({
-			vm: mappedViewmodel,
-			jsonVm: jsonMappedViewmodel
+		ko.applyBindings({ 
+			options: ['None', 'Shipped', 'Pending', 'Incomplete'],
+			trackingNumber: 'z1-887698765458',
+			orderStatus: ko.observable('None')
 		});
 	});
 

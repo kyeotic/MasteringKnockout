@@ -1,34 +1,25 @@
-<h1>Knockout Mapping</h1>
+<h1>Knockout Switch-Case</h1>
 
-<h2>Viewmodel from JS</h2>
-<div data-bind="template: { name: 'personTemplate', data: vm} "></div>
-<pre data-bind="text: ko.toJSON({ name: vm.name, age: vm.age }, null, 2)"></pre>
 
-<h2>Viewmodel from JSON</h2>
-<div data-bind="template: { name: 'personTemplate', data: jsonVm} "></div>
-<pre data-bind="text: ko.toJSON({ name: jsonVm.name, age: jsonVm.age }, null, 2)"></pre>
+<div class="form-group col-sm-4">
+	<Label>Order Status</Label>
+	<select class="form-control" data-bind="options: options, value: orderStatus"></select>
+</div>
 
-<script type="text/html" id="personTemplate">
-	<label>
-		Name
-		<input type="text" class="form-control" data-bind="value: name" />
-	</label>
-	<label>
-		Age
-		<input type="text" class="form-control" data-bind="value: age" />
-	</label>
-</script>
 
-<pre>
-var mockServerResponse = {
-	name: &#039;Timothy Moran&#039;,
-	age: 24
-};
-
-var mockServerJSON = JSON.stringify(mockServerResponse);
-
-var mappedViewmodel = ko.mapping.fromJS(mockServerResponse);
-var jsonMappedViewmodel = ko.mapping.fromJSON(mockServerJSON);
-</pre>
+<div data-bind="switch: orderStatus">
+    <div data-bind="case: 'Shipped'">
+        Your order has been shipped. Your tracking number is <span data-bind="text: trackingNumber"></span>.
+    </div>
+    <div data-bind="case: 'Pending'">
+        Your order is being processed. Please be patient.
+    </div>
+    <div data-bind="case: 'Incomplete'">
+        Your order could not be processed. Please go back and complete the missing data.
+    </div>
+    <div data-bind="case: $default">
+        Please call customer service to determine the status of your order.
+    </div>
+</div>
 
 <script type="text/javascript" src="app/sample.js"></script>
