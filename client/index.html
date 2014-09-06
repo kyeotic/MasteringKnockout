@@ -1,34 +1,5 @@
-<h1>Knockout Mapping</h1>
+<h1>KoGrid</h1>
 
-<h2>Viewmodel from JS</h2>
-<div data-bind="template: { name: 'personTemplate', data: vm} "></div>
-<pre data-bind="text: ko.toJSON({ name: vm.name, age: vm.age }, null, 2)"></pre>
-
-<h2>Viewmodel from JSON</h2>
-<div data-bind="template: { name: 'personTemplate', data: jsonVm} "></div>
-<pre data-bind="text: ko.toJSON({ name: jsonVm.name, age: jsonVm.age }, null, 2)"></pre>
-
-<script type="text/html" id="personTemplate">
-	<label>
-		Name
-		<input type="text" class="form-control" data-bind="value: name" />
-	</label>
-	<label>
-		Age
-		<input type="text" class="form-control" data-bind="value: age" />
-	</label>
-</script>
-
-<pre>
-var mockServerResponse = {
-	name: &#039;Timothy Moran&#039;,
-	age: 24
-};
-
-var mockServerJSON = JSON.stringify(mockServerResponse);
-
-var mappedViewmodel = ko.mapping.fromJS(mockServerResponse);
-var jsonMappedViewmodel = ko.mapping.fromJSON(mockServerJSON);
-</pre>
+<div class="gridStyle" data-bind="koGrid: { data: people }"></div>
 
 <script type="text/javascript" src="app/sample.js"></script>
