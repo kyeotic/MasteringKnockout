@@ -1,64 +1,20 @@
 (function(app, $, ko) {
 
-	var Person = function(data) {
-		var self = this;
-		self.name = data.name;
-		self.children = data.children.map(function(child) {
-			return new Person(child);
-		});
+	var mockServerResponse = {
+		name: 'Timothy Moran',
+		age: 24
 	};
 
-	var BindingSample = function() {
-		var self = this;
+	var mockServerJSON = JSON.stringify(mockServerResponse);
 
-		self.forefather = new Person({
-			name: 'Alexander Hamilton',
-			children: [
-				{
-					name: 'James Hamilton',
-					children: [
-						{
-							name: 'Alexander Hamilton',
-							children: [
-								{
-									name: 'John Hamilton',
-									children: []
-								}, {
-									name: 'Rebecca Cunningham',
-									children: []
-								}
-							]
-						}, {
-							name: 'Elizabeth Pollock',
-							children: [
-								{
-									name: 'Robert Pollock',
-									children: []
-								}, {
-									name: 'Annabel Stewart',
-									children: []
-								}
-							]
-						}
-					]
-				}, {
-					name: 'Rachel Fawcett',
-					children: [
-						{
-							name: 'Jean Faucette IV',
-							children: []
-						}, {
-							name: 'Mary Uppington',
-							children: []
-						}
-					]
-				}
-			]
-		});
-	};
+	var mappedViewmodel = ko.mapping.fromJS(mockServerResponse);
+	var jsonMappedViewmodel = ko.mapping.fromJSON(mockServerJSON);
 	
 	$(document).ready(function() {
-		ko.applyBindings(new BindingSample());
+		ko.applyBindings({
+			vm: mappedViewmodel,
+			jsonVm: jsonMappedViewmodel
+		});
 	});
 
 })(window.app = window.app || {}, jQuery, ko);
