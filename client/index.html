@@ -15,4 +15,11 @@
     Hey I am some content in A popover
 </script>
 
+<h2>Alerts <small data-bind="text: alerts().length"></small></h2>
+<button data-bind="click: addAlert" class="btn btn-default">Add Alert</button>
+<button data-bind="click: removeAlert" class="btn btn-danger">Remove Alert</button><br><br>
+<div data-bind="foreach: alerts">
+    <div data-bind="alert: $data"></div>
+</div>
+
 <script type="text/javascript" src="app/sample.js"></script>
