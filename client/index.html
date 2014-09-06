@@ -1,5 +1,15 @@
 <h1>KoGrid</h1>
 
-<div class="gridStyle" data-bind="koGrid: { data: people }"></div>
+<div data-bind="koGrid: { data: people,
+						  canSelectRows: false,
+						  displaySelectionCheckbox: false,
+						  columnDefs: [
+							  { field: 'name', displayName: 'Name', width: '*' },	
+							  { field: 'age', displayName: 'Age', width: '*' },	
+							  { field: '', displayName: ' ', 
+							  	cellTemplate: 'app/deleteButtonCell.html', 
+							  	width: '**' 
+						  	  }	
+						  ]}" class="gridStyle"></div>
 
 <script type="text/javascript" src="app/sample.js"></script>
