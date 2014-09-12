@@ -17,6 +17,10 @@
 			}
 		});
 
+		var totalSubscription = self.total.subscribe(function(oldValue) {
+			console.log('The total is about to change, the current value is ' + oldValue);
+		}, self, 'beforeChange');
+
 		var subtotalSubscription = self.subtotal.subscribe(function(newValue) {
 			console.log('The subtotal value was updated to: ' + newValue);
 		});
