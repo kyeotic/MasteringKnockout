@@ -1,16 +1,10 @@
 <h1>Computed Observable Sample</h1>
 
-<label>Subtotal
-	<input type="text" data-bind="value: subtotal, valueUpdate: 'afterkeydown'" />
+<label>Base1 Name
+	<input type="text" data-bind="value: base1.name, valueUpdate: 'afterkeydown'" />
 </label>
-<label>Tax
-	<input type="text" data-bind="value: tax, valueUpdate: 'afterkeydown'" />
+<label>Bas2 Name
+	<input type="text" data-bind="value: base2.name, valueUpdate: 'afterkeydown'" />
 </label>
-
-<label>Total
-	<input type="text" data-bind="value: total, valueUpdate: 'afterkeydown'" />
-</label>
-
-<button class="btn btn-primary btn-sm" data-bind="click: stopSubscribing">Stop Logging Changes</button>
 
 <script type="text/javascript" src="app/sample.js"></script>

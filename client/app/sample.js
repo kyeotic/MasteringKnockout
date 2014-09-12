@@ -1,40 +1,19 @@
 (function(app, $, ko) {
 
-	var ComputedSample = function() {
-		var self = this;
-		self.subtotal = ko.observable(20);
-		self.tax = ko.observable(0.05);
-		self.total = ko.computed({
-			write: function(newValue) {
-				var tax = parseFloat(self.tax()),
-					totalMinusTax = newValue / (1 + tax);
-				self.subtotal(totalMinusTax);
-			},
-			read: function() {
-				var subtotal = parseFloat(self.subtotal()),
-					tax = parseFloat(self.tax());
-				return subtotal * (1 + tax);
-			}
-		});
-
-		var totalSubscription = self.total.subscribe(function(oldValue) {
-			console.log('The total is about to change, the current value is ' + oldValue);
-		}, self, 'beforeChange');
-
-		var subtotalSubscription = self.subtotal.subscribe(function(newValue) {
-			console.log('The subtotal value was updated to: ' + newValue);
-		});
-
-		self.stopSubscribing = function() {
-			if (subtotalSubscription) {
-				subtotalSubscription.dispose();
-				subtotalSubscription = null;
-			}
-		};
+	var protoVm = {
+		name: ko.observable('New User')
 	};
 
+	var base1 = Object.create(protoVm);
+	var base2 = Object.create(protoVm);
+
+	base2.name("Base2");
+
 	$(document).ready(function() {
-		ko.applyBindings(new ComputedSample());
+		ko.applyBindings({
+			base1: base1,
+			base2: base2
+		});
 	});
 
 })(window.app = window.app || {}, jQuery, ko);
