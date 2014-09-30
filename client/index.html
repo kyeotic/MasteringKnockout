@@ -5,10 +5,13 @@ Last Name: {{ lastName }}<br>
 Birth Date: {{ birthDate }}<br>
 
 <pre>
-First Name: {{ firstName }}
-Last Name: {{ lastName }}
-Birth Date: {{ birthDate }}
+First Name: {&#8203;{ firstName }}
+Last Name: {&#8203;{ lastName }}
+Birth Date: {&#8203;{ birthDate }} 
 </pre>
+
+<!-- &#8203; is a zero-width space. it will stop the nodepreproccessor from identifying the curly braces
+ and replacing them, while still displaying properly to the user. -->
 
 <script type="text/javascript" src="app/curlyBraceInterpolater.js"></script>
 <script type="text/javascript" src="app/sample.js"></script>
