@@ -1,4 +1,10 @@
 define(['knockout', 'contact', 'dataService'], function(ko, Contact, dataService) {
+	
+	//List Component
+	ko.components.register('contact-list', {
+		template: { require: 'text!contact-list.html'}
+	});
+	
 	return function ContactsPageViewmodel() {
 		var self = this;
 
@@ -9,11 +15,6 @@ define(['knockout', 'contact', 'dataService'], function(ko, Contact, dataService
 		//Since the contacts array is a function, it can be used as a callback
 		dataService.getContacts(function(contacts) {
 			self.contacts(contacts);
-		});
-
-		//List Component
-		ko.components.register('contact-list', {
-			template: { require: 'text!contact-list.html'}
 		});
 
 		//
