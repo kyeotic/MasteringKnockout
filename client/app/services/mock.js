@@ -86,7 +86,7 @@ function(ko, Contact, system, Events) {
 		return storage.get('loginToken');
 	};
 	dataService.tryLogin = function(username, password) {
-		var success = username === password;
+		var success = username === password && username.length > 0;
 		if (success)
 			storage.set('loginToken', username);
 
