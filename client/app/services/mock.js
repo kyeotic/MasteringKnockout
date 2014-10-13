@@ -81,7 +81,7 @@ define(['knockout', 'contacts/contact', 'durandal/system'], function(ko, Contact
 			return storage.get('loginToken');
 		},
 		tryLogin: function(username, password) {
-			var success = username === password;
+			var success = username === password && username.length > 0;
 			if (success)
 				storage.set('loginToken', username);
 
