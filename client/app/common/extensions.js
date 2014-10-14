@@ -40,8 +40,6 @@ define(['jquery', 'knockout', 'plugins/dialog', 'bootstrap'], function($, ko, di
             },
             removeHost: function (dialogInstance) {
             	$(dialogInstance.modalHost).modal('hide');
-                $('body').removeClass('modal-open');
-                $('.modal-backdrop').remove();
             },
             compositionComplete: function (child, parent, context) {
                 var dialogInstance = dialog.getDialog(context.model),
