@@ -1,6 +1,8 @@
 MasteringKnockout
 =================
 
+[![Gitter](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/tyrsius/MasteringKnockout?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 This repository contains all of the sample code for the book Mastering KnockoutJS. Each sample is on its own branch, in the format cp[chapter-number]-[sample-name]. For example *cp1-contacts* contains the contacts sample for Chapter 1. 
 
 
