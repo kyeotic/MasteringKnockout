@@ -22,7 +22,7 @@
 	        	var data = ko.toJS(options.data).map(function(x) {
 	        		return {
 	        			value: parseFloat(x.value),
-	        			color: x.color.indexOf('#') === 0 ? "#" + x.color : x.color
+	        			color: x.color.indexOf('#') === 0 ? x.color : "#" + x.color
 	        		}
 	        	});
 
